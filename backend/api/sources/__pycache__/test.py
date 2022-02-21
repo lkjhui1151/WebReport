@@ -25,7 +25,8 @@ context = {
             "jobTitle": "Financial director",
             "department": "Financial Department",
             "office": "Room 19",
-            "phone": "(206) 598-1259"
+            "phone": "(206) 598-1259",
+            'bgSeverity': "#ff0000"
         },
         {
             "name": "Xue Li",
