@@ -5,18 +5,24 @@ from .models import *
 
 
 class Company(admin.ModelAdmin):
-    list_display = ["id", "name", "dete"]
+    list_display = ["id", "name", "file", "csv", "dete"]
     list_per_page = 10
     list_editable = ["name"]
     search_fields = ["name", "dete"]
     list_filter = ["dete"]
 
+class CompanyCSV(admin.ModelAdmin):
+    list_display=["id", "name", "file"]
+    list_per_page=10
+    search_fields=["company"]
+
 
 class Vulnerability(admin.ModelAdmin):
-    list_display = ["id", "Plugin_ID", "Synopsis"]
-    list_per_page = 10
-    search_fields = ["Synopsis"]
+    list_display=["id", "Plugin_ID", "Synopsis"]
+    list_per_page=10
+    search_fields=["Synopsis"]
 
 
 admin.site.register(company, Company)
+admin.site.register(company_csv, CompanyCSV)
 admin.site.register(vulnerability, Vulnerability)

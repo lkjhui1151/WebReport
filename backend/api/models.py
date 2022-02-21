@@ -1,12 +1,40 @@
+from importlib.resources import path
+from ntpath import join
 from statistics import mode
 from django.db import models
 from django.core.validators import MinLengthValidator
+from matplotlib.pyplot import cla
+from django.db.models.deletion import CASCADE
+import os
+
+
+def file_path(instance, filename):
+    path = ""
+    format = filename
+    return os.path.join(path, format)
 
 # Create your models here.
 
 
+class company_csv(models.Model):
+    name = models.CharField(max_length=50, null=True, blank=True)
+    file = models.FileField(upload_to=file_path)
+
+    def __str__(self):
+        return "ID : "+str(self.id)+" "+"FILE : "+self.name
+
+    class Meta:
+        ordering = ('id',)
+        db_table = 'company_csv'
+        verbose_name = "ORG File"
+        verbose_name_plural = "ORG File"
+
+
 class company(models.Model):
-    name = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
+    file = models.FileField(upload_to=file_path)
+    csv = models.ForeignKey(
+        company_csv, on_delete=CASCADE, null=True, blank=True)
     dete = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -14,6 +42,7 @@ class company(models.Model):
 
     class Meta:
         ordering = ('id',)
+        db_table = 'company'
         verbose_name = "Company"
         verbose_name_plural = "Company List"
 
