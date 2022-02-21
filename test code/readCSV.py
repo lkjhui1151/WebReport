@@ -1,8 +1,7 @@
 import csv
 
-file = open("D:/github/WebReport/test code/A2.csv", "r")
-csv_file = csv.reader(file)
-
-for row in csv_file:
-    # lists_from_csv.append(row)
-    print(row)
+with open('D:/github/WebReport/test code/A2.csv', encoding="utf8") as f:
+    reader = csv.DictReader(f, delimiter=',')
+    for row in reader:
+        name = row['Group']
+        print(name)
