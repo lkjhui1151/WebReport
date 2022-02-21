@@ -7,5 +7,5 @@ install library
   - pip install python-doc
 
 WEB component
-  - Django Rest Framwork  Backend
+  - Django Rest Framework  Backend
   - React Frontend
