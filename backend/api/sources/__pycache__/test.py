@@ -1,194 +1,50 @@
-import mysql.connector
+
 import shutil
 import os
-from win32com.client import Dispatch
 from docxtpl import DocxTemplate, RichText
 
-doc = DocxTemplate("test.docx")
+doc = DocxTemplate("E:/INETMS/doc/Auto gen report/VA ISO/WebReport/test2.docx")
 
 context = {
-    "company": {
-        "name": "Plumsail",
-        "email": "contact@plumsail.com"
-    },
-    "employees": [
-        {
-            "name": "Derek Clark",
-            "jobTitle": "Marketing director",
-            "department": "Marketing Department",
-            "office": "Room 18",
-            "phone": "(206) 854-9798",
-            'bgSeverity': "#ff0000"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259",
-            'bgSeverity': "#ff0000"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Xue Li",
-            "jobTitle": "Financial director",
-            "department": "Financial Department",
-            "office": "Room 19",
-            "phone": "(206) 598-1259"
-        },
-        {
-            "name": "Jessica Adams",
-            "jobTitle": "Marketing manager",
-            "department": "Marketing Department",
-            "office": "Room 23",
-            "phone": "(206) 789-1598"
-        },
-        {
-            "name": "Katsuko Kawakami",
-            "jobTitle": "Analyst",
-            "department": "Financial Department",
-            "office": "Room 26",
-            "phone": "(206) 784-1258"
-        }
+    "Group": [
+        
+   {
+   "Name":"A",
+   "device":{
+      "203.150.237.2",
+      "203.150.237.7",
+      "203.150.237.4",
+      "203.150.237.3",
+      "203.150.237.6",
+      "203.150.237.5",
+      "203.150.237.1"
+   },
+   "Total_IP":7,
+   "Critical":0,
+   "High":2,
+   "Medium":2,
+   "Low":0,
+   "Info":94
+},
+{
+   "Name":"B",
+   "device":{
+      "203.150.237.15",
+      "203.150.237.11",
+      "203.150.237.9",
+      "203.150.237.14",
+      "203.150.237.12",
+      "203.150.237.10",
+      "203.150.237.8",
+      "203.150.237.13"
+   },
+   "Total_IP":8,
+   "Critical":0,
+   "High":0,
+   "Medium":2,
+   "Low":0,
+   "Info":91
+}
     ]
 }
 

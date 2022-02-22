@@ -709,11 +709,11 @@ The fields above are :
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,J,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,B,,
 12053,,,None,203.150.237.10,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.10 resolves as 10.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,J,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,B,,
 19506,,,None,203.150.237.10,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -765,7 +765,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 830 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,J,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,B,,
 117887,,,None,203.150.237.10,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -774,18 +774,18 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,J,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,B,,
 10287,,,None,203.150.237.11,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.11 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,K,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,B,,
 12053,,,None,203.150.237.11,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.11 resolves as 11.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,K,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,B,,
 19506,,,None,203.150.237.11,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -837,7 +837,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 834 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,K,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,B,,
 117887,,,None,203.150.237.11,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -846,11 +846,11 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,K,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,B,,
 10107,,,None,203.150.237.12,tcp,80,HTTP Server Type and Version,A web server is running on the remote host.,"This plugin attempts to determine the type and the version of the
   remote web server.",n/a,,"The remote web server type is :
 
-PRTG/19.3.52.3502",,,,,None,,IAVT:0001-T-0931,,1/4/2000,10/30/2020,,,,L,,
+PRTG/19.3.52.3502",,,,,None,,IAVT:0001-T-0931,,1/4/2000,10/30/2020,,,,B,,
 10150,,,None,203.150.237.12,tcp,445,Windows NetBIOS / SMB Remote Host Information Disclosure,It was possible to obtain the network name of the remote host.,"The remote host is listening on UDP port 137 or TCP port 445, and
 replies to NetBIOS nbtscan or SMB requests.
 
@@ -859,14 +859,14 @@ but does not itself generate a report.",n/a,,"The following 2 NetBIOS names have
 
  WIN-PHL6ON5FKR4  = Computer name
  WIN-PHL6ON5FKR4  = Workgroup / Domain name
-",,,,,None,,,,10/12/1999,2/10/2021,,,,L,,
+",,,,,None,,,,10/12/1999,2/10/2021,,,,B,,
 10287,,,None,203.150.237.12,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.12 : 
 10.0.2.15
 10.0.2.2
 203.150.237.12
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,L,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,B,,
 10736,,,None,203.150.237.12,tcp,135,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -1775,7 +1775,7 @@ Annotation : DHCP Client LRPC Endpoint
 Type : Local RPC service
 Named pipe : dhcpcsvc
 
-Object UUID : b08669ee-8cb5-43a5-a017-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+Object UUID : b08669ee-8cb5-43a5-a017-",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10736,,,None,203.150.237.12,tcp,445,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -2007,7 +2007,7 @@ Type : Remote RPC service
 Named pipe : \pipe\LSM_API_service
 Netbios name : \\WIN-PHL6ON5FKR4
 
-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10736,,,None,203.150.237.12,tcp,49152,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -2022,7 +2022,7 @@ Type : Remote RPC service
 TCP Port : 49152
 IP : 203.150.237.12
 
-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10736,,,None,203.150.237.12,tcp,49153,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -2071,7 +2071,7 @@ Type : Remote RPC service
 TCP Port : 49153
 IP : 203.150.237.12
 
-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10736,,,None,203.150.237.12,tcp,49154,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -2164,7 +2164,7 @@ Type : Remote RPC service
 TCP Port : 49154
 IP : 203.150.237.12
 
-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10736,,,None,203.150.237.12,tcp,49155,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -2208,7 +2208,7 @@ Type : Remote RPC service
 TCP Port : 49155
 IP : 203.150.237.12
 
-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10736,,,None,203.150.237.12,tcp,49159,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -2232,7 +2232,7 @@ Type : Remote RPC service
 TCP Port : 49159
 IP : 203.150.237.12
 
-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10736,,,None,203.150.237.12,tcp,49160,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -2248,7 +2248,7 @@ Type : Remote RPC service
 TCP Port : 49160
 IP : 203.150.237.12
 
-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10736,,,None,203.150.237.12,tcp,49161,DCE Services Enumeration,A DCE/RPC service is running on the remote host.,"By sending a Lookup request to the portmapper (TCP 135 or epmapper
 PIPE) it was possible to enumerate the Distributed Computing
 Environment (DCE) services running on the remote port. Using this
@@ -2264,7 +2264,7 @@ Type : Remote RPC service
 TCP Port : 49161
 IP : 203.150.237.12
 
-",,,,,None,,,,8/26/2001,10/4/2021,,,,L,,
+",,,,,None,,,,8/26/2001,10/4/2021,,,,B,,
 10785,,,None,203.150.237.12,tcp,445,Microsoft Windows SMB NativeLanManager Remote System Information Disclosure,"It was possible to obtain information about the remote operating
 system.","Nessus was able to obtain the remote operating system name and version
 (Windows and/or Samba) by sending an authentication request to port
@@ -2272,52 +2272,52 @@ system.","Nessus was able to obtain the remote operating system name and version
 host.",n/a,,"The remote Operating System is : Windows Server 2012 R2 Standard 9600
 The remote native LAN manager is : Windows Server 2012 R2 Standard 6.3
 The remote SMB Domain Name is : WIN-PHL6ON5FKR4
-",,,,,None,,,,10/17/2001,9/20/2021,,,,L,,
+",,,,,None,,,,10/17/2001,9/20/2021,,,,B,,
 11011,,,None,203.150.237.12,tcp,139,Microsoft Windows SMB Service Detection,A file / print sharing service is listening on the remote host.,"The remote service understands the CIFS (Common Internet File System)
 or Server Message Block (SMB) protocol, used to provide shared access
 to files, printers, etc between nodes on a network.",n/a,,"
 An SMB server is running on this port.
-",,,,,None,,,,6/5/2002,2/11/2021,,,,L,,
+",,,,,None,,,,6/5/2002,2/11/2021,,,,B,,
 11011,,,None,203.150.237.12,tcp,445,Microsoft Windows SMB Service Detection,A file / print sharing service is listening on the remote host.,"The remote service understands the CIFS (Common Internet File System)
 or Server Message Block (SMB) protocol, used to provide shared access
 to files, printers, etc between nodes on a network.",n/a,,"
 A CIFS server is running on this port.
-",,,,,None,,,,6/5/2002,2/11/2021,,,,L,,
+",,,,,None,,,,6/5/2002,2/11/2021,,,,B,,
 11219,,,None,203.150.237.12,tcp,80,Nessus SYN scanner,It is possible to determine which TCP ports are open.,"This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
 quick even against a firewalled target. 
 
 Note that SYN scans are less intrusive than TCP (full connect) scans
 against broken services, but they might cause problems for less robust
 firewalls and also leave unclosed connections on the remote target, if
-the network is loaded.",Protect your target with an IP filter.,,Port 80/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,L,,
+the network is loaded.",Protect your target with an IP filter.,,Port 80/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,B,,
 11219,,,None,203.150.237.12,tcp,135,Nessus SYN scanner,It is possible to determine which TCP ports are open.,"This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
 quick even against a firewalled target. 
 
 Note that SYN scans are less intrusive than TCP (full connect) scans
 against broken services, but they might cause problems for less robust
 firewalls and also leave unclosed connections on the remote target, if
-the network is loaded.",Protect your target with an IP filter.,,Port 135/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,L,,
+the network is loaded.",Protect your target with an IP filter.,,Port 135/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,B,,
 11219,,,None,203.150.237.12,tcp,139,Nessus SYN scanner,It is possible to determine which TCP ports are open.,"This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
 quick even against a firewalled target. 
 
 Note that SYN scans are less intrusive than TCP (full connect) scans
 against broken services, but they might cause problems for less robust
 firewalls and also leave unclosed connections on the remote target, if
-the network is loaded.",Protect your target with an IP filter.,,Port 139/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,L,,
+the network is loaded.",Protect your target with an IP filter.,,Port 139/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,B,,
 11219,,,None,203.150.237.12,tcp,445,Nessus SYN scanner,It is possible to determine which TCP ports are open.,"This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
 quick even against a firewalled target. 
 
 Note that SYN scans are less intrusive than TCP (full connect) scans
 against broken services, but they might cause problems for less robust
 firewalls and also leave unclosed connections on the remote target, if
-the network is loaded.",Protect your target with an IP filter.,,Port 445/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,L,,
+the network is loaded.",Protect your target with an IP filter.,,Port 445/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,B,,
 11219,,,None,203.150.237.12,tcp,5060,Nessus SYN scanner,It is possible to determine which TCP ports are open.,"This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
 quick even against a firewalled target. 
 
 Note that SYN scans are less intrusive than TCP (full connect) scans
 against broken services, but they might cause problems for less robust
 firewalls and also leave unclosed connections on the remote target, if
-the network is loaded.",Protect your target with an IP filter.,,Port 5060/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,L,,
+the network is loaded.",Protect your target with an IP filter.,,Port 5060/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,B,,
 11936,,,None,203.150.237.12,tcp,0,OS Identification,It is possible to guess the remote operating system.,"Using a combination of remote probes (e.g., TCP/IP, SMB, HTTP, NTP,
 SNMP, etc.), it is possible to guess the name of the remote operating
 system in use. It is also possible sometimes to guess the version of
@@ -2341,11 +2341,11 @@ SinFP:!:
    P4:190002_7_p=139R
 
  
-The remote host is running Microsoft Windows Server 2012 R2 Standard",,,,,None,,,,12/9/2003,1/18/2022,,,,L,,
+The remote host is running Microsoft Windows Server 2012 R2 Standard",,,,,None,,,,12/9/2003,1/18/2022,,,,B,,
 12053,,,None,203.150.237.12,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.12 resolves as 12.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,L,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,B,,
 19506,,,None,203.150.237.12,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -2397,16 +2397,16 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 829 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,L,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,B,,
 19689,,,None,203.150.237.12,tcp,80,Embedded Web Server Detection,The remote web server is embedded.,"The remote web server cannot host user-supplied CGIs. CGI scanning
-will be disabled on this server.",n/a,,,,,,,None,,,,9/14/2005,11/22/2019,,,,L,,
+will be disabled on this server.",n/a,,,,,,,None,,,,9/14/2005,11/22/2019,,,,B,,
 22964,,,None,203.150.237.12,tcp,80,Service Detection,The remote service could be identified.,"Nessus was able to identify the remote service by its banner or by
 looking at the error message it sends when it receives an HTTP
-request.",n/a,,A web server is running on this port.,,,,,None,,,,8/19/2007,4/14/2021,,,,L,,
+request.",n/a,,A web server is running on this port.,,,,,None,,,,8/19/2007,4/14/2021,,,,B,,
 22964,,,None,203.150.237.12,tcp,5060,Service Detection,The remote service could be identified.,"Nessus was able to identify the remote service by its banner or by
 looking at the error message it sends when it receives an HTTP
 request.",n/a,,"The service closed the connection without sending any data.
-It might be protected by some sort of TCP wrapper.",,,,,None,,,,8/19/2007,4/14/2021,,,,L,,
+It might be protected by some sort of TCP wrapper.",,,,,None,,,,8/19/2007,4/14/2021,,,,B,,
 33139,,,None,203.150.237.12,tcp,5985,WS-Management Server Detection,The remote web server is used for remote management.,"The remote web server supports the Web Services for Management
 (WS-Management) specification, a general web services protocol based
 on SOAP for managing systems, applications, and other such entities.",Limit incoming traffic to this port if desired.,"https://www.dmtf.org/standards/ws-man
@@ -2415,7 +2415,7 @@ Here is some information about the WS-Management Server :
 
   Product Vendor  : Microsoft Corporation
   Product Version : OS: 0.0.0 SP: 0.0 Stack: 3.0
-",,,,,None,,,,6/11/2008,5/19/2021,,,,L,,
+",,,,,None,,,,6/11/2008,5/19/2021,,,,B,,
 42410,,,None,203.150.237.12,tcp,445,Microsoft Windows NTLMSSP Authentication Request Remote Network Name Disclosure,It is possible to obtain the network name of the remote host.,"The remote host listens on tcp port 445 and replies to SMB requests.
 
 By sending an NTLMSSP authentication request it is possible to obtain
@@ -2423,7 +2423,7 @@ the name of the remote system and the name of its domain.",n/a,,"The following 2
 
  WIN-PHL6ON5FKR4  = Computer name
  WIN-PHL6ON5FKR4  = Workgroup / Domain name
-",,,,,None,,,,11/6/2009,11/22/2019,,,,L,,
+",,,,,None,,,,11/6/2009,11/22/2019,,,,B,,
 45590,,,None,203.150.237.12,tcp,0,Common Platform Enumeration (CPE),"It was possible to enumerate CPE names that matched on the remote
 system.","By using information obtained from a Nessus scan, this plugin reports
 CPE (Common Platform Enumeration) matches for various hardware and
@@ -2440,18 +2440,18 @@ The remote operating system matched the following CPE :
 Following application CPE matched on the remote system :
 
   cpe:/a:paessler_ag:prtg_network_monitor:19.3.52.3502
-",,,,,None,,,,4/21/2010,12/8/2021,,,,L,,
+",,,,,None,,,,4/21/2010,12/8/2021,,,,B,,
 51874,,,None,203.150.237.12,tcp,0,PRTG Network Monitor Detection,"A network traffic monitoring application is hosted on the remote web
 server.","PRTG Network Monitor, a web-based tool for displaying network and
 bandwidth usage data, is hosted on the remote web server.",n/a,https://www.paessler.com/prtg,"
   URL     : http://12.237.150.203.sta.inet.co.th/index.htm
   Version : 19.3.52.3502
-",,,,,None,,,,2/4/2011,3/4/2021,,,,L,,
+",,,,,None,,,,2/4/2011,3/4/2021,,,,B,,
 54615,,,None,203.150.237.12,tcp,0,Device Type,It is possible to guess the remote device type.,"Based on the remote operating system, it is possible to determine
 what the remote system type is (eg: a printer, router, general-purpose
 computer, etc).",n/a,,"Remote device type : general-purpose
 Confidence level : 99
-",,,,,None,,,,5/23/2011,5/23/2011,,,,L,,
+",,,,,None,,,,5/23/2011,5/23/2011,,,,B,,
 57608,,5,Medium,203.150.237.12,tcp,445,SMB Signing not required,Signing is not required on the remote SMB server.,"Signing is not required on the remote SMB server. An unauthenticated,
 remote attacker can exploit this to conduct man-in-the-middle attacks
 against the SMB server.","Enforce message signing in the host's configuration. On Windows, this
@@ -2461,7 +2461,7 @@ signing'. See the 'see also' links for further details.","http://www.nessus.org/
 http://technet.microsoft.com/en-us/library/cc731957.aspx
 http://www.nessus.org/u?74b80723
 https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html
-http://www.nessus.org/u?a3cac4ea",,,5.3,3.7,4.6,Medium,,,,1/19/2012,3/15/2021,,,,L,,
+http://www.nessus.org/u?a3cac4ea",,,5.3,3.7,4.6,Medium,,,,1/19/2012,3/15/2021,,,,B,,
 66334,,,None,203.150.237.12,tcp,0,Patch Report,The remote host is missing several patches.,"The remote host is missing one or more security patches. This plugin
 lists the newest version of each patch to install to make sure the
 remote host is up-to-date.",Install the patches listed below.,,"
@@ -2473,7 +2473,7 @@ remote host is up-to-date.",Install the patches listed below.,,"
 + Action to take : Upgrade to PRTG Network Monitor 20.1.57.1745 or later
 
 
-",,,,,None,,,,7/8/2013,1/11/2022,,,,L,,
+",,,,,None,,,,7/8/2013,1/11/2022,,,,B,,
 96982,,,None,203.150.237.12,tcp,445,Server Message Block (SMB) Protocol Version 1 Enabled (uncredentialed check),The remote Windows host supports the SMBv1 protocol.,"The remote Windows host supports Server Message Block Protocol
 version 1 (SMBv1). Microsoft recommends that users discontinue the use
 of SMBv1 due to the lack of security features that were included in
@@ -2491,7 +2491,7 @@ http://www.nessus.org/u?8dcab5e4
 http://www.nessus.org/u?234f8ef8
 http://www.nessus.org/u?4c7e0cf3","
 The remote host supports SMBv1.
-",,,,,None,,IAVT:0001-T-0710,,2/3/2017,9/22/2020,,,,L,,
+",,,,,None,,IAVT:0001-T-0710,,2/3/2017,9/22/2020,,,,B,,
 100871,,,None,203.150.237.12,tcp,445,Microsoft Windows SMB Versions Supported (remote check),"It was possible to obtain information about the version of SMB running
 on the remote host.","Nessus was able to obtain the version of SMB running on the remote
 host by sending an authentication request to port 139 or 445.
@@ -2500,7 +2500,7 @@ Note that this plugin is a remote check and does not work on agents.",n/a,,"
 The remote host supports the following versions of SMB :
   SMBv1
   SMBv2
-",,,,,None,,,,6/19/2017,11/22/2019,,,,L,,
+",,,,,None,,,,6/19/2017,11/22/2019,,,,B,,
 106716,,,None,203.150.237.12,tcp,445,Microsoft Windows SMB2 and SMB3 Dialects Supported (remote check),"It was possible to obtain information about the dialects of SMB2 and SMB3 available
 on the remote host.","Nessus was able to obtain the set of SMB2 and SMB3 dialects running on the remote
 host by sending an authentication request to port 139 or 445.",n/a,,"
@@ -2517,7 +2517,7 @@ The remote host does NOT support the following SMB dialects :
 	2.2.4      Windows 8 Beta
 	3.1        Windows 10    
 	3.1.1      Windows 10    
-",,,,,None,,,,2/9/2018,3/11/2020,,,,L,,
+",,,,,None,,,,2/9/2018,3/11/2020,,,,B,,
 117887,,,None,203.150.237.12,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -2526,14 +2526,14 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,L,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,B,,
 135860,,,None,203.150.237.12,tcp,445,WMI Not Available,WMI queries could not be made against the remote host.,"WMI (Windows Management Instrumentation) is not available on the
 remote host over DCOM. WMI queries are used to gather information
 about the remote host, such as its current state, network interface
 configuration, etc.
 
 Without this information Nessus may not be able to identify installed
-software or security vunerabilities that exist on the remote host.",n/a,https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-start-page,Can't connect to the 'root\CIMV2' WMI namespace.,,,,,None,,,,4/21/2020,1/18/2022,,,,L,,
+software or security vunerabilities that exist on the remote host.",n/a,https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-start-page,Can't connect to the 'root\CIMV2' WMI namespace.,,,,,None,,,,4/21/2020,1/18/2022,,,,B,,
 147020,CVE-2020-11547,5,Medium,203.150.237.12,tcp,80,PRTG Network Monitor < 20.1.57.1745 Information Disclosure (direct check),The web application running on the remote web server is affected by an information disclosure vulnerability.,"An information disclosure vulnerability exists in PRTG Network Monitor. An unauthenticated, remote attacker can exploit
 this, via a crafted HTTP request, to disclose information about probes running or the server itself (CPU usage, memory,
 Windows version, and internal statistics).",Upgrade to PRTG Network Monitor 20.1.57.1745 or later,http://www.nessus.org/u?38e232f8,"
@@ -2906,14 +2906,14 @@ function $bu_getBrowser(ua_str) {
     var ll = op.l || (n.languages ? n.languages[0] : null) || n.language || n.browserLanguage || n.userLanguage || document.documentElement.getAttribute(""lang"") || ""en"";
     ll = ll.replace(""_"",""-"").toLowerCase().substr(0,2);
     window.isunsupportedbrowser = true;
-    $bu_show(",,5.3,3.7,4.6,Medium,,,,3/4/2021,12/20/2021,,,,L,,
+    $bu_show(",,5.3,3.7,4.6,Medium,,,,3/4/2021,12/20/2021,,,,B,,
 10287,,,None,203.150.237.13,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.13 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,M,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,B,,
 10719,,,None,203.150.237.13,tcp,3306,MySQL Server Detection,A database server is listening on the remote port.,"The remote host is running MySQL, an open source database server.",n/a,,"
 Version  : 5.5.5-10.3.22-MariaDB-1:10.3.22+maria~xenial-log
 Protocol : 10
@@ -2933,11 +2933,11 @@ Server Capabilities :
   CLIENT_TRANSACTIONS (Client knows about transactions)
   CLIENT_RESERVED (Old flag for 4.1 protocol)
   CLIENT_SECURE_CONNECTION (New 4.1 authentication)
-",,,,,None,,IAVT:0001-T-0802,,8/13/2001,5/10/2021,,,,M,,
+",,,,,None,,IAVT:0001-T-0802,,8/13/2001,5/10/2021,,,,B,,
 12053,,,None,203.150.237.13,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.13 resolves as 13.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,M,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,B,,
 19506,,,None,203.150.237.13,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -2989,7 +2989,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 821 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,M,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,B,,
 45590,,,None,203.150.237.13,tcp,0,Common Platform Enumeration (CPE),"It was possible to enumerate CPE names that matched on the remote
 system.","By using information obtained from a Nessus scan, this plugin reports
 CPE (Common Platform Enumeration) matches for various hardware and
@@ -3002,7 +3002,7 @@ https://nvd.nist.gov/products/cpe","
 Following application CPE matched on the remote system :
 
   cpe:/a:mysql:mysql:5.5.5-10.3.22-mariadb-1:10.3.22+maria~xenial-log
-",,,,,None,,,,4/21/2010,12/8/2021,,,,M,,
+",,,,,None,,,,4/21/2010,12/8/2021,,,,B,,
 117887,,,None,203.150.237.13,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -3011,14 +3011,14 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,M,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,B,,
 10287,,,None,203.150.237.14,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.14 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,N,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,B,,
 10719,,,None,203.150.237.14,tcp,3306,MySQL Server Detection,A database server is listening on the remote port.,"The remote host is running MySQL, an open source database server.",n/a,,"
 Version  : 5.5.5-10.3.22-MariaDB-1:10.3.22+maria~xenial-log
 Protocol : 10
@@ -3038,11 +3038,11 @@ Server Capabilities :
   CLIENT_TRANSACTIONS (Client knows about transactions)
   CLIENT_RESERVED (Old flag for 4.1 protocol)
   CLIENT_SECURE_CONNECTION (New 4.1 authentication)
-",,,,,None,,IAVT:0001-T-0802,,8/13/2001,5/10/2021,,,,N,,
+",,,,,None,,IAVT:0001-T-0802,,8/13/2001,5/10/2021,,,,B,,
 12053,,,None,203.150.237.14,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.14 resolves as 14.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,N,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,B,,
 19506,,,None,203.150.237.14,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -3094,7 +3094,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 829 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,N,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,B,,
 45590,,,None,203.150.237.14,tcp,0,Common Platform Enumeration (CPE),"It was possible to enumerate CPE names that matched on the remote
 system.","By using information obtained from a Nessus scan, this plugin reports
 CPE (Common Platform Enumeration) matches for various hardware and
@@ -3107,7 +3107,7 @@ https://nvd.nist.gov/products/cpe","
 Following application CPE matched on the remote system :
 
   cpe:/a:mysql:mysql:5.5.5-10.3.22-mariadb-1:10.3.22+maria~xenial-log
-",,,,,None,,,,4/21/2010,12/8/2021,,,,N,,
+",,,,,None,,,,4/21/2010,12/8/2021,,,,B,,
 70657,,,None,203.150.237.14,tcp,22,SSH Algorithms and Languages Supported,An SSH server is listening on this port.,"This script detects which algorithms and languages are supported by
 the remote service for encrypting communications.",n/a,,"
 Nessus negotiated the following encryption algorithm with the server : 
@@ -3182,7 +3182,7 @@ The server supports the following options for compression_algorithms_server_to_c
 
   none
   zlib@openssh.com
-",,,,,None,,,,10/28/2013,8/28/2017,,,,N,,
+",,,,,None,,,,10/28/2013,8/28/2017,,,,B,,
 117887,,,None,203.150.237.14,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -3191,7 +3191,7 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,N,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,B,,
 153588,,,None,203.150.237.14,tcp,22,SSH SHA-1 HMAC Algorithms Enabled,The remote SSH server is configured to enable SHA-1 HMAC algorithms.,"The remote SSH server is configured to enable SHA-1 HMAC algorithms.
 
 Although NIST has formally deprecated use of SHA-1 for digital signatures, SHA-1 is still considered secure for HMAC as
@@ -3207,19 +3207,19 @@ The following server-to-client SHA-1 Hash-based Message Authentication Code (HMA
 
   hmac-sha1
   hmac-sha1-etm@openssh.com
-",,,,,None,,,,9/23/2021,9/23/2021,,,,N,,
+",,,,,None,,,,9/23/2021,9/23/2021,,,,B,,
 10267,,,None,203.150.237.15,tcp,22,SSH Server Type and Version Information,An SSH server is listening on this port.,"It is possible to obtain information about the remote SSH server by
 sending an empty authentication request.",n/a,,"
 SSH version : SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.8
 SSH supported authentication : publickey,password
-",,,,,None,,IAVT:0001-T-0933,,10/12/1999,9/22/2020,,,,O,,
+",,,,,None,,IAVT:0001-T-0933,,10/12/1999,9/22/2020,,,,B,,
 10287,,,None,203.150.237.15,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.15 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,O,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,B,,
 10719,,,None,203.150.237.15,tcp,3306,MySQL Server Detection,A database server is listening on the remote port.,"The remote host is running MySQL, an open source database server.",n/a,,"
 Version  : 5.5.5-10.3.22-MariaDB-1:10.3.22+maria~xenial-log
 Protocol : 10
@@ -3239,7 +3239,7 @@ Server Capabilities :
   CLIENT_TRANSACTIONS (Client knows about transactions)
   CLIENT_RESERVED (Old flag for 4.1 protocol)
   CLIENT_SECURE_CONNECTION (New 4.1 authentication)
-",,,,,None,,IAVT:0001-T-0802,,8/13/2001,5/10/2021,,,,O,,
+",,,,,None,,IAVT:0001-T-0802,,8/13/2001,5/10/2021,,,,B,,
 11936,,,None,203.150.237.15,tcp,0,OS Identification,It is possible to guess the remote operating system.,"Using a combination of remote probes (e.g., TCP/IP, SMB, HTTP, NTP,
 SNMP, etc.), it is possible to guess the name of the remote operating
 system in use. It is also possible sometimes to guess the version of
@@ -3249,11 +3249,11 @@ Confidence level : 95
 Method : SSH
 
  
-The remote host is running Linux Kernel 4.4 on Ubuntu 16.04 (xenial)",,,,,None,,,,12/9/2003,1/18/2022,,,,O,,
+The remote host is running Linux Kernel 4.4 on Ubuntu 16.04 (xenial)",,,,,None,,,,12/9/2003,1/18/2022,,,,B,,
 12053,,,None,203.150.237.15,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.15 resolves as 15.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,O,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,B,,
 19506,,,None,203.150.237.15,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -3305,7 +3305,7 @@ Backports : Detected
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 830 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,O,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,B,,
 39520,,,None,203.150.237.15,tcp,22,Backported Security Patch Detection (SSH),Security patches are backported.,"Security patches may have been 'backported' to the remote SSH server
 without changing its version number. 
 
@@ -3314,7 +3314,7 @@ Banner-based checks have been disabled to avoid false positives.
 Note that this test is informational only and does not denote any
 security problem.",n/a,https://access.redhat.com/security/updates/backporting/?sc_cid=3093,"
 Local checks have been enabled.
-",,,,,None,,,,6/25/2009,7/7/2015,,,,O,,
+",,,,,None,,,,6/25/2009,7/7/2015,,,,B,,
 45590,,,None,203.150.237.15,tcp,0,Common Platform Enumeration (CPE),"It was possible to enumerate CPE names that matched on the remote
 system.","By using information obtained from a Nessus scan, this plugin reports
 CPE (Common Platform Enumeration) matches for various hardware and
@@ -3332,12 +3332,12 @@ Following application CPE's matched on the remote system :
 
   cpe:/a:mysql:mysql:5.5.5-10.3.22-mariadb-1:10.3.22+maria~xenial-log
   cpe:/a:openbsd:openssh:7.2
-",,,,,None,,,,4/21/2010,12/8/2021,,,,O,,
+",,,,,None,,,,4/21/2010,12/8/2021,,,,B,,
 54615,,,None,203.150.237.15,tcp,0,Device Type,It is possible to guess the remote device type.,"Based on the remote operating system, it is possible to determine
 what the remote system type is (eg: a printer, router, general-purpose
 computer, etc).",n/a,,"Remote device type : general-purpose
 Confidence level : 95
-",,,,,None,,,,5/23/2011,5/23/2011,,,,O,,
+",,,,,None,,,,5/23/2011,5/23/2011,,,,B,,
 66293,,,None,203.150.237.15,tcp,0,Unix Operating System on Extended Support,"The remote host is running an operating system that is on extended
 support.","According to its version, the remote host uses a Unix or Unix-like
 operating system that has transitioned to an extended portion in its
@@ -3345,7 +3345,7 @@ support life cycle. Continued access to new security updates requires
 payment of an additional fee and / or configuration changes to the
 package management tool.  Without that, the host likely will be
 missing security updates.","Ensure that the host subscribes to the vendor's extended support
-plan and continues to receive security updates.",,Ubuntu 16.04 support ends on 2021-04-30 (end of maintenance) / 2024-04-30 (end of extended security maintenance).,,,,,None,,IAVA:0001-A-0648,,5/2/2013,6/9/2021,,,,O,,
+plan and continues to receive security updates.",,Ubuntu 16.04 support ends on 2021-04-30 (end of maintenance) / 2024-04-30 (end of extended security maintenance).,,,,,None,,IAVA:0001-A-0648,,5/2/2013,6/9/2021,,,,B,,
 70657,,,None,203.150.237.15,tcp,22,SSH Algorithms and Languages Supported,An SSH server is listening on this port.,"This script detects which algorithms and languages are supported by
 the remote service for encrypting communications.",n/a,,"
 Nessus negotiated the following encryption algorithm with the server : 
@@ -3420,7 +3420,7 @@ The server supports the following options for compression_algorithms_server_to_c
 
   none
   zlib@openssh.com
-",,,,,None,,,,10/28/2013,8/28/2017,,,,O,,
+",,,,,None,,,,10/28/2013,8/28/2017,,,,B,,
 117887,,,None,203.150.237.15,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -3429,8 +3429,8 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,O,,
-149334,,,None,203.150.237.15,tcp,22,SSH Password Authentication Accepted,The SSH server on the remote host accepts password authentication.,The SSH server on the remote host accepts password authentication.,n/a,https://tools.ietf.org/html/rfc4252#section-8,,,,,,None,,,,5/7/2021,5/7/2021,,,,O,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,B,,
+149334,,,None,203.150.237.15,tcp,22,SSH Password Authentication Accepted,The SSH server on the remote host accepts password authentication.,The SSH server on the remote host accepts password authentication.,n/a,https://tools.ietf.org/html/rfc4252#section-8,,,,,,None,,,,5/7/2021,5/7/2021,,,,B,,
 153588,,,None,203.150.237.15,tcp,22,SSH SHA-1 HMAC Algorithms Enabled,The remote SSH server is configured to enable SHA-1 HMAC algorithms.,"The remote SSH server is configured to enable SHA-1 HMAC algorithms.
 
 Although NIST has formally deprecated use of SHA-1 for digital signatures, SHA-1 is still considered secure for HMAC as
@@ -3446,14 +3446,14 @@ The following server-to-client SHA-1 Hash-based Message Authentication Code (HMA
 
   hmac-sha1
   hmac-sha1-etm@openssh.com
-",,,,,None,,,,9/23/2021,9/23/2021,,,,O,,
+",,,,,None,,,,9/23/2021,9/23/2021,,,,B,,
 10287,,,None,203.150.237.2,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.2 : 
 10.0.2.15
 10.0.2.2
 203.150.237.2
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,B,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,A,,
 10386,,,None,203.150.237.2,tcp,80,Web Server No 404 Error Code Check,The remote web server does not return 404 error codes.,"The remote web server is configured such that it does not return '404
 Not Found' error codes when a nonexistent file is requested, perhaps
 returning instead a site map, search page or authentication page.
@@ -3467,7 +3467,7 @@ to requests for non-existent URLs with HTTP code 301
 rather than 404. The requested URL was : 
 
     http://2.237.150.203.sta.inet.co.th/jk3giy8Dmr3N.html
-",,,,,None,,,,4/28/2000,6/12/2020,,,,B,,
+",,,,,None,,,,4/28/2000,6/12/2020,,,,A,,
 10863,,,None,203.150.237.2,tcp,443,SSL Certificate Information,This plugin displays the SSL certificate.,"This plugin connects to every SSL-related port and attempts to 
 extract and dump the X.509 certificate.",n/a,,"Subject Name: 
 
@@ -3613,25 +3613,25 @@ PEM certificate :
 
 -----BEGIN CERTIFICATE-----
 MIIGbTCCBVWgAwIBAgIQAV48Tpd+J0STYigENgUywjANBgkqhkiG9w0BAQsFADBeMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQuY29tMR0wGwYDVQQDExRHZW9UcnVzdCBSU0EgQ0EgMjAxODAeFw0yMTA0MjYwMDAwMDBaFw0yMjA1MjIyMzU5NTlaMGwxCzAJBgNVBAYTAlRIMRAwDgYDVQQIEwdCYW5na29rMRQwEgYDVQQHEwtIVUFJIEtIV0FORzEiMCAGA1UEChMZT25lIEVtYWlsIENvbXBhbnkgTGltaXRlZDERMA8GA1UEAwwIKi5vbmUudGgwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDA9fwj5PuG4mhQ+51sFSGnA2xKCwLT7asn08s6T1dRN75tLCUR3Yb+yR6JrTxozz560Wn0290g3TzWcdB6XS5eEhSWFLVjcBN44/QFR/XO3dlHuo00OEwLueq/ius3iQx9P1st6sUU8Tr6Mq+UG+2CsZAweGa2tPyk2j3zV7ji3Mwzn/UYfGC0J9z9ZfO7o5eyf9ueCJYCVrdL4I8SEHQ4jTWTxa5yfV6+xAoiOo35mpwmWXI7RXjJUrVxZvhlwXHpddL5rhxJhLkpe1jupRh9WmsnphfQ388pjwJJn83LwFJT7z2SJ0XVOPaFLb/bpZn1T7uLC4uwE3hjsqchkULZAgMBAAGjggMXMIIDEzAfBgNVHSMEGDAWgBSQWP+wnHWoUVR3se3yo0MWOJ5sxTAdBgNVHQ4EFgQUT400rMsY7IndyOtVo8w9j01XRxowGwYDVR0RBBQwEoIIKi5vbmUudGiCBm9uZS50aDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMD4GA1UdHwQ3MDUwM6AxoC+GLWh0dHA6Ly9jZHAuZ2VvdHJ1c3QuY29tL0dlb1RydXN0UlNBQ0EyMDE4LmNybDA+BgNVHSAENzA1MDMGBmeBDAECAjApMCcGCCsGAQUFBwIBFhtodHRwOi8vd3d3LmRpZ2ljZXJ0LmNvbS9DUFMwdQYIKwYBBQUHAQEEaTBnMCYGCCsGAQUFBzABhhpodHRwOi8vc3RhdHVzLmdlb3RydXN0LmNvbTA9BggrBgEFBQcwAoYxaHR0cDovL2NhY2VydHMuZ2VvdHJ1c3QuY29tL0dlb1RydXN0UlNBQ0EyMDE4LmNydDAMBgNVHRMBAf8EAjAAMIIBfgYKKwYBBAHWeQIEAgSCAW4EggFqAWgAdQApeb7wnjk5IfBWc59jpXflvld9nGAK+PlNXSZcJV3HhAAAAXkNIb5rAAAEAwBGMEQCICLW8MnUNuT7Q8yOMAn9MnHeY4EoKX09a4VTJMBHbE26AiAjJIBrJ1GKXTEvkdRYb7RYnqIjdmd7Aeghe6P5x/cTvQB2ACJFRQdZVSRWlj+hL/H3bYbgIyZjrcBLf13Gg1xu4g8CAAABeQ0hvUgAAAQDAEcwRQIhAOqnJ9b8TutVmh7Q4mzLFU9wPrEVHIJnfSrdlKz7baVuAiBPLtKjNsmXJ5e42cmYu/EP5cVO0E2HdpEX4e0AtwIxIgB3AFGjsPX9AXmcVm24N3iPDKR6zBsny/eeiEKaDf7UiwXlAAABeQ0hwIQAAAQDAEgwRgIhAKCnT/rgh7aMtaxdSdjS4Swp/5RD9Wf03eptl1fdU6gqAiEAm1ENcA2HAcE7iDIYFeJqGkgVVac5SqQ76wNNr7Jic/EwDQYJKoZIhvcNAQELBQADggEBAKw1tBLbxVkvaIwVzfaX6AS1R+VDDORCNkRrpj88kYrSKZgmEaIvXkmjPRJeenczDj2X7Hr+StqgDtxarTuBaOkdSmPivhKHc5Zc3yA1O3f8IQ6Re+Vrc4idRa/SNC3xomLhsDMfkrV5FKCk94Sa5/oN3FSbjj0LqyKNGk+Nh1pT4SDUiqMZgno3TBpUD0A31HPIDe7eFapTiSpbG6sYlIWBkypHqpZYNQ3tsOWRLni01xqBsE1p+Qjcw/LdF6Tn/YVTy5l1DpPcCGdzDBLxP1PqkMLo2Z7xFVR7+YY1ntcJvCuDQ/nNOj2DMzzdUl1gJmjX6HK5o8UhvHLZuFdFCmc=
------END CERTIFICATE-----",,,,,None,,,,5/19/2008,2/3/2021,,,,B,,
+-----END CERTIFICATE-----",,,,,None,,,,5/19/2008,2/3/2021,,,,A,,
 11219,,,None,203.150.237.2,tcp,80,Nessus SYN scanner,It is possible to determine which TCP ports are open.,"This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
 quick even against a firewalled target. 
 
 Note that SYN scans are less intrusive than TCP (full connect) scans
 against broken services, but they might cause problems for less robust
 firewalls and also leave unclosed connections on the remote target, if
-the network is loaded.",Protect your target with an IP filter.,,Port 80/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,B,,
+the network is loaded.",Protect your target with an IP filter.,,Port 80/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,A,,
 11219,,,None,203.150.237.2,tcp,443,Nessus SYN scanner,It is possible to determine which TCP ports are open.,"This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
 quick even against a firewalled target. 
 
 Note that SYN scans are less intrusive than TCP (full connect) scans
 against broken services, but they might cause problems for less robust
 firewalls and also leave unclosed connections on the remote target, if
-the network is loaded.",Protect your target with an IP filter.,,Port 443/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,B,,
+the network is loaded.",Protect your target with an IP filter.,,Port 443/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,A,,
 12053,,,None,203.150.237.2,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.2 resolves as 2.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,B,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,A,,
 19506,,,None,203.150.237.2,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -3683,7 +3683,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 956 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,B,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,A,,
 21643,,,None,203.150.237.2,tcp,443,SSL Cipher Suites Supported,The remote service encrypts communications using SSL.,"This plugin detects which SSL ciphers are supported by the remote
 service for encrypting communications.",n/a,"https://www.openssl.org/docs/man1.1.0/apps/ciphers.html
 http://www.nessus.org/u?3a040ada","
@@ -3773,17 +3773,17 @@ The fields above are :
   Encrypt={symmetric encryption method}
   MAC={message authentication code}
   {export flag}
-",,,,,None,,,,6/5/2006,3/9/2021,,,,B,,
+",,,,,None,,,,6/5/2006,3/9/2021,,,,A,,
 22964,,,None,203.150.237.2,tcp,80,Service Detection,The remote service could be identified.,"Nessus was able to identify the remote service by its banner or by
 looking at the error message it sends when it receives an HTTP
-request.",n/a,,A web server is running on this port.,,,,,None,,,,8/19/2007,4/14/2021,,,,B,,
+request.",n/a,,A web server is running on this port.,,,,,None,,,,8/19/2007,4/14/2021,,,,A,,
 22964,,,None,203.150.237.2,tcp,443,Service Detection,The remote service could be identified.,"Nessus was able to identify the remote service by its banner or by
 looking at the error message it sends when it receives an HTTP
 request.",n/a,,"A TLSv1 server answered on this port.
-",,,,,None,,,,8/19/2007,4/14/2021,,,,B,,
+",,,,,None,,,,8/19/2007,4/14/2021,,,,A,,
 22964,,,None,203.150.237.2,tcp,443,Service Detection,The remote service could be identified.,"Nessus was able to identify the remote service by its banner or by
 looking at the error message it sends when it receives an HTTP
-request.",n/a,,A web server is running on this port through TLSv1.,,,,,None,,,,8/19/2007,4/14/2021,,,,B,,
+request.",n/a,,A web server is running on this port through TLSv1.,,,,,None,,,,8/19/2007,4/14/2021,,,,A,,
 24260,,,None,203.150.237.2,tcp,80,HyperText Transfer Protocol (HTTP) Information,Some information about the remote HTTP configuration can be extracted.,"This test gives some information about the remote HTTP protocol - the
 version used, whether HTTP Keep-Alive and HTTP pipelining are enabled,
 etc... 
@@ -3804,7 +3804,7 @@ Headers :
   
 Response Body :
 
-",,,,,None,,,,1/30/2007,11/22/2019,,,,B,,
+",,,,,None,,,,1/30/2007,11/22/2019,,,,A,,
 42873,CVE-2016-2183,5,High,203.150.237.2,tcp,443,SSL Medium Strength Cipher Suites Supported (SWEET32),The remote service supports the use of medium strength SSL ciphers.,"The remote host supports the use of SSL ciphers that offer medium
 strength encryption. Nessus regards medium strength as any encryption
 that uses key lengths at least 64 bits and less than 112 bits, or 
@@ -3831,7 +3831,7 @@ The fields above are :
   Encrypt={symmetric encryption method}
   MAC={message authentication code}
   {export flag}
-",,7.5,,,Medium,,,,11/23/2009,2/3/2021,,,,B,,
+",,7.5,,,Medium,,,,11/23/2009,2/3/2021,,,,A,,
 45410,,,None,203.150.237.2,tcp,443,SSL Certificate 'commonName' Mismatch,"The 'commonName' (CN) attribute in the SSL certificate does not match
 the hostname.","The service running on the remote host presents an SSL certificate for
 which the 'commonName' (CN) attribute does not match the hostname on
@@ -3850,7 +3850,7 @@ The Subject Alternate Names in the certificate are :
 
   *.one.th
   one.th
-",,,,,None,,,,4/3/2010,3/9/2021,,,,B,,
+",,,,,None,,,,4/3/2010,3/9/2021,,,,A,,
 50350,,,None,203.150.237.2,tcp,0,OS Identification Failed,It was not possible to determine the remote operating system.,"Using a combination of remote probes (TCP/IP, SMB, HTTP, NTP, SNMP,
 etc), it was possible to gather one or more fingerprints from the
 remote system. Unfortunately, though, Nessus does not currently know
@@ -3871,17 +3871,17 @@ SinFP:!:
    P2:B11013:F0x12:W65535:O0204ffff:M1460:
    P3:B00000:F0x00:W0:O0:M0
    P4:190002_7_p=80R
-",,,,,None,,,,10/26/2010,1/22/2020,,,,B,,
+",,,,,None,,,,10/26/2010,1/22/2020,,,,A,,
 50845,,,None,203.150.237.2,tcp,443,OpenSSL Detection,The remote service appears to use OpenSSL to encrypt traffic.,"Based on its response to a TLS request with a specially crafted
 server name extension, it seems that the remote service is using the
 OpenSSL library to encrypt traffic.
 
 Note that this plugin can only detect OpenSSL implementations that
-have enabled support for TLS extensions (RFC 4366).",n/a,https://www.openssl.org/,,,,,,None,,,,11/30/2010,6/12/2020,,,,B,,
+have enabled support for TLS extensions (RFC 4366).",n/a,https://www.openssl.org/,,,,,,None,,,,11/30/2010,6/12/2020,,,,A,,
 56984,,,None,203.150.237.2,tcp,443,SSL / TLS Versions Supported,The remote service encrypts communications.,"This plugin detects which SSL and TLS versions are supported by the
 remote service for encrypting communications.",n/a,,"
 This port supports TLSv1.0/TLSv1.1/TLSv1.2.
-",,,,,None,,,,12/1/2011,2/3/2021,,,,B,,
+",,,,,None,,,,12/1/2011,2/3/2021,,,,A,,
 57041,,,None,203.150.237.2,tcp,443,SSL Perfect Forward Secrecy Cipher Suites Supported,"The remote service supports the use of SSL Perfect Forward Secrecy
 ciphers, which maintain confidentiality even if the key is stolen.","The remote host supports the use of SSL ciphers that offer Perfect
 Forward Secrecy (PFS) encryption.  These cipher suites ensure that
@@ -3924,7 +3924,7 @@ The fields above are :
   Encrypt={symmetric encryption method}
   MAC={message authentication code}
   {export flag}
-",,,,,None,,,,12/7/2011,3/9/2021,,,,B,,
+",,,,,None,,,,12/7/2011,3/9/2021,,,,A,,
 70544,,,None,203.150.237.2,tcp,443,SSL Cipher Block Chaining Cipher Suites Supported,"The remote service supports the use of SSL Cipher Block Chaining
 ciphers, which combine previous blocks with subsequent ones.","The remote host supports the use of SSL ciphers that operate in Cipher
 Block Chaining (CBC) mode.  These cipher suites offer additional
@@ -3968,7 +3968,7 @@ The fields above are :
   Encrypt={symmetric encryption method}
   MAC={message authentication code}
   {export flag}
-",,,,,None,,,,10/22/2013,2/3/2021,,,,B,,
+",,,,,None,,,,10/22/2013,2/3/2021,,,,A,,
 70657,,,None,203.150.237.2,tcp,22,SSH Algorithms and Languages Supported,An SSH server is listening on this port.,"This script detects which algorithms and languages are supported by
 the remote service for encrypting communications.",n/a,,"
 Nessus negotiated the following encryption algorithm with the server : 
@@ -4043,7 +4043,7 @@ The server supports the following options for compression_algorithms_server_to_c
 
   none
   zlib@openssh.com
-",,,,,None,,,,10/28/2013,8/28/2017,,,,B,,
+",,,,,None,,,,10/28/2013,8/28/2017,,,,A,,
 94761,,,None,203.150.237.2,tcp,443,SSL Root Certification Authority Certificate Information,"A root Certification Authority certificate was found at the top of the
 certificate chain.","The remote service uses an SSL certificate chain that contains a
 self-signed root Certification Authority certificate at the top of the
@@ -4057,7 +4057,7 @@ The following root Certification Authority certificate was found :
 |-Valid From          : Nov 10 00:00:00 2006 GMT
 |-Valid To            : Nov 10 00:00:00 2031 GMT
 |-Signature Algorithm : SHA-1 With RSA Encryption
-",,,,,None,,,,11/14/2016,11/15/2018,,,,B,,
+",,,,,None,,,,11/14/2016,11/15/2018,,,,A,,
 95631,CVE-2004-2761,,None,203.150.237.2,tcp,443,SSL Certificate Signed Using Weak Hashing Algorithm (Known CA),"A known CA SSL certificate in the certificate chain has been signed
 using a weak hashing algorithm.","The remote service uses a known CA certificate in the SSL certificate
 chain that has been signed using a cryptographically weak hashing
@@ -4092,7 +4092,7 @@ Raw PEM certificate :
 -----BEGIN CERTIFICATE-----
 MIIDrzCCApegAwIBAgIQCDvgVpBCRrGhdWrJWZHHSjANBgkqhkiG9w0BAQUFADBhMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBDQTAeFw0wNjExMTAwMDAwMDBaFw0zMTExMTAwMDAwMDBaMGExCzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xIDAeBgNVBAMTF0RpZ2lDZXJ0IEdsb2JhbCBSb290IENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4jvhEXLeqKTTo1eqUKKPC3eQyaKl7hLOllsBCSDMAZOnTjC3U/dDxGkAV53ijSLdhwZAAIEJzs4bg7/fzTtxRuLWZscFs3YnFo97nh6Vfe63SKMI2tavegw5BmV/Sl0fvBf4q77uKNd0f3p4mVmFaG5cIzJLv07A6Fpt43C/dxC//AH2hdmoRBBYMql1GNXRor5H4idq9Joz+EkIYIvUX7Q6hL+hqkpMfT7PT19sdl6gSzeRntwi5m3OFBqOasv+zbMUZBfHWymeMr/y7vrTC0LUq7dBMtoM1O/4gdW7jVg/tRvoSSiicNoxBN33shbyTApOB6jtSj1etX+jkMOvJwIDAQABo2MwYTAOBgNVHQ8BAf8EBAMCAYYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUA95QNVbRTLtm8KPiGxvDl7I90VUwHwYDVR0jBBgwFoAUA95QNVbRTLtm8KPiGxvDl7I90VUwDQYJKoZIhvcNAQEFBQADggEBAMucN6pIExIK+t1EnE9SsPTfrgT1eXkIoyQY/EsrhMAtudXH/vTBH1jLuG2cenTnmCmrEbXjcKChzUyImZOMkXDiqw8cvpOp/2PV5Adg06O/nVsJ8dWO41P0jmP6P6fbtGbfYmbW0W5BjfIttep3Sp+dWOIrWcBAI+0tKIJFPnlUkiaY4IBIqDfv8NZ5YBberOgOzW6sRBc4L0na4UU+Krk2U886UAb3LujEV0lsYSEY1QSteDwsOoBrp+uvFRTp2InBuThs4pFsiv9kuXclVzDAGySj4dzp30d8tbQkCAUw7C29C79Fv1C5qfPrmAESrciIxpg0X40KPMbp1ZWVbd4=
 -----END CERTIFICATE-----
-",,,,,None,11849;33065,CERT:836068;CWE:310,,12/8/2016,1/14/2022,,,,B,,
+",,,,,None,11849;33065,CERT:836068;CWE:310,,12/8/2016,1/14/2022,,,,A,,
 104743,,6.1,Medium,203.150.237.2,tcp,443,TLS Version 1.0 Protocol Detection,The remote service encrypts traffic using an older version of TLS.,"The remote service accepts connections encrypted using TLS 1.0. TLS 1.0 has a
 number of cryptographic design flaws. Modern implementations of TLS 1.0
 mitigate these problems, but newer versions of TLS like 1.2 and 1.3 are
@@ -4104,7 +4104,7 @@ and higher will no longer function properly with major web browsers and major ve
 PCI DSS v3.2 requires that TLS 1.0 be disabled entirely by June 30,
 2018, except for POS POI terminals (and the SSL/TLS termination
 points to which they connect) that can be verified as not being
-susceptible to any known exploits.","Enable support for TLS 1.2 and 1.3, and disable support for TLS 1.0.",https://tools.ietf.org/html/draft-ietf-tls-oldversions-deprecate-00,TLSv1 is enabled and the server supports at least one cipher.,,6.5,,,Medium,,,,11/22/2017,3/31/2020,,,,B,,
+susceptible to any known exploits.","Enable support for TLS 1.2 and 1.3, and disable support for TLS 1.0.",https://tools.ietf.org/html/draft-ietf-tls-oldversions-deprecate-00,TLSv1 is enabled and the server supports at least one cipher.,,6.5,,,Medium,,,,11/22/2017,3/31/2020,,,,A,,
 117887,,,None,203.150.237.2,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -4113,7 +4113,7 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,B,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,A,,
 121010,,,None,203.150.237.2,tcp,443,TLS Version 1.1 Protocol Detection,The remote service encrypts traffic using an older version of TLS.,"The remote service accepts connections encrypted using TLS 1.1.
 TLS 1.1 lacks support for current and recommended cipher suites.
 Ciphers that support encryption before MAC computation, and
@@ -4122,8 +4122,8 @@ TLS 1.1
 
 As of March 31, 2020, Endpoints that are not enabled for TLS 1.2 
 and higher will no longer function properly with major web browsers and major vendors.","Enable support for TLS 1.2 and/or 1.3, and disable support for TLS 1.1.","https://tools.ietf.org/html/draft-ietf-tls-oldversions-deprecate-00
-http://www.nessus.org/u?c8ae820d",TLSv1.1 is enabled and the server supports at least one cipher.,,,,,None,,,,1/8/2019,8/7/2020,,,,B,,
-136318,,,None,203.150.237.2,tcp,443,TLS Version 1.2 Protocol Detection,The remote service encrypts traffic using a version of TLS.,The remote service accepts connections encrypted using TLS 1.2.,N/A,https://tools.ietf.org/html/rfc5246,TLSv1.2 is enabled and the server supports at least one cipher.,,,,,None,,,,5/4/2020,5/4/2020,,,,B,,
+http://www.nessus.org/u?c8ae820d",TLSv1.1 is enabled and the server supports at least one cipher.,,,,,None,,,,1/8/2019,8/7/2020,,,,A,,
+136318,,,None,203.150.237.2,tcp,443,TLS Version 1.2 Protocol Detection,The remote service encrypts traffic using a version of TLS.,The remote service accepts connections encrypted using TLS 1.2.,N/A,https://tools.ietf.org/html/rfc5246,TLSv1.2 is enabled and the server supports at least one cipher.,,,,,None,,,,5/4/2020,5/4/2020,,,,A,,
 153588,,,None,203.150.237.2,tcp,22,SSH SHA-1 HMAC Algorithms Enabled,The remote SSH server is configured to enable SHA-1 HMAC algorithms.,"The remote SSH server is configured to enable SHA-1 HMAC algorithms.
 
 Although NIST has formally deprecated use of SHA-1 for digital signatures, SHA-1 is still considered secure for HMAC as
@@ -4139,7 +4139,7 @@ The following server-to-client SHA-1 Hash-based Message Authentication Code (HMA
 
   hmac-sha1
   hmac-sha1-etm@openssh.com
-",,,,,None,,,,9/23/2021,9/23/2021,,,,B,,
+",,,,,None,,,,9/23/2021,9/23/2021,,,,A,,
 156899,,,None,203.150.237.2,tcp,443,SSL/TLS Recommended Cipher Suites,The remote host advertises discouraged SSL/TLS ciphers.,"The remote host has open SSL/TLS ports which advertise discouraged cipher suites. It is recommended to only enable
 support for the following cipher suites:
 
@@ -4199,18 +4199,18 @@ The fields above are :
   Encrypt={symmetric encryption method}
   MAC={message authentication code}
   {export flag}
-",,,,,None,,,,1/20/2022,1/20/2022,,,,B,,
+",,,,,None,,,,1/20/2022,1/20/2022,,,,A,,
 10287,,,None,203.150.237.3,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.3 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,C,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,A,,
 12053,,,None,203.150.237.3,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.3 resolves as 3.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,C,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,A,,
 19506,,,None,203.150.237.3,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -4262,7 +4262,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 836 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,C,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,A,,
 117887,,,None,203.150.237.3,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -4271,7 +4271,7 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,C,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,A,,
 10028,,,None,203.150.237.4,udp,53,DNS Server BIND version Directive Remote Version Detection,It is possible to obtain the version number of the remote DNS server.,"The remote host is running BIND or another DNS server that reports its
 version number when it receives a special request for the text
 'version.bind' in the domain 'chaos'. 
@@ -4280,28 +4280,28 @@ This version is not necessarily accurate and could even be forged, as
 some DNS servers send the information based on a configuration file.","It is possible to hide the version number of BIND by using the
 'version' directive in the 'options' section in named.conf.",,"
   Version : 9.10.3-P4-Ubuntu
-",,,,,None,,IAVT:0001-T-0583,,10/12/1999,9/22/2020,,,,D,,
+",,,,,None,,IAVT:0001-T-0583,,10/12/1999,9/22/2020,,,,A,,
 10107,,,None,203.150.237.4,tcp,80,HTTP Server Type and Version,A web server is running on the remote host.,"This plugin attempts to determine the type and the version of the
   remote web server.",n/a,,"The remote web server type is :
 
-Apache/2.4.18 (Ubuntu)",,,,,None,,IAVT:0001-T-0931,,1/4/2000,10/30/2020,,,,D,,
+Apache/2.4.18 (Ubuntu)",,,,,None,,IAVT:0001-T-0931,,1/4/2000,10/30/2020,,,,A,,
 10287,,,None,203.150.237.4,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.4 : 
 10.0.2.15
 10.0.2.2
 203.150.237.4
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,D,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,A,,
 11002,,,None,203.150.237.4,udp,53,DNS Server Detection,A DNS server is listening on the remote host.,"The remote service is a Domain Name System (DNS) server, which
 provides a mapping between hostnames and IP addresses.","Disable this service if it is not needed or restrict access to
-internal hosts only if the service is available externally.",https://en.wikipedia.org/wiki/Domain_Name_System,,,,,,None,,,,2/13/2003,5/16/2017,,,,D,,
+internal hosts only if the service is available externally.",https://en.wikipedia.org/wiki/Domain_Name_System,,,,,,None,,,,2/13/2003,5/16/2017,,,,A,,
 11219,,,None,203.150.237.4,tcp,80,Nessus SYN scanner,It is possible to determine which TCP ports are open.,"This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
 quick even against a firewalled target. 
 
 Note that SYN scans are less intrusive than TCP (full connect) scans
 against broken services, but they might cause problems for less robust
 firewalls and also leave unclosed connections on the remote target, if
-the network is loaded.",Protect your target with an IP filter.,,Port 80/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,D,,
+the network is loaded.",Protect your target with an IP filter.,,Port 80/tcp was found to be open,,,,,None,,,,2/4/2009,9/16/2021,,,,A,,
 11936,,,None,203.150.237.4,tcp,0,OS Identification,It is possible to guess the remote operating system.,"Using a combination of remote probes (e.g., TCP/IP, SMB, HTTP, NTP,
 SNMP, etc.), it is possible to guess the name of the remote operating
 system in use. It is also possible sometimes to guess the version of
@@ -4323,11 +4323,11 @@ SinFP:!:
    P4:190002_7_p=80R
 
  
-The remote host is running Ubuntu 16.x",,,,,None,,,,12/9/2003,1/18/2022,,,,D,,
+The remote host is running Ubuntu 16.x",,,,,None,,,,12/9/2003,1/18/2022,,,,A,,
 12053,,,None,203.150.237.4,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.4 resolves as 4.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,D,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,A,,
 18261,,,None,203.150.237.4,tcp,0,Apache Banner Linux Distribution Disclosure,"The name of the Linux distribution running on the remote host was
 found in the banner of the web server.","Nessus was able to extract the banner of the Apache web server and
 determine which Linux distribution the remote host is running.","If you do not wish to display this information, edit 'httpd.conf' and
@@ -4336,7 +4336,7 @@ n/a",,"
 The Linux distribution detected was : 
  - Ubuntu 16.04 (xenial)
  - Ubuntu 16.10 (yakkety)
-",,,,,None,,,,5/15/2005,10/1/2019,,,,D,,
+",,,,,None,,,,5/15/2005,10/1/2019,,,,A,,
 19506,,,None,203.150.237.4,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -4388,10 +4388,10 @@ Backports : Detected
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 956 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,D,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,A,,
 22964,,,None,203.150.237.4,tcp,80,Service Detection,The remote service could be identified.,"Nessus was able to identify the remote service by its banner or by
 looking at the error message it sends when it receives an HTTP
-request.",n/a,,A web server is running on this port.,,,,,None,,,,8/19/2007,4/14/2021,,,,D,,
+request.",n/a,,A web server is running on this port.,,,,,None,,,,8/19/2007,4/14/2021,,,,A,,
 24260,,,None,203.150.237.4,tcp,80,HyperText Transfer Protocol (HTTP) Information,Some information about the remote HTTP configuration can be extracted.,"This test gives some information about the remote HTTP protocol - the
 version used, whether HTTP Keep-Alive and HTTP pipelining are enabled,
 etc... 
@@ -4794,14 +4794,14 @@ Response Body :
   </body>
 </html>
 
-",,,,,None,,,,1/30/2007,11/22/2019,,,,D,,
+",,,,,None,,,,1/30/2007,11/22/2019,,,,A,,
 35371,,,None,203.150.237.4,udp,53,DNS Server hostname.bind Map Hostname Disclosure,The DNS server discloses the remote host name.,"It is possible to learn the remote host name by querying the remote
 DNS server for 'hostname.bind' in the CHAOS domain.","It may be possible to disable this feature.  Consult the vendor's
 documentation for more information.",,"
 The remote host name is :
 
 k8s-ms-2
-",,,,,None,,,,1/15/2009,9/14/2011,,,,D,,
+",,,,,None,,,,1/15/2009,9/14/2011,,,,A,,
 39521,,,None,203.150.237.4,tcp,80,Backported Security Patch Detection (WWW),Security patches are backported.,"Security patches may have been 'backported' to the remote HTTP server
 without changing its version number.
 
@@ -4810,7 +4810,7 @@ Banner-based checks have been disabled to avoid false positives.
 Note that this test is informational only and does not denote any
 security problem.",n/a,https://access.redhat.com/security/updates/backporting/?sc_cid=3093,"
 Local checks have been enabled.
-",,,,,None,,,,6/25/2009,7/7/2015,,,,D,,
+",,,,,None,,,,6/25/2009,7/7/2015,,,,A,,
 43111,,,None,203.150.237.4,tcp,80,HTTP Methods Allowed (per directory),"This plugin determines which HTTP methods are allowed on various CGI
 directories.","By calling the OPTIONS method, it is possible to determine which HTTP
 methods are allowed on each directory.
@@ -4840,7 +4840,7 @@ https://www.owasp.org/index.php/Test_HTTP_Methods_(OTG-CONFIG-006)","Based on th
 
     /
 
-",,,,,None,,,,12/10/2009,3/19/2019,,,,D,,
+",,,,,None,,,,12/10/2009,3/19/2019,,,,A,,
 45590,,,None,203.150.237.4,tcp,0,Common Platform Enumeration (CPE),"It was possible to enumerate CPE names that matched on the remote
 system.","By using information obtained from a Nessus scan, this plugin reports
 CPE (Common Platform Enumeration) matches for various hardware and
@@ -4861,7 +4861,7 @@ Following application CPE's matched on the remote system :
   cpe:/a:apache:http_server:2.4.99
   cpe:/a:isc:bind:9.10.3-p4-ubuntu
   cpe:/a:isc:bind:9.10.3:p4 -> ISC BIND 9.10.3 P4
-",,,,,None,,,,4/21/2010,12/8/2021,,,,D,,
+",,,,,None,,,,4/21/2010,12/8/2021,,,,A,,
 48204,,,None,203.150.237.4,tcp,80,Apache HTTP Server Version,"It is possible to obtain the version number of the remote Apache HTTP
 server.","The remote host is running the Apache HTTP Server, an open source web
 server. It was possible to read the version number from the banner.",n/a,https://httpd.apache.org/,"
@@ -4869,12 +4869,12 @@ server. It was possible to read the version number from the banner.",n/a,https:/
   Version    : 2.4.99
   backported : 1
   os         : ConvertedUbuntu
-",,,,,None,,IAVT:0001-T-0530,,7/30/2010,9/22/2020,,,,D,,
+",,,,,None,,IAVT:0001-T-0530,,7/30/2010,9/22/2020,,,,A,,
 54615,,,None,203.150.237.4,tcp,0,Device Type,It is possible to guess the remote device type.,"Based on the remote operating system, it is possible to determine
 what the remote system type is (eg: a printer, router, general-purpose
 computer, etc).",n/a,,"Remote device type : general-purpose
 Confidence level : 85
-",,,,,None,,,,5/23/2011,5/23/2011,,,,D,,
+",,,,,None,,,,5/23/2011,5/23/2011,,,,A,,
 66293,,,None,203.150.237.4,tcp,0,Unix Operating System on Extended Support,"The remote host is running an operating system that is on extended
 support.","According to its version, the remote host uses a Unix or Unix-like
 operating system that has transitioned to an extended portion in its
@@ -4882,7 +4882,7 @@ support life cycle. Continued access to new security updates requires
 payment of an additional fee and / or configuration changes to the
 package management tool.  Without that, the host likely will be
 missing security updates.","Ensure that the host subscribes to the vendor's extended support
-plan and continues to receive security updates.",,Ubuntu 16.04 support ends on 2021-04-30 (end of maintenance) / 2024-04-30 (end of extended security maintenance).,,,,,None,,IAVA:0001-A-0648,,5/2/2013,6/9/2021,,,,D,,
+plan and continues to receive security updates.",,Ubuntu 16.04 support ends on 2021-04-30 (end of maintenance) / 2024-04-30 (end of extended security maintenance).,,,,,None,,IAVA:0001-A-0648,,5/2/2013,6/9/2021,,,,A,,
 72779,,,None,203.150.237.4,udp,53,DNS Server Version Detection,"Nessus was able to obtain version information on the remote DNS
 server.","Nessus was able to obtain version information by sending a special TXT
 record query to the remote host.
@@ -4893,7 +4893,7 @@ configuration file.",n/a,,"
 DNS server answer for ""version.bind"" (over UDP) :
 
   9.10.3-P4-Ubuntu
-",,,,,None,,IAVT:0001-T-0937,,3/3/2014,9/22/2020,,,,D,,
+",,,,,None,,IAVT:0001-T-0937,,3/3/2014,9/22/2020,,,,A,,
 117887,,,None,203.150.237.4,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -4902,18 +4902,18 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,D,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,A,,
 10287,,,None,203.150.237.5,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.5 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,E,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,A,,
 12053,,,None,203.150.237.5,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.5 resolves as 5.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,E,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,A,,
 19506,,,None,203.150.237.5,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -4965,7 +4965,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 818 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,E,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,A,,
 70657,,,None,203.150.237.5,tcp,22,SSH Algorithms and Languages Supported,An SSH server is listening on this port.,"This script detects which algorithms and languages are supported by
 the remote service for encrypting communications.",n/a,,"
 Nessus negotiated the following encryption algorithm with the server : 
@@ -5040,7 +5040,7 @@ The server supports the following options for compression_algorithms_server_to_c
 
   none
   zlib@openssh.com
-",,,,,None,,,,10/28/2013,8/28/2017,,,,E,,
+",,,,,None,,,,10/28/2013,8/28/2017,,,,A,,
 117887,,,None,203.150.237.5,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -5049,7 +5049,7 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,E,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,A,,
 153588,,,None,203.150.237.5,tcp,22,SSH SHA-1 HMAC Algorithms Enabled,The remote SSH server is configured to enable SHA-1 HMAC algorithms.,"The remote SSH server is configured to enable SHA-1 HMAC algorithms.
 
 Although NIST has formally deprecated use of SHA-1 for digital signatures, SHA-1 is still considered secure for HMAC as
@@ -5065,18 +5065,18 @@ The following server-to-client SHA-1 Hash-based Message Authentication Code (HMA
 
   hmac-sha1
   hmac-sha1-etm@openssh.com
-",,,,,None,,,,9/23/2021,9/23/2021,,,,E,,
+",,,,,None,,,,9/23/2021,9/23/2021,,,,A,,
 10287,,,None,203.150.237.6,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.6 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,F,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,A,,
 12053,,,None,203.150.237.6,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.6 resolves as 6.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,F,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,A,,
 19506,,,None,203.150.237.6,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -5128,7 +5128,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 835 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,F,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,A,,
 117887,,,None,203.150.237.6,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -5137,18 +5137,18 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,F,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,A,,
 10287,,,None,203.150.237.7,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.7 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,G,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,A,,
 12053,,,None,203.150.237.7,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.7 resolves as 7.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,G,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,A,,
 19506,,,None,203.150.237.7,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -5200,7 +5200,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 881 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,G,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,A,,
 117887,,,None,203.150.237.7,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -5209,19 +5209,19 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,G,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,A,,
 10267,,,None,203.150.237.8,tcp,22,SSH Server Type and Version Information,An SSH server is listening on this port.,"It is possible to obtain information about the remote SSH server by
 sending an empty authentication request.",n/a,,"
 SSH version : SSH-2.0-OpenSSH_7.2p2 Ubuntu-4ubuntu2.8
 SSH supported authentication : publickey,password
-",,,,,None,,IAVT:0001-T-0933,,10/12/1999,9/22/2020,,,,H,,
+",,,,,None,,IAVT:0001-T-0933,,10/12/1999,9/22/2020,,,,B,,
 10287,,,None,203.150.237.8,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.8 : 
 10.0.2.15
 10.0.2.2
 ?
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,H,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,B,,
 11936,,,None,203.150.237.8,tcp,0,OS Identification,It is possible to guess the remote operating system.,"Using a combination of remote probes (e.g., TCP/IP, SMB, HTTP, NTP,
 SNMP, etc.), it is possible to guess the name of the remote operating
 system in use. It is also possible sometimes to guess the version of
@@ -5231,11 +5231,11 @@ Confidence level : 95
 Method : SSH
 
  
-The remote host is running Linux Kernel 4.4 on Ubuntu 16.04 (xenial)",,,,,None,,,,12/9/2003,1/18/2022,,,,H,,
+The remote host is running Linux Kernel 4.4 on Ubuntu 16.04 (xenial)",,,,,None,,,,12/9/2003,1/18/2022,,,,B,,
 12053,,,None,203.150.237.8,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.8 resolves as 8.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,H,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,B,,
 19506,,,None,203.150.237.8,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -5287,7 +5287,7 @@ Backports : Detected
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 817 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,H,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,B,,
 39520,,,None,203.150.237.8,tcp,22,Backported Security Patch Detection (SSH),Security patches are backported.,"Security patches may have been 'backported' to the remote SSH server
 without changing its version number. 
 
@@ -5296,7 +5296,7 @@ Banner-based checks have been disabled to avoid false positives.
 Note that this test is informational only and does not denote any
 security problem.",n/a,https://access.redhat.com/security/updates/backporting/?sc_cid=3093,"
 Local checks have been enabled.
-",,,,,None,,,,6/25/2009,7/7/2015,,,,H,,
+",,,,,None,,,,6/25/2009,7/7/2015,,,,B,,
 45590,,,None,203.150.237.8,tcp,0,Common Platform Enumeration (CPE),"It was possible to enumerate CPE names that matched on the remote
 system.","By using information obtained from a Nessus scan, this plugin reports
 CPE (Common Platform Enumeration) matches for various hardware and
@@ -5313,12 +5313,12 @@ The remote operating system matched the following CPE :
 Following application CPE matched on the remote system :
 
   cpe:/a:openbsd:openssh:7.2
-",,,,,None,,,,4/21/2010,12/8/2021,,,,H,,
+",,,,,None,,,,4/21/2010,12/8/2021,,,,B,,
 54615,,,None,203.150.237.8,tcp,0,Device Type,It is possible to guess the remote device type.,"Based on the remote operating system, it is possible to determine
 what the remote system type is (eg: a printer, router, general-purpose
 computer, etc).",n/a,,"Remote device type : general-purpose
 Confidence level : 95
-",,,,,None,,,,5/23/2011,5/23/2011,,,,H,,
+",,,,,None,,,,5/23/2011,5/23/2011,,,,B,,
 66293,,,None,203.150.237.8,tcp,0,Unix Operating System on Extended Support,"The remote host is running an operating system that is on extended
 support.","According to its version, the remote host uses a Unix or Unix-like
 operating system that has transitioned to an extended portion in its
@@ -5326,7 +5326,7 @@ support life cycle. Continued access to new security updates requires
 payment of an additional fee and / or configuration changes to the
 package management tool.  Without that, the host likely will be
 missing security updates.","Ensure that the host subscribes to the vendor's extended support
-plan and continues to receive security updates.",,Ubuntu 16.04 support ends on 2021-04-30 (end of maintenance) / 2024-04-30 (end of extended security maintenance).,,,,,None,,IAVA:0001-A-0648,,5/2/2013,6/9/2021,,,,H,,
+plan and continues to receive security updates.",,Ubuntu 16.04 support ends on 2021-04-30 (end of maintenance) / 2024-04-30 (end of extended security maintenance).,,,,,None,,IAVA:0001-A-0648,,5/2/2013,6/9/2021,,,,B,,
 70657,,,None,203.150.237.8,tcp,22,SSH Algorithms and Languages Supported,An SSH server is listening on this port.,"This script detects which algorithms and languages are supported by
 the remote service for encrypting communications.",n/a,,"
 Nessus negotiated the following encryption algorithm with the server : 
@@ -5401,7 +5401,7 @@ The server supports the following options for compression_algorithms_server_to_c
 
   none
   zlib@openssh.com
-",,,,,None,,,,10/28/2013,8/28/2017,,,,H,,
+",,,,,None,,,,10/28/2013,8/28/2017,,,,B,,
 117887,,,None,203.150.237.8,tcp,0,OS Security Patch Assessment Available,"Nessus was able to log in to the remote host using the provided
 credentials and enumerate OS security patch levels.","Nessus was able to determine OS security patch levels by logging
 into the remote host and running commands to determine the version
@@ -5410,8 +5410,8 @@ identified as an operating system or device that Nessus supports for
 patch and update assessment.  The necessary information was obtained
 to perform these checks.",n/a,,"OS Security Patch Assessment is available.
 
-",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,H,,
-149334,,,None,203.150.237.8,tcp,22,SSH Password Authentication Accepted,The SSH server on the remote host accepts password authentication.,The SSH server on the remote host accepts password authentication.,n/a,https://tools.ietf.org/html/rfc4252#section-8,,,,,,None,,,,5/7/2021,5/7/2021,,,,H,,
+",,,,,None,,IAVB:0001-B-0516,,10/2/2018,7/12/2021,,,,B,,
+149334,,,None,203.150.237.8,tcp,22,SSH Password Authentication Accepted,The SSH server on the remote host accepts password authentication.,The SSH server on the remote host accepts password authentication.,n/a,https://tools.ietf.org/html/rfc4252#section-8,,,,,,None,,,,5/7/2021,5/7/2021,,,,B,,
 153588,,,None,203.150.237.8,tcp,22,SSH SHA-1 HMAC Algorithms Enabled,The remote SSH server is configured to enable SHA-1 HMAC algorithms.,"The remote SSH server is configured to enable SHA-1 HMAC algorithms.
 
 Although NIST has formally deprecated use of SHA-1 for digital signatures, SHA-1 is still considered secure for HMAC as
@@ -5427,14 +5427,14 @@ The following server-to-client SHA-1 Hash-based Message Authentication Code (HMA
 
   hmac-sha1
   hmac-sha1-etm@openssh.com
-",,,,,None,,,,9/23/2021,9/23/2021,,,,H,,
+",,,,,None,,,,9/23/2021,9/23/2021,,,,B,,
 10287,,,None,203.150.237.9,udp,0,Traceroute Information,It was possible to obtain traceroute information.,Makes a traceroute to the remote host.,n/a,,"For your information, here is the traceroute from 10.0.2.15 to 203.150.237.9 : 
 10.0.2.15
 10.0.2.2
 203.150.237.9
 
 Hop Count: 2
-",,,,,None,,,,11/27/1999,8/20/2020,,,,I,,
+",,,,,None,,,,11/27/1999,8/20/2020,,,,,,
 10386,,,None,203.150.237.9,tcp,80,Web Server No 404 Error Code Check,The remote web server does not return 404 error codes.,"The remote web server is configured such that it does not return '404
 Not Found' error codes when a nonexistent file is requested, perhaps
 returning instead a site map, search page or authentication page.
@@ -5448,11 +5448,11 @@ to requests for non-existent URLs with HTTP code 301
 rather than 404. The requested URL was : 
 
     http://9.237.150.203.sta.inet.co.th/dUv70A2A1Ia2.html
-",,,,,None,,,,4/28/2000,6/12/2020,,,,I,,
+",,,,,None,,,,4/28/2000,6/12/2020,,,,,,
 12053,,,None,203.150.237.9,tcp,0,Host Fully Qualified Domain Name (FQDN) Resolution,It was possible to resolve the name of the remote host.,"Nessus was able to resolve the fully qualified domain name (FQDN) of
 the remote host.",n/a,,"
 203.150.237.9 resolves as 9.237.150.203.sta.inet.co.th.
-",,,,,None,,,,2/11/2004,4/14/2017,,,,I,,
+",,,,,None,,,,2/11/2004,4/14/2017,,,,,,
 19506,,,None,203.150.237.9,tcp,0,Nessus Scan Information,This plugin displays information about the Nessus scan.,"This plugin displays, for each tested host, information about the
 scan itself :
 
@@ -5504,7 +5504,7 @@ Backports : None
 Allow post-scan editing: Yes
 Scan Start Date : 2022/1/25 23:00 +07
 Scan duration : 1143 sec
-",,,,,None,,,,8/26/2005,9/27/2021,,,,I,,
+",,,,,None,,,,8/26/2005,9/27/2021,,,,,,
 24260,,,None,203.150.237.9,tcp,80,HyperText Transfer Protocol (HTTP) Information,Some information about the remote HTTP configuration can be extracted.,"This test gives some information about the remote HTTP protocol - the
 version used, whether HTTP Keep-Alive and HTTP pipelining are enabled,
 etc... 
@@ -5525,4 +5525,4 @@ Headers :
   
 Response Body :
 
-",,,,,None,,,,1/30/2007,11/22/2019,,,,I,,
+",,,,,None,,,,1/30/2007,11/22/2019,,,,,,

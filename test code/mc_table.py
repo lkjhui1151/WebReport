@@ -67,10 +67,11 @@ with open('E:/INETMS/doc/Auto gen report/VA ISO/WebReport/test code/A2.csv', enc
 #print(group)
 
 l = list(context.values())
-print(len(l))
-print(l[0]["Name"])
-if len(l) == 1 and l[0]["Name"] == "etc":
-    l[0]["Name"] = "Cloud Name"
+#print(len(l))
+#print(l[0]["Name"])
+#check if there are no group at all
+#if len(l) == 1 and l[0]["Name"] == "etc":
+#    l[0]["Name"] = "Cloud Name"
 # total amount of vulnerabilities critaria
 totalS = (sum([d['Total_IP'] for d in l]))
 CriticalS = (sum([d['Critical'] for d in l]))
@@ -82,10 +83,10 @@ Amount = CriticalS+HighS+MediumS+LowS
 dictS = {"Total_IP": totalS, "Critical":CriticalS, "High":HighS, "Medium": MediumS, "Low":LowS, "Info": InfoS}
 percent = {"Critical":'%.2f' %(CriticalS*100/Amount), "High":'%.2f' %(HighS*100/Amount), "Medium": '%.2f' %(MediumS*100/Amount), "Low":'%.2f' %(LowS*100/Amount)}
 # Final JSON output
-l2 = {"Group":l, "Summary":[dictS], "Percent":[percent]}
-print(l2)
+l2 = {"Group":l, "Summary":dictS, "Percent":percent}
+print(l2["Summary"]["High"])
 #render word file
-print(percent.values())
+#print(percent.values())
 doc.render(l2)
 doc.save("generated_doc.docx")
 os.system("generated_doc.docx")
@@ -100,3 +101,37 @@ os.system("generated_doc.docx")
  
 # show plot
 #plt.show()
+
+#risk = ['Critical','High', 'Medium','Low']
+#values = [value for value in percent.values() if value!='0.00']
+
+array = [
+   {
+        "risk": "Critical",
+        "value": l2["Summary"]["Critical"],
+        "colors": "#C20909"
+    },
+    {
+        "risk": "High",
+        "value": l2["Summary"]["High"],
+        "colors": "#F09D1A"
+    },
+    {
+        "risk": "Medium",
+        "value": l2["Summary"]["Medium"],
+        "colors": "#FFD80C"
+    },
+    {
+        "risk": "Low",
+        "value": l2["Summary"]["Critical"],
+        "colors": "#23B800"
+    }
+]
+
+
+plt.pie([i["value"] for i in array], labels=[i["risk"] for i in array], labeldistance=1.15, autopct= lambda p: '{:.1f}%'.format(round(p)) if p > 0 else '' , colors=[i["colors"] for i in array])
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
+               fancybox=True, shadow=True, ncol=4)
+plt.show()
+#plt.savefig("D:/github/WebReport/backend/api/image/Graph.png")
+
