@@ -1,17 +1,12 @@
 import csv
+from importlib.resources import contents
 import json
-from multiprocessing import context
-resk_per_ip = {}
-range_ip = {}
-context = {}
-context2 = {}
-#  = {}
-with open('./A2.csv', encoding="utf8") as read_f:
-    reader = csv.DictReader(read_f, delimiter=',')
-    for row in reader:
+from turtle import home
+from docxtpl import *
+import pandas
+import os
 
-        ip_splite = (row['Host'].split('.'))
-        ip = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+".xxx"
+doc = DocxTemplate("./table3.docx")
 
 def makeJson(csvFilePath, jsonFilePath):
     data = {}
@@ -26,60 +21,90 @@ def makeJson(csvFilePath, jsonFilePath):
         jsonf.write(json.dumps(data, indent=4))
 
 DataJson = open(
-    "D:/INET-MS/Auto report/GitHub/WebReport/table3.json", "w")
+    "./table3.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/INET-MS/Auto report/GitHub/WebReport/A2.csv'
-jsonFilePath = r'D:/INET-MS/Auto report/GitHub/WebReport/table3.json'
-
+csvFilePath = r'./A2.csv'
+jsonFilePath = r'./table3.json'
 makeJson(csvFilePath, jsonFilePath)
 
 
+DataJSON = pandas.read_json(jsonFilePath)
+
+Ip = [DataJSON[i]["Host"] for i in DataJSON ]
+Ip = list(dict.fromkeys(Ip))
+# print(Ip)
+
+list_ip = []
+for i in Ip:
+    ip_splite = (i.split('.'))
+    ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+".xxx"
+    if ip_subclass not in list_ip:
+        list_ip.append(ip_subclass)
+
+list_ip = list(dict.fromkeys(list_ip))
+
+Content_risk = {}
+range_Ip=[]
+for i in Ip:
+    Content_risk["host"] = i
+    Content_risk["Critical"]=0
+    Content_risk["High"]=0
+    Content_risk["Medium"]=0
+    Content_risk["Low"]=0
+    Content_risk["Sum"]=0
+    range_Ip.append(Content_risk)
+    Content_risk={} 
 
 
+for  i in DataJSON:
+    if DataJSON[i]['Host'] != 'None':
+        for j in range_Ip:
+            if  j['host']== DataJSON[i]['Host']:
+                if DataJSON[i]['Risk'] == 'Critical':
+                    j['Critical']+=1
+                    j['Sum']+=1 
+                elif DataJSON[i]['Risk'] == 'High':
+                    j['High']+=1
+                    j['Sum']+=1 
+                elif DataJSON[i]['Risk'] == 'Medium':
+                    j['Medium']+=1
+                    j['Sum']+=1 
+                elif DataJSON[i]['Risk'] == 'Low':
+                    j['Low']+=1
+                    j['Sum']+=1 
+class_ip = []
+for i in list_ip:
+    Content_class={}
+    Content_class["class"] = i  
+    Content_class["total"] = {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Sum': 0}
+    list_ip_in_class = []
+    for j in range_Ip:
+        ip_splite2 = (j['host'].split('.'))
+        ip_subclass2 = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+".xxx"
+        if ip_subclass2 == i:
+            list_ip_in_class.append(j)
+            Content_class["total"]['Critical']+=j['Critical']
+            Content_class["total"]['High']+=j['High']
+            Content_class["total"]['Medium']+=j['Medium']
+            Content_class["total"]['Low']+=j['Low']
+            Content_class["total"]['Sum']+=j['Sum']
+ 
+    list_ip_in_class = sorted(list_ip_in_class, key=lambda d: (tuple(map(int, d['host'].split('.')))))
+    index1=1 
+    # print(items)
+    for x in list_ip_in_class:
+        x['No']= index1
+        index1+=1
 
+    Content_class["risk"] = list_ip_in_class
+    class_ip.append(Content_class)
+Content3 = {}
 
+Content3['vulnerability'] = class_ip
 
+os.remove("generated_table3.docx")
+doc.render(Content3)
+doc.save("generated_table3.docx")
+os.system("generated_table3.docx")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-#         # # if resk_per_ip['host'] != [row['Host']]:
-#         # resk_per_ip['host'] = row['Host']
-
-#         if ip in context:
-#             if not row['Host'] in context[ip]:
-#                 context[ip][row['Host']] = {
-#                     "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Summary": 0}
-#         else:
-#             context[ip] = {row['Host']: {
-#                 "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Summary": 0}}
-
-#         if row['Risk'] != "None":
-#             if row['Risk'] == "Critical":
-#                 context[ip][row['Host']]["Critical"] += 1
-#             elif row['Risk'] == "High":
-#                 context[ip][row['Host']]["High"] += 1
-#             elif row['Risk'] == "Medium":
-#                 context[ip][row['Host']]["Medium"] += 1
-#             elif row['Risk'] == "Low":
-#                 context[ip][row['Host']]["Low"] += 1
-#             context[ip][row['Host']]["Summary"] = context[ip][row['Host']]["Critical"]+context[ip
-#                                                                                                ][row['Host']]["High"]+context[ip][row['Host']]["Medium"]+context[ip][row['Host']]["Low"]
-# context2["valnerability"] = [context]
-# print(context2)
-
-
-# {'A': {'203.150.237.1': {'Critical': 0, 'High': 1, 'Medium': 1, 'Low': 0, 'Summary': 2}, '203.150.237.2': {'Critical': 0, 'High': 1, 'Medium': 1, 'Low': 0, 'Summary': 2}, '203.150.237.3': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.4': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.5': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.6': {'Critical': 0, 'High': 0, 'Medium': 0,
-# 'Low': 0, 'Summary': 0}, '203.150.237.7': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}}, 'B': {'203.150.237.10': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.11': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.12': {'Critical': 0, 'High': 0, 'Medium': 2, 'Low': 0, 'Summary': 2}, '203.150.237.13': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.14': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.15': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.8': {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}, '203.150.237.9':
-# {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Summary': 0}}}

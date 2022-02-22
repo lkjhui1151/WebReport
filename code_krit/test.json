@@ -1,0 +1,136 @@
+{
+    "vulnerability": [
+        {
+            "class": "203.150.237.xxx",
+            "total": {
+                "Critical": 0,
+                "High": 0,
+                "Medium": 0,
+                "Low": 0,
+                "Sum": 0
+            },
+            "risk": [
+                {
+                    "host": "203.150.237.1",
+                    "Critical": 0,
+                    "High": 1,
+                    "Medium": 1,
+                    "Low": 0,
+                    "Sum": 2
+                },
+                {
+                    "host": "203.150.237.10",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.11",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.12",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 2,
+                    "Low": 0,
+                    "Sum": 2
+                },
+                {
+                    "host": "203.150.237.13",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.14",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.15",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.2",
+                    "Critical": 0,
+                    "High": 1,
+                    "Medium": 1,
+                    "Low": 0,
+                    "Sum": 2
+                },
+                {
+                    "host": "203.150.237.3",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.4",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.5",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.6",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.7",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.8",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                },
+                {
+                    "host": "203.150.237.9",
+                    "Critical": 0,
+                    "High": 0,
+                    "Medium": 0,
+                    "Low": 0,
+                    "Sum": 0
+                }
+            ]
+        }
+    ]
+}
