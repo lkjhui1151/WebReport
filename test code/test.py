@@ -1,19 +1,19 @@
+import csv
+import json
+from docxtpl import *
+import pandas
+import os
 
-context = {}
-context2 = {}
+doc = DocxTemplate("D:/github/WebReport/test.docx")
 
-list = ["a", "a", "a", "b", "b"]
-list2 = {"id": 1, "name": 'ssss', 'Risk': 'sss', 'detail': 5}
-list3 = []
+Content = {
+    'name': [
+        {
+            'name2': "ssss"
+        }
+    ]
+}
 
-for i in list:
-    if i in context:
-        for j in list2:
-            context[i] = list2
-    else:
-        for j in list2:
-            context[i] = list2
-
-context2["Cloud"] = context
-
-print(context2)
+doc.render(Content)
+doc.save("generated_doc.docx")
+os.system("generated_doc.docx")
