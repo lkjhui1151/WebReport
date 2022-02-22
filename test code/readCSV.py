@@ -1,6 +1,5 @@
 import csv
 import json
-from email.headerregistry import Group
 from docxtpl import *
 import pandas
 import os
@@ -67,7 +66,8 @@ for j in Name:
                 if countCheck == GroupName[DataJSON[i]['Name']]:
                     subContent["id"] = id
                     subContent["address"] = address
-                    subContent["name"] = DataJSON[i]['Name']
+                    subContent["name"] = DataJSON[i]['Name'] + \
+                        "\n" + "- " + DataJSON[i]['Description']
                     subContent["risk"] = DataJSON[i]['Risk']
                     subContent["remask"] = DataJSON[i]['Solution']
                     if DataJSON[i]['Risk'] == "Critical":
