@@ -82,9 +82,7 @@ for j in Name:
                     id += 1
 
 Content["vulnerability"] = vulnerability
-
-print(Content)
-
+# print(Content)
 doc.render(Content)
 doc.save("generated_doc.docx")
 os.system("generated_doc.docx")
