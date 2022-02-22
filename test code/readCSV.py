@@ -38,10 +38,9 @@ GroupName = {}
 vulnerability = []
 
 countCheck = 0
-count = 0
 id = 1
 address = ""
-# print(DataJSON)
+
 Name = [DataJSON[i]["Name"] for i in DataJSON if DataJSON[i]["Risk"] != "None"]
 Name = list(dict.fromkeys(Name))
 
@@ -51,8 +50,6 @@ for i in DataJSON:
             GroupName[DataJSON[i]['Name']] += 1
         else:
             GroupName[DataJSON[i]['Name']] = 1
-
-# print(GroupName)
 
 for j in Name:
     for i in DataJSON:
@@ -67,7 +64,7 @@ for j in Name:
                     subContent["id"] = id
                     subContent["address"] = address
                     subContent["name"] = DataJSON[i]['Name'] + \
-                        "\n" + "- " + DataJSON[i]['Description']
+                        "\n" + "\n" + "- " + DataJSON[i]['Description']
                     subContent["risk"] = DataJSON[i]['Risk']
                     subContent["remask"] = DataJSON[i]['Solution']
                     if DataJSON[i]['Risk'] == "Critical":
@@ -85,6 +82,8 @@ for j in Name:
                     id += 1
 
 Content["vulnerability"] = vulnerability
+
+print(Content)
 
 doc.render(Content)
 doc.save("generated_doc.docx")
