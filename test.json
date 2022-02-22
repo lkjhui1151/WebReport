@@ -1,0 +1,22 @@
+[
+  {
+    "risk": "Critical",
+    "valune": 5,
+    "colors": "FFFFFF"
+  },
+  {
+    "risk": "High",
+    "valune": 5,
+    "colors": "FFFFFF"
+  },
+  {
+    "risk": "Medium",
+    "valune": 5,
+    "colors": "FFFFFF"
+  },
+  {
+    "risk": "Low",
+    "valune": 5,
+    "colors": "FFFFFF"
+  }
+]

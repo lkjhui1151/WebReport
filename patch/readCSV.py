@@ -21,11 +21,11 @@ def makeJson(csvFilePath, jsonFilePath):
 
 
 DataJson = open(
-    "D:/github/WebReport/test code/dataFile.json", "w")
+    "D:/github/WebReport/patch/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/test code/A2.csv'
-jsonFilePath = r'D:/github/WebReport/test code/dataFile.json'
+csvFilePath = r'D:/github/WebReport/patch/A2.csv'
+jsonFilePath = r'D:/github/WebReport/patch/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
 
