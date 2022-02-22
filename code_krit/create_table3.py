@@ -73,7 +73,9 @@ for  i in DataJSON:
                 elif DataJSON[i]['Risk'] == 'Low':
                     j['Low']+=1
                     j['Sum']+=1 
+
 class_ip = []
+[]
 for i in list_ip:
     Content_class={}
     Content_class["class"] = i  
@@ -81,7 +83,7 @@ for i in list_ip:
     list_ip_in_class = []
     for j in range_Ip:
         ip_splite2 = (j['host'].split('.'))
-        ip_subclass2 = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+".xxx"
+        ip_subclass2 = ip_splite2[0]+'.'+ip_splite2[1]+'.'+ip_splite2[2]+".xxx"
         if ip_subclass2 == i:
             list_ip_in_class.append(j)
             Content_class["total"]['Critical']+=j['Critical']
@@ -89,7 +91,7 @@ for i in list_ip:
             Content_class["total"]['Medium']+=j['Medium']
             Content_class["total"]['Low']+=j['Low']
             Content_class["total"]['Sum']+=j['Sum']
- 
+        # print(i,j)
     list_ip_in_class = sorted(list_ip_in_class, key=lambda d: (tuple(map(int, d['host'].split('.')))))
     index1=1 
     # print(items)
@@ -99,11 +101,12 @@ for i in list_ip:
 
     Content_class["risk"] = list_ip_in_class
     class_ip.append(Content_class)
+
 Content3 = {}
 
 Content3['vulnerability'] = class_ip
 
-os.remove("generated_table3.docx")
+
 doc.render(Content3)
 doc.save("generated_table3.docx")
 os.system("generated_table3.docx")
