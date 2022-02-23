@@ -38,11 +38,13 @@ Ip = list(dict.fromkeys(Ip))
 list_ip = []
 for i in Ip:
     ip_splite = (i.split('.'))
-    ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+".xxx"
+    ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+'.'+'0'
     if ip_subclass not in list_ip:
         list_ip.append(ip_subclass)
 
 list_ip = list(dict.fromkeys(list_ip))
+list_ip = sorted(list_ip, key=lambda d: (tuple(map(int, d.split('.')))))
+print(list_ip)
 
 Content_risk = {}
 range_Ip=[]
@@ -83,7 +85,7 @@ for i in list_ip:
     list_ip_in_class = []
     for j in range_Ip:
         ip_splite2 = (j['host'].split('.'))
-        ip_subclass2 = ip_splite2[0]+'.'+ip_splite2[1]+'.'+ip_splite2[2]+".xxx"
+        ip_subclass2 = ip_splite2[0]+'.'+ip_splite2[1]+'.'+ip_splite2[2]+'.'+'0'
         if ip_subclass2 == i:
             list_ip_in_class.append(j)
             Content_class["total"]['Critical']+=j['Critical']
@@ -107,7 +109,7 @@ Content3 = {}
 Content3['vulnerability'] = class_ip
 
 
-doc.render(Content3)
-doc.save("generated_table3.docx")
-os.system("generated_table3.docx")
+# doc.render(Content3)
+# doc.save("generated_table3.docx")
+# os.system("generated_table3.docx")
 
