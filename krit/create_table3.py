@@ -6,7 +6,7 @@ from docxtpl import *
 import pandas
 import os
 
-doc = DocxTemplate("D:/github/WebReport/krit/table3.docx")
+doc = DocxTemplate("D:/github/WebReport/krit/template.docx")
 
 
 def makeJson(csvFilePath, jsonFilePath):
@@ -26,7 +26,7 @@ DataJson = open(
     "D:/github/WebReport/krit/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/krit/A2.csv'
+csvFilePath = r'D:/github/WebReport/krit/merge-Cloud-Flexpod.csv'
 jsonFilePath = r'D:/github/WebReport/krit/dataFile.json'
 makeJson(csvFilePath, jsonFilePath)
 
