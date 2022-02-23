@@ -99,6 +99,9 @@ for i in list_ip:
         tuple(map(int, d['host'].split('.')))))
     index1 = 1
     # print(items)
+
+
+
     for x in list_ip_in_class:
         x['No'] = index1
         index1 += 1
@@ -111,6 +114,6 @@ Content3 = {}
 Content3['table3'] = class_ip
 
 
-doc.render(Content3)
-doc.save("D:/github/WebReport/krit/generated_table3.docx")
-os.system("D:/github/WebReport/krit/generated_table3.docx")
+# doc.render(Content3)
+# doc.save("D:/github/WebReport/krit/generated_table3.docx")
+# os.system("D:/github/WebReport/krit/generated_table3.docx")
