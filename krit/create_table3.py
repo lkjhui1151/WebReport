@@ -36,14 +36,22 @@ DataJSON = pandas.read_json(jsonFilePath)
 Ip = [DataJSON[i]["Host"] for i in DataJSON]
 Ip = list(dict.fromkeys(Ip))
 # print(Ip)
-host = 10
+
+hostConvert = []
+
+for i in Ip:
+    x = i.split('.')
+    ips = x[0]+"."+x[1]+"."+x[2]+"."+"0"
+    hostConvert.append(ips)
+
+print(hostConvert)
+
 list_ip = []
 for i in Ip:
     ip_splite = (i.split('.'))
-    ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+"."+str(host)
+    ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+"."+"x"
     if ip_subclass not in list_ip:
         list_ip.append(ip_subclass)
-        host += 10
 
 list_ip = list(dict.fromkeys(list_ip))
 
@@ -116,10 +124,10 @@ Content3 = {}
 
 # print(class_ip)
 
-Content3['vulnerability'] = class_ip
+Content3['table3'] = class_ip
 
 # print(Content3)
 
-doc.render(Content3)
-doc.save("D:/github/WebReport/krit/generated_table3.docx")
-os.system("D:/github/WebReport/krit/generated_table3.docx")
+# doc.render(Content3)
+# doc.save("D:/github/WebReport/krit/generated_table3.docx")
+# os.system("D:/github/WebReport/krit/generated_table3.docx")
