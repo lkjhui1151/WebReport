@@ -1,7 +1,9 @@
-import csv
-import json
+from matplotlib import pyplot as plt
 from docxtpl import *
+import numpy as np
 import pandas
+import json
+import csv
 import os
 
 doc = DocxTemplate("D:/github/WebReport/patch/template.docx")
@@ -34,18 +36,98 @@ DataJSON = pandas.read_json(jsonFilePath)
 subContent = {}
 Content = {}
 GroupName = {}
-
 vulnerability = []
-
 countCheck = 0
 address = ""
 addrs = ""
+countCri = 0
+countHigh = 0
+countMed = 0
+countLow = 0
+countInfo = 0
+count = 0
+context = {}
+countIP = 0
 
 Ip = [DataJSON[i]["Host"] for i in DataJSON]
 Ip = list(dict.fromkeys(Ip))
 
 Name = [DataJSON[i]["Name"] for i in DataJSON if DataJSON[i]["Risk"] != "None"]
 Name = list(dict.fromkeys(Name))
+
+for row in DataJSON:
+    if DataJSON[row]['Group'] not in context:
+        context[DataJSON[row]['Group']] = {"Name": DataJSON[row]['Group'], "device": {
+            DataJSON[row]['Host']}, "Total_IP": 0, "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Info": 0}
+    else:
+        context[DataJSON[row]['Group']]["device"].add(DataJSON[row]['Host'])
+        countIP = len(context[DataJSON[row]['Group']]["device"])
+        context[DataJSON[row]['Group']]["Total_IP"] = countIP
+    if DataJSON[row]['Group'] == "":
+        context[DataJSON[row]['Risk']]["Name"] = "etc"
+        # Count amount of critaria in each group
+    if DataJSON[row]['Risk'] == "Critical":
+        context[DataJSON[row]['Group']]["Critical"] += 1
+    if DataJSON[row]['Risk'] == "High":
+        context[DataJSON[row]['Group']]["High"] += 1
+    if DataJSON[row]['Risk'] == "Medium":
+        context[DataJSON[row]['Group']]["Medium"] += 1
+    if DataJSON[row]['Risk'] == "Low":
+        context[DataJSON[row]['Group']]["Low"] += 1
+    if DataJSON[row]['Risk'] == "None":
+        context[DataJSON[row]['Group']]["Info"] += 1
+
+l = list(context.values())
+
+totalS = (sum([d['Total_IP'] for d in l]))
+CriticalS = (sum([d['Critical'] for d in l]))
+HighS = (sum([d['High'] for d in l]))
+MediumS = (sum([d['Medium'] for d in l]))
+LowS = (sum([d['Low'] for d in l]))
+InfoS = (sum([d['Info'] for d in l]))
+Amount = CriticalS+HighS+MediumS+LowS
+dictS = {"Total_IP": totalS, "Critical": CriticalS,
+         "High": HighS, "Medium": MediumS, "Low": LowS, "Info": InfoS}
+percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
+    HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
+# Final JSON output
+l2 = {"Group": l, "Summary": dictS, "Percent": percent}
+
+
+array = [
+    {
+        "risk": "Critical",
+        "value": l2["Summary"]["Critical"],
+        "colors": "#C20909"
+    },
+    {
+        "risk": "High",
+        "value": l2["Summary"]["High"],
+        "colors": "#F09D1A"
+    },
+    {
+        "risk": "Medium",
+        "value": l2["Summary"]["Medium"],
+        "colors": "#FFD80C"
+    },
+    {
+        "risk": "Low",
+        "value": l2["Summary"]["Critical"],
+        "colors": "#23B800"
+    }
+]
+
+
+plt.pie([i["value"] for i in array], autopct=lambda p: '{:1.0f}%'.format(
+    round(p)) if p > 0 else '', colors=[i["colors"] for i in array])
+plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
+plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
+               fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
+
+plt.savefig("D:/github/WebReport/max/Overview_Graph.png")
+
+doc.replace_media("D:/github/WebReport/max/1.png",
+                  "D:/github/WebReport/max/Overview_Graph.png")
 
 for i in DataJSON:
     if DataJSON[i]['Risk'] != 'None':
@@ -185,11 +267,11 @@ for i in range(len(vulnerability)):
     if vulnerability[i]['risk'] == 1:
         vulnerability[i]['risk'] = "Low"
 
+Content["table1"] = l2
 Content["table2"] = vulnerability
 Content["table3"] = class_ip
-# print(Content)
-# doc.replace_media("D:/github/WebReport/patch/1.png",
-#                   "D:/github/WebReport/patch/2.jpg")
+
+# print(Content['table1']["Summary"])
 doc.render(Content)
 doc.save("D:/github/WebReport/patch/generated_doc.docx")
 os.system("D:/github/WebReport/patch/generated_doc.docx")
