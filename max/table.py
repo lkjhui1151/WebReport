@@ -1,4 +1,5 @@
 import csv
+from unittest import result
 from docxtpl import *
 import os
 from matplotlib import pyplot as plt
@@ -43,11 +44,15 @@ makeJson(csvFilePath, jsonFilePath)
 DataJSON = pandas.read_json(jsonFilePath)
 
 for row in DataJSON:
+    host = DataJSON[row]['Group'].split(".")
+    # host = list(dict.fromkeys(host))
+    host = host[0]+"."+host[1]+"."+host[2]+"."+"0"
     if DataJSON[row]['Group'] not in context:
-        context[DataJSON[row]['Group']] = {"Name": DataJSON[row]['Group'], "device": {
+        context[DataJSON[row]['Group']] = {"Name": host, "device": {
             DataJSON[row]['Host']}, "Total_IP": 0, "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Info": 0}
     else:
         context[DataJSON[row]['Group']]["device"].add(DataJSON[row]['Host'])
+
         countIP = len(context[DataJSON[row]['Group']]["device"])
         context[DataJSON[row]['Group']]["Total_IP"] = countIP
     if DataJSON[row]['Group'] == "":
@@ -78,30 +83,71 @@ dictS = {"Total_IP": totalS, "Critical": CriticalS,
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
     HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
 # Final JSON output
-l2 = {"Group": l, "Summary": dictS, "Percent": percent}
-print(l2["Summary"]["High"])
+l = sorted(l, key=lambda d: (
+    tuple(map(int, d['Name'].split('.')))))
+
+groupList = {}
+
+for i in l:
+    if i["Name"] in groupList:
+        groupList[i["Name"]] += 1
+    else:
+        groupList[i["Name"]] = 1
+key_list = list(groupList.keys())
+# print(key_list)
+GroupNew = {"Total_IP": 0, "Critical": 0,
+            "High": 0, "Medium": 0, "Low": 0, "Info": 0}
+totalIP = 0
+count = 0
+countCH = 0
+
+resultALL = []
+ListIP = []
+ListIP = []
+for i in l:
+    if i["Name"] == key_list[count]:
+        GroupNew["Total_IP"] += int(i["Total_IP"])
+        GroupNew["Critical"] += int(i["Critical"])
+        GroupNew["High"] += int(i["High"])
+        GroupNew["Medium"] += int(i["Medium"])
+        GroupNew["Low"] += int(i["Low"])
+        GroupNew["Info"] += int(i["Info"])
+        ListIP.append(i["device"])
+        countCH += 1
+        if countCH >= groupList[i["Name"]]:
+            GroupNew["Name"] = i["Name"]
+            GroupNew["Device"] = ListIP
+            resultALL.append(GroupNew)
+            ListIP = []
+            GroupNew = {"Total_IP": 0, "Critical": 0,
+                        "High": 0, "Medium": 0, "Low": 0, "Info": 0}
+            countCH = 0
+            count += 1
+count = 0
+
+l2 = {"table1": {"Group": resultALL, "Summary": dictS, "Percent": percent}}
 
 doc.render(l2)
 
 array = [
     {
         "risk": "Critical",
-        "value": l2["Summary"]["Critical"],
+        "value": l2["table1"]["Summary"]["Critical"],
         "colors": "#C20909"
     },
     {
         "risk": "High",
-        "value": l2["Summary"]["High"],
+        "value": l2["table1"]["Summary"]["High"],
         "colors": "#F09D1A"
     },
     {
         "risk": "Medium",
-        "value": l2["Summary"]["Medium"],
+        "value": l2["table1"]["Summary"]["Medium"],
         "colors": "#FFD80C"
     },
     {
         "risk": "Low",
-        "value": l2["Summary"]["Critical"],
+        "value": l2["table1"]["Summary"]["Critical"],
         "colors": "#23B800"
     }
 ]
