@@ -23,11 +23,11 @@ def makeJson(csvFilePath, jsonFilePath):
 
 
 DataJson = open(
-    "./table3.json", "w")
+    "D:/github/WebReport/krit/dataFile.json", "w")
 DataJson.close()
 
 csvFilePath = r'D:/github/WebReport/krit/A2.csv'
-jsonFilePath = r'./table3.json'
+jsonFilePath = r'D:/github/WebReport/krit/dataFile.json'
 makeJson(csvFilePath, jsonFilePath)
 
 
@@ -36,15 +36,18 @@ DataJSON = pandas.read_json(jsonFilePath)
 Ip = [DataJSON[i]["Host"] for i in DataJSON]
 Ip = list(dict.fromkeys(Ip))
 # print(Ip)
-
+host = 10
 list_ip = []
 for i in Ip:
     ip_splite = (i.split('.'))
-    ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+".xxx"
+    ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+"."+str(host)
     if ip_subclass not in list_ip:
         list_ip.append(ip_subclass)
+        host += 10
 
 list_ip = list(dict.fromkeys(list_ip))
+
+# print(list_ip)
 
 Content_risk = {}
 range_Ip = []
@@ -75,7 +78,9 @@ for i in DataJSON:
                 elif DataJSON[i]['Risk'] == 'Low':
                     j['Low'] += 1
                     j['Sum'] += 1
+
 class_ip = []
+host = 10
 for i in list_ip:
     Content_class = {}
     Content_class["class"] = i
@@ -84,15 +89,17 @@ for i in list_ip:
     list_ip_in_class = []
     for j in range_Ip:
         ip_splite2 = (j['host'].split('.'))
-        ip_subclass2 = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+".xxx"
-        if ip_subclass2 == i:
-            list_ip_in_class.append(j)
-            Content_class["total"]['Critical'] += j['Critical']
-            Content_class["total"]['High'] += j['High']
-            Content_class["total"]['Medium'] += j['Medium']
-            Content_class["total"]['Low'] += j['Low']
-            Content_class["total"]['Sum'] += j['Sum']
-
+        ip_subclass2 = ip_splite2[0]+'.' + \
+            ip_splite2[1]+'.'+ip_splite2[2]+"."+str(host)
+        # if ip_subclass2 == i:
+        list_ip_in_class.append(j)
+        Content_class["total"]['Critical'] += j['Critical']
+        Content_class["total"]['High'] += j['High']
+        Content_class["total"]['Medium'] += j['Medium']
+        Content_class["total"]['Low'] += j['Low']
+        Content_class["total"]['Sum'] += j['Sum']
+        host += 10
+        # print(i,j)
     list_ip_in_class = sorted(list_ip_in_class, key=lambda d: (
         tuple(map(int, d['host'].split('.')))))
     index1 = 1
@@ -101,12 +108,25 @@ for i in list_ip:
         x['No'] = index1
         index1 += 1
 
+    # print(list_ip_in_class)
     Content_class["risk"] = list_ip_in_class
     class_ip.append(Content_class)
+
 Content3 = {}
+
+# print(class_ip)
 
 Content3['vulnerability'] = class_ip
 
+
+# print(Content3)
+
+# for i in Content3["vulnerability"]:
+#     for j in i['class']:
+#         print(j)
+    #     print()
+
+
 doc.render(Content3)
-doc.save("generated_table3.docx")
-os.system("generated_table3.docx")
+doc.save("D:/github/WebReport/krit/generated_table3.docx")
+os.system("D:/github/WebReport/krit/generated_table3.docx")
