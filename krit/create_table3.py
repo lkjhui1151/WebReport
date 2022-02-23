@@ -118,14 +118,7 @@ Content3 = {}
 
 Content3['vulnerability'] = class_ip
 
-
 # print(Content3)
-
-# for i in Content3["vulnerability"]:
-#     for j in i['class']:
-#         print(j)
-    #     print()
-
 
 doc.render(Content3)
 doc.save("D:/github/WebReport/krit/generated_table3.docx")

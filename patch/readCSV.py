@@ -4,7 +4,7 @@ from docxtpl import *
 import pandas
 import os
 
-doc = DocxTemplate("D:/github/WebReport/table2.docx")
+doc = DocxTemplate("D:/github/WebReport/patch/table2.docx")
 
 
 def makeJson(csvFilePath, jsonFilePath):
@@ -84,5 +84,5 @@ for j in Name:
 Content["vulnerability"] = vulnerability
 # print(Content)
 doc.render(Content)
-doc.save("generated_doc.docx")
-os.system("generated_doc.docx")
+doc.save("D:/github/WebReport/patch/generated_doc.docx")
+os.system("D:/github/WebReport/patch/generated_doc.docx")
