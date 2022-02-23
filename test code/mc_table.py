@@ -81,7 +81,7 @@ LowS = (sum([d['Low'] for d in l]))
 InfoS = (sum([d['Info'] for d in l]))
 Amount = CriticalS+HighS+MediumS+LowS
 dictS = {"Total_IP": totalS, "Critical":CriticalS, "High":HighS, "Medium": MediumS, "Low":LowS, "Info": InfoS}
-percent = {"Critical":'%.2f' %(CriticalS*100/Amount), "High":'%.2f' %(HighS*100/Amount), "Medium": '%.2f' %(MediumS*100/Amount), "Low":'%.2f' %(LowS*100/Amount)}
+percent = {"Critical":'%1.0f' %(CriticalS*100/Amount), "High": '%1.0f' %(HighS*100/Amount), "Medium": '%1.0f' %(MediumS*100/Amount), "Low":'%1.0f' %(LowS*100/Amount)}
 # Final JSON output
 l2 = {"Group":l, "Summary":dictS, "Percent":percent}
 print(l2["Summary"]["High"])
@@ -129,9 +129,10 @@ array = [
 ]
 
 
-plt.pie([i["value"] for i in array], labels=[i["risk"] for i in array], labeldistance=1.15, autopct= lambda p: '{:.1f}%'.format(round(p)) if p > 0 else '' , colors=[i["colors"] for i in array])
+plt.pie([i["value"] for i in array], autopct= lambda p: '{:1.0f}%'.format(round(p)) if p > 0 else '' , colors=[i["colors"] for i in array])
+plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
-               fancybox=True, shadow=True, ncol=4)
-plt.show()
-#plt.savefig("D:/github/WebReport/backend/api/image/Graph.png")
+               fancybox=True, shadow=True, ncol=4 ,labels=[i["risk"] for i in array])
+#plt.show()
+plt.savefig("E:/INETMS/doc/Auto gen report/VA ISO/WebReport/test code/Overview_Graph.png")
 
