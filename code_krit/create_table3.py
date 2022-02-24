@@ -1,6 +1,7 @@
 import csv
 from importlib.resources import contents
 import json
+from tokenize import group
 from turtle import home
 from docxtpl import *
 import pandas
@@ -24,31 +25,39 @@ DataJson = open(
     "./table3.json", "w")
 DataJson.close()
 
-csvFilePath = r'./A2.csv'
+csvFilePath = r'./All Dell cloud.csv'
 jsonFilePath = r'./table3.json'
 makeJson(csvFilePath, jsonFilePath)
 
 
 DataJSON = pandas.read_json(jsonFilePath)
+Ip=[]
+Group=[]
+for i in DataJSON:
+    Ip.append(DataJSON[i]["Host"])
+    Group.append(DataJSON[i]["Group"])
 
-Ip = [DataJSON[i]["Host"] for i in DataJSON ]
 Ip = list(dict.fromkeys(Ip))
-# print(Ip)
+Ip = sorted(Ip, key=lambda d: (tuple(map(int, d.split('.')))))
+Group =list(dict.fromkeys(Group))
 
-list_ip = []
+list_range_ip = []
 for i in Ip:
     ip_splite = (i.split('.'))
     ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+'.'+'0'
-    if ip_subclass not in list_ip:
-        list_ip.append(ip_subclass)
+    if ip_subclass not in list_range_ip:
+        list_range_ip.append(ip_subclass)
 
-list_ip = list(dict.fromkeys(list_ip))
-list_ip = sorted(list_ip, key=lambda d: (tuple(map(int, d.split('.')))))
-print(list_ip)
+list_range_ip = list(dict.fromkeys(list_range_ip))
+# list_range_ip = sorted(list_range_ip, key=lambda d: (tuple(map(int, d.split('.')))))
+# print(list_range_ip)
 
 Content_risk = {}
 range_Ip=[]
 for i in Ip:
+    ip_splite = (i.split('.'))
+    ip_subclass = ip_splite[0]+'.'+ip_splite[1]+'.'+ip_splite[2]+'.'+'0'
+    Content_risk["class"] = ip_subclass
     Content_risk["host"] = i
     Content_risk["Critical"]=0
     Content_risk["High"]=0
@@ -57,6 +66,8 @@ for i in Ip:
     Content_risk["Sum"]=0
     range_Ip.append(Content_risk)
     Content_risk={} 
+
+dict_group_ip = {}
 
 
 for  i in DataJSON:
@@ -75,41 +86,57 @@ for  i in DataJSON:
                 elif DataJSON[i]['Risk'] == 'Low':
                     j['Low']+=1
                     j['Sum']+=1 
+for x in Group:
+    list_group_ip = []
+    for  i in DataJSON:
+        if DataJSON[i]['Group'] == x:
+            list_group_ip.append(DataJSON[i]['Host'])
+            list_group_ip = list(dict.fromkeys(list_group_ip))
+            dict_group_ip[x] = list_group_ip
+print(range_Ip)
+# print(list_range_ip)
 
-class_ip = []
-[]
-for i in list_ip:
-    Content_class={}
-    Content_class["class"] = i  
-    Content_class["total"] = {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Sum': 0}
-    list_ip_in_class = []
-    for j in range_Ip:
-        ip_splite2 = (j['host'].split('.'))
-        ip_subclass2 = ip_splite2[0]+'.'+ip_splite2[1]+'.'+ip_splite2[2]+'.'+'0'
-        if ip_subclass2 == i:
-            list_ip_in_class.append(j)
-            Content_class["total"]['Critical']+=j['Critical']
-            Content_class["total"]['High']+=j['High']
-            Content_class["total"]['Medium']+=j['Medium']
-            Content_class["total"]['Low']+=j['Low']
-            Content_class["total"]['Sum']+=j['Sum']
-        # print(i,j)
-    list_ip_in_class = sorted(list_ip_in_class, key=lambda d: (tuple(map(int, d['host'].split('.')))))
-    index1=1 
-    # print(items)
-    for x in list_ip_in_class:
-        x['No']= index1
-        index1+=1
 
-    Content_class["risk"] = list_ip_in_class
-    class_ip.append(Content_class)
-
+class_ip=[]
+for group_key,group_value_listIP in dict_group_ip.items():
+    Content_group = {}
+    Content_group["group"] = group_key
+    list_class= []
+    for class_ in list_range_ip:
+        Content_class= {}
+        Content_class['class'] = class_
+        Content_class['total'] = {'Critical': 0, 'High': 0, 'Medium': 0, 'Low': 0, 'Sum': 0}
+        list_range_ip_in_class = []
+        for ip in range_Ip:
+            if ip['host'] in group_value_listIP:
+                if ip['class'] == class_:
+                    # print(class_,ip)
+                    list_range_ip_in_class.append(ip)
+                    Content_class['total']['Critical']+=ip['Critical']
+                    Content_class['total']['High']+=ip['High']
+                    Content_class['total']['Medium']+=ip['Medium']
+                    Content_class['total']['Low']+=ip['Low']
+                    Content_class['total']['Sum']+=ip['Sum']
+#                 # print(list_range_ip_in_class,"\n")
+        
+#         list_range_ip_in_class = sorted(list_range_ip_in_class, key=lambda d: (tuple(map(int, d['host'].split('.')))))
+        index1 = 1 
+        for x in list_range_ip_in_class:
+            x['No']= index1
+            index1+=1
+        Content_class['risk'] = list_range_ip_in_class
+        
+        if list_range_ip_in_class:
+            list_class.append(Content_class)
+            Content_group["mega_class"]=list_class
+    
+    class_ip.append(Content_group)
 Content3 = {}
-
 Content3['vulnerability'] = class_ip
+# 
+# print(Content3)
 
-
-# doc.render(Content3)
-# doc.save("generated_table3.docx")
-# os.system("generated_table3.docx")
+doc.render(Content3)
+doc.save("generated_table3.docx")
+os.system("generated_table3.docx")
 
