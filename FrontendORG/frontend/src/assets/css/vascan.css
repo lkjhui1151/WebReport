@@ -1,0 +1,84 @@
+.row {
+  margin-top: 5%;
+  position: relative;
+}
+
+.col-9 {
+  margin: auto;
+}
+
+.col-3 {
+  margin: auto;
+}
+
+.form-upload {
+  border-radius: 5px 5px 5px 5px;
+  background-color: rgb(94, 94, 94);
+  margin: 15px;
+  padding: 10px;
+}
+
+.form-upload h1 {
+  text-align: center;
+}
+
+.form-upload button {
+  width: 25%;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  color: rgb(255, 255, 255);
+  float: right;
+  font-size: 15px;
+}
+
+.form-table {
+  border-radius: 5px 5px 5px 5px;
+  background-color: rgb(94, 94, 94);
+  margin: 15px;
+  padding: 10px;
+}
+
+.form-table button {
+  width: 25%;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+  color: aliceblue;
+  font-size: 15px;
+}
+
+.download {
+  background-color: rgb(53, 140, 253);
+}
+
+.delete {
+  background-color: rgb(253, 53, 53);
+}
+
+.upload {
+  background-color: rgb(32, 255, 144);
+}
+
+.form-table th {
+  text-align: center;
+}
+
+.horizontal-menu li {
+  display: inline-block;
+  background-color: rgb(92, 92, 92);
+  margin-left: 20px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+.horizontal-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 16px;
+  display: block;
+}
+
+li:active {
+  border-radius: 5px 5px 5px 5px;
+  background-color: #2fff28;
+}
