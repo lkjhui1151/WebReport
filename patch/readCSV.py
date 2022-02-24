@@ -136,7 +136,7 @@ for i in l:
             count += 1
 count = 0
 
-print(resultALL)
+# print(resultALL)
 l2 = {"Group": resultALL, "Summary": dictS, "Percent": percent}
 
 
@@ -170,10 +170,6 @@ plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
                fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
 
-plt.savefig("D:/github/WebReport/max/Overview_Graph.png")
-
-doc.replace_media("D:/github/WebReport/max/1.png",
-                  "D:/github/WebReport/max/Overview_Graph.png")
 
 for i in DataJSON:
     if DataJSON[i]['Risk'] != 'None':
@@ -313,11 +309,15 @@ for i in range(len(vulnerability)):
     if vulnerability[i]['risk'] == 1:
         vulnerability[i]['risk'] = "Low"
 
+plt.savefig("D:/github/WebReport/patch/Overview_Graph.png")
+
+doc.replace_media("D:/github/WebReport/patch/1.png",
+                  "D:/github/WebReport/patch/Overview_Graph.png")
+
 Content["table1"] = l2
 Content["table2"] = vulnerability
 Content["table3"] = class_ip
 
-# print(Content['table1']["Summary"])
 doc.render(Content)
 doc.save("D:/github/WebReport/patch/generated_doc.docx")
 os.system("D:/github/WebReport/patch/generated_doc.docx")
