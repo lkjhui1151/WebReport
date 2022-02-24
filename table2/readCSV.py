@@ -6,7 +6,7 @@ import json
 import csv
 import os
 
-doc = DocxTemplate("D:/github/WebReport/patch/template.docx")
+doc = DocxTemplate("D:/github/WebReport/table2/template.docx")
 
 
 def makeJson(csvFilePath, jsonFilePath):
@@ -22,12 +22,11 @@ def makeJson(csvFilePath, jsonFilePath):
         jsonf.write(json.dumps(data, indent=4))
 
 
-DataJson = open(
-    "D:/github/WebReport/patch/dataFile.json", "w")
+DataJson = open("D:/github/WebReport/table2/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/patch/merge-Cloud-Flexpod.csv'
-jsonFilePath = r'D:/github/WebReport/patch/dataFile.json'
+csvFilePath = r'D:/github/WebReport/table2/All Dell cloud.csv'
+jsonFilePath = r'D:/github/WebReport/table2/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
 
@@ -56,11 +55,11 @@ Name = [DataJSON[i]["Name"] for i in DataJSON if DataJSON[i]["Risk"] != "None"]
 Name = list(dict.fromkeys(Name))
 
 for row in DataJSON:
-    host = DataJSON[row]['Group'].split(".")
+    # host = DataJSON[row]['Group'].split(".")
     # host = list(dict.fromkeys(host))
-    host = host[0]+"."+host[1]+"."+host[2]+"."+"0"
+    # host = host[0]+"."+host[1]+"."+host[2]+"."+"0"
     if DataJSON[row]['Group'] not in context:
-        context[DataJSON[row]['Group']] = {"Name": host, "device": {
+        context[DataJSON[row]['Group']] = {"Name": DataJSON[row]['Group'], "device": {
             DataJSON[row]['Host']}, "Total_IP": 0, "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Info": 0}
     else:
         context[DataJSON[row]['Group']]["device"].add(DataJSON[row]['Host'])
@@ -94,8 +93,8 @@ dictS = {"Total_IP": totalS, "Critical": CriticalS,
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
     HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
 
-l = sorted(l, key=lambda d: (
-    tuple(map(int, d['Name'].split('.')))))
+# l = sorted(l, key=lambda d: (
+#     tuple(map(int, d['Name'].split('.')))))
 
 groupList = {}
 
@@ -309,15 +308,15 @@ for i in range(len(vulnerability)):
     if vulnerability[i]['risk'] == 1:
         vulnerability[i]['risk'] = "Low"
 
-plt.savefig("D:/github/WebReport/patch/Overview_Graph.png")
+plt.savefig("D:/github/WebReport/table2/Overview_Graph.png")
 
-doc.replace_media("D:/github/WebReport/patch/1.png",
-                  "D:/github/WebReport/patch/Overview_Graph.png")
+doc.replace_media("D:/github/WebReport/table2/1.png",
+                  "D:/github/WebReport/table2/Overview_Graph.png")
 
 Content["table1"] = l2
 Content["table2"] = vulnerability
 Content["table3"] = class_ip
 
 doc.render(Content)
-doc.save("D:/github/WebReport/patch/generated_doc.docx")
-os.system("D:/github/WebReport/patch/generated_doc.docx")
+doc.save("D:/github/WebReport/table2/generated_doc.docx")
+os.system("D:/github/WebReport/table2/generated_doc.docx")

@@ -7,7 +7,7 @@ import numpy as np
 import json
 import pandas
 
-doc = DocxTemplate("D:/github/WebReport/max/template.docx")
+doc = DocxTemplate("D:/github/WebReport/table1/template.docx")
 
 countCri = 0
 countHigh = 0
@@ -33,41 +33,64 @@ def makeJson(csvFilePath, jsonFilePath):
 
 
 DataJson = open(
-    "D:/github/WebReport/max/dataFile.json", "w")
+    "D:/github/WebReport/table1/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/max/merge-Cloud-Flexpod.csv'
-jsonFilePath = r'D:/github/WebReport/max/dataFile.json'
+csvFilePath = r'D:/github/WebReport/table1/All Dell cloud.csv'
+jsonFilePath = r'D:/github/WebReport/table1/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
 
 DataJSON = pandas.read_json(jsonFilePath)
 
-for row in DataJSON:
-    host = DataJSON[row]['Group'].split(".")
-    # host = list(dict.fromkeys(host))
-    host = host[0]+"."+host[1]+"."+host[2]+"."+"0"
-    if DataJSON[row]['Group'] not in context:
-        context[DataJSON[row]['Group']] = {"Name": host, "device": {
-            DataJSON[row]['Host']}, "Total_IP": 0, "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Info": 0}
-    else:
-        context[DataJSON[row]['Group']]["device"].add(DataJSON[row]['Host'])
+GroupName1 = {}
+GroupName2 = []
 
-        countIP = len(context[DataJSON[row]['Group']]["device"])
-        context[DataJSON[row]['Group']]["Total_IP"] = countIP
-    if DataJSON[row]['Group'] == "":
-        context[DataJSON[row]['Risk']]["Name"] = "etc"
+# Create New Data Source
+for row in DataJSON:
+    GroupName1["Risk"] = DataJSON[row]["Risk"]
+    GroupName1["Host"] = DataJSON[row]["Host"]
+    GroupName1["Name"] = DataJSON[row]["Name"]
+    GroupName1["Group"] = DataJSON[row]["Group"]
+    GroupName2.append(GroupName1)
+    GroupName1 = {}
+
+# Remove Data is duplicate
+results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
+
+# Mean for loop
+# seen = set()
+# new_l = []
+# for d in GroupName2:
+#     t = tuple(d.items())
+#     if t not in seen:
+#         seen.add(t)
+#         new_l.append(d)
+
+for row in results:
+    if row['Group'] not in context:
+        context[row['Group']] = {"Name": row['Group'], "device": {
+            row['Host']}, "Total_IP": 0, "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Info": 0}
+    else:
+        context[row['Group']]["device"].add(row['Host'])
+
+        countIP = len(context[row['Group']]["device"])
+        context[row['Group']]["Total_IP"] = countIP
+    if row['Group'] == "":
+        context[row['Risk']]["Name"] = "etc"
         # Count amount of critaria in each group
-    if DataJSON[row]['Risk'] == "Critical":
-        context[DataJSON[row]['Group']]["Critical"] += 1
-    if DataJSON[row]['Risk'] == "High":
-        context[DataJSON[row]['Group']]["High"] += 1
-    if DataJSON[row]['Risk'] == "Medium":
-        context[DataJSON[row]['Group']]["Medium"] += 1
-    if DataJSON[row]['Risk'] == "Low":
-        context[DataJSON[row]['Group']]["Low"] += 1
-    if DataJSON[row]['Risk'] == "None":
-        context[DataJSON[row]['Group']]["Info"] += 1
+    if row['Risk'] == "Critical":
+        context[row['Group']]["Critical"] += 1
+    if row['Risk'] == "High":
+        context[row['Group']]["High"] += 1
+    if row['Risk'] == "Medium":
+        context[row['Group']]["Medium"] += 1
+    if row['Risk'] == "Low":
+        context[row['Group']]["Low"] += 1
+    if row['Risk'] == "None":
+        context[row['Group']]["Info"] += 1
+
+# print(context)
 
 l = list(context.values())
 
@@ -82,9 +105,10 @@ dictS = {"Total_IP": totalS, "Critical": CriticalS,
          "High": HighS, "Medium": MediumS, "Low": LowS, "Info": InfoS}
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
     HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
+
 # Final JSON output
-l = sorted(l, key=lambda d: (
-    tuple(map(int, d['Name'].split('.')))))
+# l = sorted(l, key=lambda d: (
+#     tuple(map(int, d['Name'].split('.')))))
 
 groupList = {}
 
@@ -159,10 +183,10 @@ plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
                fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
 
-plt.savefig("D:/github/WebReport/max/Overview_Graph.png")
+plt.savefig("D:/github/WebReport/table1/Overview_Graph.png")
 
-doc.replace_media("D:/github/WebReport/max/1.png",
-                  "D:/github/WebReport/max/Overview_Graph.png")
+doc.replace_media("D:/github/WebReport/table1/1.png",
+                  "D:/github/WebReport/table1/Overview_Graph.png")
 
-doc.save("D:/github/WebReport/max/generated_doc.docx")
-os.system("D:/github/WebReport/max/generated_doc.docx")
+doc.save("D:/github/WebReport/table1/generated_doc.docx")
+os.system("D:/github/WebReport/table1/generated_doc.docx")
