@@ -6,9 +6,17 @@ import json
 import csv
 import os
 import datetime
+from pythainlp.util import thai_strftime
 
 today = datetime.date.today()
 yearBE = today.year + 543
+now = datetime.datetime.now()
+
+year = now.year
+day = now.strftime("%d")
+month = now.strftime("%m")
+
+date = datetime.datetime(year, int(month), int(day))
 
 doc = DocxTemplate("D:/github/WebReport/backend/api/sources/template.docx")
 
@@ -356,7 +364,12 @@ Content["table1"] = l2
 Content["table2"] = vulnerability
 Content["table3"] = class_ip
 Content["year"] = yearBE
-Content["date"] = yearBE
+Content["dateformate"] = thai_strftime(date, "%d %B %Y")
+
+name = csvFilePath.split("/")
+name = name[-1].split(".csv")
+
+Content["fileName"] = name[0]
 
 doc.render(Content)
 doc.save("D:/github/WebReport/backend/api/sources/generated_doc.docx")
