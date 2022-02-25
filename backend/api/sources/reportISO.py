@@ -38,7 +38,7 @@ DataJson = open(
     "D:/github/WebReport/backend/api/sources/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/backend/api/sources/All Dell cloud.csv'
+csvFilePath = r'D:/github/WebReport/backend/api/sources/All HealthCare Cloud.csv'
 jsonFilePath = r'D:/github/WebReport/backend/api/sources/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
@@ -302,7 +302,6 @@ for i in l:
             count += 1
 count = 0
 
-# print(resultALL)
 l2 = {"Group": resultALL, "Summary": dictS, "Percent": percent}
 
 
