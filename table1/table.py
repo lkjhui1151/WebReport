@@ -58,6 +58,7 @@ for row in DataJSON:
 # Remove Data is duplicate
 results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
 
+print(results)
 # Mean for loop
 # seen = set()
 # new_l = []

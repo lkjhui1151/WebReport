@@ -38,7 +38,7 @@ DataJson = open(
     "D:/github/WebReport/backend/api/sources/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/backend/api/sources/All HealthCare Cloud.csv'
+csvFilePath = r'D:/github/WebReport/backend/api/sources/Nutanix Cloud.csv'
 jsonFilePath = r'D:/github/WebReport/backend/api/sources/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
@@ -370,6 +370,8 @@ name = name[-1].split(".csv")
 
 Content["fileName"] = name[0]
 
+# print(name[0])
+
 doc.render(Content)
-doc.save("D:/github/WebReport/backend/api/sources/generated_doc.docx")
-os.system("D:/github/WebReport/backend/api/sources/generated_doc.docx")
+doc.save("D:/github/WebReport/backend/api/sources/"+name[0]+".docx")
+# os.system("D:/github/WebReport/backend/api/sources/"+name[0]+".docx")

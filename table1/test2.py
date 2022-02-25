@@ -23,6 +23,7 @@ data = [
 ]
 
 # data = [dict(t) for t in {tuple(d.items()) for d in data}]
+
 seen = set()
 new_l = []
 for d in data:
