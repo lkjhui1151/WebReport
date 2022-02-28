@@ -1,6 +1,7 @@
 import csv
 from importlib.resources import contents
 import json
+from operator import index
 from tokenize import group
 from turtle import home
 from docxtpl import *
@@ -60,13 +61,16 @@ for key,value in dict_ip_portopen.items():
     
 # print(dict_ip_portopen)
 list_all_ip_port=[]
+index=1 
 for key,value in dict_ip_portopen.items():
     ip_port_={}
+    ip_port_['No']=index
     ip_port_['host']= key
     ip_port_['TCP']=value['TCP']
     ip_port_['UDP']=value['UDP'] 
     list_all_ip_port.append(ip_port_)
-    print(ip_port_)
+    index+=1
+    # print(ip_port_)
 # -----------------------------------------------------------------------------------------------------------
 contents={}
 contents['contents_ip']=list_all_ip_port
