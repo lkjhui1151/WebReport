@@ -18,7 +18,7 @@ countIP =0
 
 
 
-with open('E:/INETMS/doc/Auto gen report/VA ISO/WebReport/test code/A2.csv', encoding="utf8") as f:
+with open('E:/INETMS/doc/Auto gen report/VA ISO/WebReport/test code/All_Dell_Cloud.csv', encoding="utf8") as f:
     reader = csv.DictReader(f, delimiter=',')
     for row in reader:
             if row['Group'] not in context:
@@ -42,7 +42,7 @@ with open('E:/INETMS/doc/Auto gen report/VA ISO/WebReport/test code/A2.csv', enc
                 context[row['Group']]["Low"]+=1
             elif row['Risk'] == "None":
                 context[row['Group']]["Info"]+=1
-            
+    
     
 # riskColor = {
 #     'Critical': '#C20909',
