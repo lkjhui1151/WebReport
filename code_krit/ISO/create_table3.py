@@ -31,6 +31,22 @@ makeJson(csvFilePath, jsonFilePath)
 
 
 DataJSON = pandas.read_json(jsonFilePath)
+GroupName1 = {}
+GroupName2 = {}
+for row in DataJSON:
+    GroupName1["Risk"] = DataJSON[row]["Risk"]
+    GroupName1["Host"] = DataJSON[row]["Host"]
+    GroupName1["Name"] = DataJSON[row]["Name"]
+    GroupName1["Group"] = DataJSON[row]["Group"]
+    GroupName2.append(GroupName1)
+    GroupName1 = {}
+
+# Remove Data is duplicate
+results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
+
+
+
+
 Ip=[]
 Group=[]
 for i in DataJSON:
