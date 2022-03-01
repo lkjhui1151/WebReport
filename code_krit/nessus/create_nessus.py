@@ -88,8 +88,6 @@ vulnerability=[]
 subContent = {}
 countCheck = 0
 GroupName = {}
-address = ""
-addrs = ""
 
 for i in DataJSON:
     if DataJSON[i]['Risk'] != 'None':
@@ -157,7 +155,6 @@ for j in name:
                             else:
                                 ip = ip +', '+ value[index]
                         ip = ip +')'  
-                    # print(ip)
                     subContent["host"] = ip
                     subContent["port"] = port 
                     subContent["name"] = DataJSON[i]['Name']
