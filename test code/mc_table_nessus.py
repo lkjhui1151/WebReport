@@ -47,7 +47,7 @@ DataJson = open(
     "E:/INETMS/doc/Nessus_template/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'E:/INETMS/doc/Nessus_template/Unix_Cloud.csv'
+csvFilePath = r'E:/INETMS/doc/Nessus_template/sqa.csv'
 jsonFilePath = r'E:/INETMS/doc/Nessus_template/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
@@ -63,6 +63,7 @@ for row in DataJSON:
     GroupName1["Host"] = DataJSON[row]["Host"]
     GroupName1["Name"] = DataJSON[row]["Name"]
     GroupName1["Group"] = DataJSON[row]["Host"]
+    GroupName1["Port"] = DataJSON[row]["Port"]
     GroupName2.append(GroupName1)
     GroupName1 = {}
 
