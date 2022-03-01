@@ -1,3 +1,4 @@
+from msilib.schema import Error
 from matplotlib import pyplot as plt
 from docxtpl import *
 import numpy as np
@@ -18,28 +19,41 @@ month = now.strftime("%m")
 
 date = datetime.datetime(year, int(month), int(day))
 
-doc = DocxTemplate("D:/github/WebReport/backend/api/sources/template.docx")
+doc = DocxTemplate("backend/api/sources/templates/templateISO.docx")
 
 
 def makeJson(csvFilePath, jsonFilePath):
     data = {}
-    with open(csvFilePath, encoding='utf-8') as csvf:
-        csvReader = csv.DictReader(csvf)
-        key_id = 0
-        for rows in csvReader:
-            key = key_id
-            data[key] = rows
-            key_id += 1
-    with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
-        jsonf.write(json.dumps(data, indent=4))
+    try:
+        with open(csvFilePath, encoding='utf-8') as csvf:
+            csvReader = csv.DictReader(csvf)
+            key_id = 0
+            for rows in csvReader:
+                key = key_id
+                data[key] = rows
+                key_id += 1
+        with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
+            jsonf.write(json.dumps(data, indent=4))
+    except NameError as exception:
+        print(exception)
+    except:
+        with open(csvFilePath, encoding='ISO-8859-1') as csvf:
+            csvReader = csv.DictReader(csvf)
+            key_id = 0
+            for rows in csvReader:
+                key = key_id
+                data[key] = rows
+                key_id += 1
+        with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
+            jsonf.write(json.dumps(data, indent=4))
 
 
 DataJson = open(
-    "D:/github/WebReport/backend/api/sources/dataFile.json", "w")
+    "backend/api/sources/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/backend/api/sources/Nutanix Cloud.csv'
-jsonFilePath = r'D:/github/WebReport/backend/api/sources/dataFile.json'
+csvFilePath = r'backend/api/sources/iso/Network Cloud.csv'
+jsonFilePath = r'backend/api/sources/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
 
@@ -62,6 +76,19 @@ context = {}
 countIP = 0
 GroupName1 = {}
 GroupName2 = []
+
+# Create New Data Source
+for row in DataJSON:
+    GroupName1["Risk"] = DataJSON[row]["Risk"]
+    GroupName1["Host"] = DataJSON[row]["Host"]
+    GroupName1["Name"] = DataJSON[row]["Name"]
+    GroupName1["Port"] = DataJSON[row]["Port"]
+    GroupName1["Group"] = DataJSON[row]["Group"]
+    GroupName2.append(GroupName1)
+    GroupName1 = {}
+
+# Remove Data is duplicate
+results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
 
 Name = [DataJSON[i]["Name"] for i in DataJSON if DataJSON[i]["Risk"] != "None"]
 Name = list(dict.fromkeys(Name))
@@ -118,9 +145,9 @@ for j in Name:
 # ******************************************* Krit *******************************
 Ip = []
 Group = []
-for i in DataJSON:
-    Ip.append(DataJSON[i]["Host"])
-    Group.append(DataJSON[i]["Group"])
+for i in results:
+    Ip.append(i["Host"])
+    Group.append(i["Group"])
 
 Ip = list(dict.fromkeys(Ip))
 Ip = sorted(Ip, key=lambda d: (tuple(map(int, d.split('.')))))
@@ -153,28 +180,28 @@ for i in Ip:
 
 dict_group_ip = {}
 
-for i in DataJSON:
-    if DataJSON[i]['Host'] != 'None':
+for i in results:
+    if i['Host'] != 'None':
         for j in range_Ip:
-            if j['host'] == DataJSON[i]['Host']:
-                if DataJSON[i]['Risk'] == 'Critical':
+            if j['host'] == i['Host']:
+                if i['Risk'] == 'Critical':
                     j['Critical'] += 1
                     j['Sum'] += 1
-                elif DataJSON[i]['Risk'] == 'High':
+                elif i['Risk'] == 'High':
                     j['High'] += 1
                     j['Sum'] += 1
-                elif DataJSON[i]['Risk'] == 'Medium':
+                elif i['Risk'] == 'Medium':
                     j['Medium'] += 1
                     j['Sum'] += 1
-                elif DataJSON[i]['Risk'] == 'Low':
+                elif i['Risk'] == 'Low':
                     j['Low'] += 1
                     j['Sum'] += 1
 
 for x in Group:
     list_group_ip = []
-    for i in DataJSON:
-        if DataJSON[i]['Group'] == x:
-            list_group_ip.append(DataJSON[i]['Host'])
+    for i in results:
+        if i['Group'] == x:
+            list_group_ip.append(i['Host'])
             list_group_ip = list(dict.fromkeys(list_group_ip))
             dict_group_ip[x] = list_group_ip
 
@@ -213,17 +240,6 @@ for group_key, group_value_listIP in dict_group_ip.items():
     class_ip.append(Content_group)
 
 # ***************************************** MAC *********************************
-# Create New Data Source
-for row in DataJSON:
-    GroupName1["Risk"] = DataJSON[row]["Risk"]
-    GroupName1["Host"] = DataJSON[row]["Host"]
-    GroupName1["Name"] = DataJSON[row]["Name"]
-    GroupName1["Group"] = DataJSON[row]["Group"]
-    GroupName2.append(GroupName1)
-    GroupName1 = {}
-
-# Remove Data is duplicate
-results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
 
 for row in results:
     if row['Group'] not in context:
@@ -262,6 +278,7 @@ dictS = {"Total_IP": totalS, "Critical": CriticalS,
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
     HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
 
+# print(percent)
 groupList = {}
 
 for i in l:
@@ -323,7 +340,7 @@ array = [
     },
     {
         "risk": "Low",
-        "value": l2["Summary"]["Critical"],
+        "value": l2["Summary"]["Low"],
         "colors": "#23B800"
     }
 ]
@@ -333,7 +350,10 @@ plt.pie([i["value"] for i in array], autopct=lambda p: '{:1.0f}%'.format(
     round(p)) if p > 0 else '', colors=[i["colors"] for i in array])
 plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
 plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
-               fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
+           fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
+
+# plt.show()
+plt.savefig("backend/api/sources/image/Overview_Graph.png")
 
 ################################################################################################
 
@@ -354,10 +374,9 @@ for i in range(len(vulnerability)):
     if vulnerability[i]['risk'] == 1:
         vulnerability[i]['risk'] = "Low"
 
-plt.savefig("D:/github/WebReport/backend/api/sources/Overview_Graph.png")
 
-doc.replace_media("D:/github/WebReport/backend/api/sources/1.png",
-                  "D:/github/WebReport/backend/api/sources/Overview_Graph.png")
+doc.replace_media("backend/api/sources/image/2.png",
+                  "backend/api/sources/image/Overview_Graph.png")
 
 Content["table1"] = l2
 Content["table2"] = vulnerability
@@ -373,5 +392,5 @@ Content["fileName"] = name[0]
 # print(name[0])
 
 doc.render(Content)
-doc.save("D:/github/WebReport/backend/api/sources/"+name[0]+".docx")
-# os.system("D:/github/WebReport/backend/api/sources/"+name[0]+".docx")
+doc.save("backend/api/sources/results/"+name[0]+".docx")
+# os.system("backend/api/sources/"+name[0]+".docx")

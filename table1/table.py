@@ -51,14 +51,15 @@ for row in DataJSON:
     GroupName1["Risk"] = DataJSON[row]["Risk"]
     GroupName1["Host"] = DataJSON[row]["Host"]
     GroupName1["Name"] = DataJSON[row]["Name"]
+    GroupName1["Port"] = DataJSON[row]["Port"]
     GroupName1["Group"] = DataJSON[row]["Group"]
     GroupName2.append(GroupName1)
     GroupName1 = {}
 
 # Remove Data is duplicate
 results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
-
-print(results)
+newlist = sorted(results, key=lambda d: d['Host'].split("."))
+# print(newlist)
 # Mean for loop
 # seen = set()
 # new_l = []
@@ -107,6 +108,7 @@ dictS = {"Total_IP": totalS, "Critical": CriticalS,
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
     HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
 
+# print(l)
 # Final JSON output
 # l = sorted(l, key=lambda d: (
 #     tuple(map(int, d['Name'].split('.')))))
@@ -189,5 +191,6 @@ plt.savefig("D:/github/WebReport/table1/Overview_Graph.png")
 doc.replace_media("D:/github/WebReport/table1/1.png",
                   "D:/github/WebReport/table1/Overview_Graph.png")
 
+plt.show()
 doc.save("D:/github/WebReport/table1/generated_doc.docx")
 os.system("D:/github/WebReport/table1/generated_doc.docx")

@@ -6,7 +6,7 @@ from docxtpl import *
 import pandas
 import os
 
-doc = DocxTemplate("D:/github/WebReport/krit/template.docx")
+doc = DocxTemplate("D:/github/WebReport/table3/template.docx")
 
 
 def makeJson(csvFilePath, jsonFilePath):
@@ -23,17 +23,33 @@ def makeJson(csvFilePath, jsonFilePath):
 
 
 DataJson = open(
-    "D:/github/WebReport/krit/dataFile.json", "w")
+    "D:/github/WebReport/table3/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/krit/merge-Cloud-Flexpod.csv'
-jsonFilePath = r'D:/github/WebReport/krit/dataFile.json'
+csvFilePath = r'D:/github/WebReport/table3/All Dell cloud.csv'
+jsonFilePath = r'D:/github/WebReport/table3/dataFile.json'
 makeJson(csvFilePath, jsonFilePath)
 
 
 DataJSON = pandas.read_json(jsonFilePath)
 
-Ip = [DataJSON[i]["Host"] for i in DataJSON]
+GroupName1 = {}
+GroupName2 = []
+
+# Create New Data Source
+for row in DataJSON:
+    GroupName1["Risk"] = DataJSON[row]["Risk"]
+    GroupName1["Host"] = DataJSON[row]["Host"]
+    GroupName1["Name"] = DataJSON[row]["Name"]
+    GroupName1["Port"] = DataJSON[row]["Port"]
+    GroupName1["Group"] = DataJSON[row]["Group"]
+    GroupName2.append(GroupName1)
+    GroupName1 = {}
+
+# Remove Data is duplicate
+results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
+
+Ip = [i["Host"] for i in results]
 Ip = list(dict.fromkeys(Ip))
 # print(Ip)
 
@@ -100,8 +116,6 @@ for i in list_ip:
     index1 = 1
     # print(items)
 
-
-
     for x in list_ip_in_class:
         x['No'] = index1
         index1 += 1
@@ -111,9 +125,9 @@ for i in list_ip:
 
 Content3 = {}
 
-Content3['table3'] = class_ip
+Content3['vulnerability'] = class_ip
 
 
-# doc.render(Content3)
-# doc.save("D:/github/WebReport/krit/generated_table3.docx")
-# os.system("D:/github/WebReport/krit/generated_table3.docx")
+doc.render(Content3)
+doc.save("D:/github/WebReport/table3/generated_table3.docx")
+os.system("D:/github/WebReport/table3/generated_table3.docx")
