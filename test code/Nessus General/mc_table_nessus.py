@@ -20,16 +20,28 @@ countIP = 0
 
 def makeJson(csvFilePath, jsonFilePath):
     data = {}
-    with open(csvFilePath, encoding='utf-8') as csvf:
-        csvReader = csv.DictReader(csvf)
-        key_id = 0
-        for rows in csvReader:
-            key = key_id
-            data[key] = rows
-            key_id += 1
-    with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
-        jsonf.write(json.dumps(data, indent=4))
-
+    try:
+        with open(csvFilePath, encoding='utf-8') as csvf:
+            csvReader = csv.DictReader(csvf)
+            key_id = 0
+            for rows in csvReader:
+                key = key_id
+                data[key] = rows
+                key_id += 1
+        with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
+            jsonf.write(json.dumps(data, indent=4))
+    except NameError as exception:
+        print(exception)
+    except:
+        with open(csvFilePath, encoding='ISO-8859-1') as csvf:
+            csvReader = csv.DictReader(csvf)
+            key_id = 0
+            for rows in csvReader:
+                key = key_id
+                data[key] = rows
+                key_id += 1
+        with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
+            jsonf.write(json.dumps(data, indent=4))
 
 DataJson = open(
     "E:/INETMS/doc/Nessus_template/dataFile.json", "w")
@@ -162,22 +174,22 @@ array = [
     {
         "risk": "Critical",
         "value": l2["table1"]["Summary"]["Critical"],
-        "colors": "#C20909"
+        "colors": "#7030a0"
     },
     {
         "risk": "High",
         "value": l2["table1"]["Summary"]["High"],
-        "colors": "#F09D1A"
+        "colors": "#C20909"
     },
     {
         "risk": "Medium",
         "value": l2["table1"]["Summary"]["Medium"],
-        "colors": "#FFD80C"
+        "colors": "#F09D1A"
     },
     {
         "risk": "Low",
         "value": l2["table1"]["Summary"]["Low"],
-        "colors": "#23B800"
+        "colors": "#FFD80C"
     }
 ]
 
