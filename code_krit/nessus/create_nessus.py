@@ -157,7 +157,7 @@ for j in name:
                             else:
                                 ip = ip +', '+ value[index]
                         ip = ip +')'  
-                    print(ip)
+                    # print(ip)
                     subContent["host"] = ip
                     subContent["port"] = port 
                     subContent["name"] = DataJSON[i]['Name']
