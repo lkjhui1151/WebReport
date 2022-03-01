@@ -146,14 +146,18 @@ for j in name:
                     for key ,value in dict_port_ip.items():
                         value = list(dict.fromkeys(value))
                         value = sorted(value, key = lambda d: int(d))
+                        if ip=="":
+                            pass
+                        else:
+                            ip = ip +', '
                         ip = ip + key + '('
                         for index in range(len(value)):
                             if index == 0:
                                 ip = ip + value[index]
                             else:
                                 ip = ip +', '+ value[index]
-                        ip = ip +') '  
-
+                        ip = ip +')'  
+                    print(ip)
                     subContent["host"] = ip
                     subContent["port"] = port 
                     subContent["name"] = DataJSON[i]['Name']
