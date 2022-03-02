@@ -123,7 +123,7 @@ array = [
     },
     {
         "risk": "Low",
-        "value": l2["Summary"]["Critical"],
+        "value": l2["Summary"]["Low"],
         "colors": "#23B800"
     }
 ]

@@ -16,7 +16,7 @@ countInfo = 0
 count = 1
 context = {}
 countIP = 0
-
+genGraph = 1
 
 def makeJson(csvFilePath, jsonFilePath):
     data = {}
@@ -47,7 +47,7 @@ DataJson = open(
     "E:/INETMS/doc/Nessus_template/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'E:/INETMS/doc/Nessus_template/sqa.csv'
+csvFilePath = r'E:/INETMS/doc/Nessus_template/All_Dell_Cloud.csv'
 jsonFilePath = r'E:/INETMS/doc/Nessus_template/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
@@ -119,6 +119,12 @@ MediumS = (sum([d['Medium'] for d in l]))
 LowS = (sum([d['Low'] for d in l]))
 #InfoS = (sum([d['Info'] for d in l]))
 Amount = CriticalS+HighS+MediumS+LowS
+#Amount = 0
+if Amount == 0:
+    Amount = 1
+    genGraph = 0
+else:
+    Amount
 dictS = {"Critical": CriticalS,
          "High": HighS, "Medium": MediumS, "Low": LowS, "Total": totalS}
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
@@ -194,17 +200,17 @@ array = [
     }
 ]
 
+if genGraph != 0:
+    plt.pie([i["value"] for i in array], autopct=lambda p: '{:1.0f}%'.format(
+        round(p)) if p > 0 else '', colors=[i["colors"] for i in array])
+    plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
+    plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
+                    fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
 
-plt.pie([i["value"] for i in array], autopct=lambda p: '{:1.0f}%'.format(
-     round(p)) if p > 0 else '', colors=[i["colors"] for i in array])
-plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
-plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
-                fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
+    plt.savefig("E:/INETMS/doc/Nessus_template/Overview_Graph.png")
 
-plt.savefig("E:/INETMS/doc/Nessus_template/Overview_Graph.png")
-
-doc.replace_media("E:/INETMS/doc/Nessus_template/1.png",
-                   "E:/INETMS/doc/Nessus_template/Overview_Graph.png")
+    doc.replace_media("E:/INETMS/doc/Nessus_template/1.png",
+                    "E:/INETMS/doc/Nessus_template/Overview_Graph.png")
 
 doc.save("E:/INETMS/doc/Nessus_template/generated_doc.docx")
 os.system("E:/INETMS/doc/Nessus_template/generated_doc.docx")
