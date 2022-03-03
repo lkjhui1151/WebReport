@@ -8,6 +8,8 @@ import csv
 import os
 import datetime
 from pythainlp.util import thai_strftime
+import numpy as np
+np.seterr(divide='ignore', invalid='ignore')
 
 today = datetime.date.today()
 yearBE = today.year + 543
@@ -35,7 +37,7 @@ def makeJson(csvFilePath, jsonFilePath):
         with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
             jsonf.write(json.dumps(data, indent=4))
     except NameError as exception:
-        print(exception)
+        print()
     except:
         with open(csvFilePath, encoding='ISO-8859-1') as csvf:
             csvReader = csv.DictReader(csvf)
@@ -52,7 +54,7 @@ DataJson = open(
     "backend/api/sources/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'backend/api/sources/iso/Network Cloud.csv'
+csvFilePath = r'backend/api/sources/iso/USUI.csv'
 jsonFilePath = r'backend/api/sources/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
@@ -90,27 +92,28 @@ for row in DataJSON:
 # Remove Data is duplicate
 results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
 
-Name = [DataJSON[i]["Name"] for i in DataJSON if DataJSON[i]["Risk"] != "None"]
+Name = [DataJSON[i]["Plugin ID"] for i in DataJSON if DataJSON[i]["Risk"] != "None"]
 Name = list(dict.fromkeys(Name))
 
+# print(Name)
 
 for i in DataJSON:
     if DataJSON[i]['Risk'] != 'None':
-        if DataJSON[i]['Name'] in GroupName:
-            GroupName[DataJSON[i]['Name']] += 1
+        if DataJSON[i]['Plugin ID'] in GroupName:
+            GroupName[DataJSON[i]['Plugin ID']] += 1
         else:
-            GroupName[DataJSON[i]['Name']] = 1
+            GroupName[DataJSON[i]['Plugin ID']] = 1
 
 for j in Name:
     for i in DataJSON:
         if DataJSON[i]['Risk'] != "None":
-            if DataJSON[i]['Name'] == j:
+            if DataJSON[i]['Plugin ID'] == j:
                 if address == "":
                     address = DataJSON[i]['Host']
                 else:
                     address = address + "\n" + DataJSON[i]['Host']
                 countCheck += 1
-                if countCheck == GroupName[DataJSON[i]['Name']]:
+                if countCheck == GroupName[DataJSON[i]['Plugin ID']]:
                     address = address.split('\n')
                     address = sorted(address, key=lambda d: (
                         tuple(map(int, d.split('.')))))
@@ -275,6 +278,9 @@ InfoS = (sum([d['Info'] for d in l]))
 Amount = CriticalS+HighS+MediumS+LowS
 dictS = {"Total_IP": totalS, "Critical": CriticalS,
          "High": HighS, "Medium": MediumS, "Low": LowS, "Info": InfoS}
+
+Amount = 1 if Amount == 0 else Amount
+
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
     HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
 
@@ -346,15 +352,35 @@ array = [
 ]
 
 
-plt.pie([i["value"] for i in array], autopct=lambda p: '{:1.0f}%'.format(
-    round(p)) if p > 0 else '', colors=[i["colors"] for i in array])
-plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
-plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
-           fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
+def make_autopct(values):
+    def my_autopct(pct):
+        total = sum(values)
+        val = int(round(pct*total/100.0))
+        if pct > 0:
+            return '{v:d} ({p:1.0f}%)'.format(p=pct, v=val)
+        else:
+            return ''
+    return my_autopct
 
-# plt.show()
-plt.savefig("backend/api/sources/image/Overview_Graph.png")
 
+value = [i["value"] for i in array]
+
+try:
+    plt.pie(value, autopct=make_autopct(value),
+            colors=[i["colors"] for i in array])
+    plt.title('Vulnerability by Severity', y=1.05, fontsize=15)
+    plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
+               fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
+
+    # plt.show()
+    plt.savefig("backend/api/sources/image/Overview_Graph.png")
+    doc.replace_media("backend/api/sources/image/1.png",
+                      "backend/api/sources/image/Overview_Graph.png")
+except NameError as err:
+    print()
+except:
+    doc.replace_media("backend/api/sources/image/1.png",
+                      "backend/api/sources/image/noGraph.jpg")
 ################################################################################################
 
 
@@ -374,9 +400,6 @@ for i in range(len(vulnerability)):
     if vulnerability[i]['risk'] == 1:
         vulnerability[i]['risk'] = "Low"
 
-
-doc.replace_media("backend/api/sources/image/2.png",
-                  "backend/api/sources/image/Overview_Graph.png")
 
 Content["table1"] = l2
 Content["table2"] = vulnerability

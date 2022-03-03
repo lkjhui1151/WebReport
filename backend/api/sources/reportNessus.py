@@ -57,7 +57,7 @@ DataJson = open(
     "backend/api/sources/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'backend/api/sources/iso/Dell Cloud.csv'
+csvFilePath = r'backend/api/sources/iso/USUI.csv'
 jsonFilePath = r'backend/api/sources/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
@@ -121,6 +121,9 @@ LowS = (sum([d['Low'] for d in l]))
 Amount = CriticalS+HighS+MediumS+LowS
 dictS = {"Critical": CriticalS,
          "High": HighS, "Medium": MediumS, "Low": LowS, "Total": totalS}
+
+Amount = 1 if Amount == 0 else Amount
+
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
     HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
 
@@ -151,16 +154,35 @@ array = [
 ]
 
 
-plt.pie([i["value"] for i in array], autopct=lambda p: '{:1.0f}%'.format(
-    round(p)) if p > 0 else '', colors=[i["colors"] for i in array])
-plt.title('Vulnerability Overview of The System', y=1.05, fontsize=15)
-plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
-           fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
+def make_autopct(values):
+    def my_autopct(pct):
+        total = sum(values)
+        val = int(round(pct*total/100.0))
+        if pct > 0:
+            return '{v:d} ({p:1.0f}%)'.format(p=pct, v=val)
+        else:
+            return ''
+    return my_autopct
 
-plt.savefig("backend/api/sources/image/Overview_Graph.png")
 
-doc.replace_media("backend/api/sources/image/2.png",
-                  "backend/api/sources/image/Overview_Graph.png")
+value = [i["value"] for i in array]
+
+try:
+    plt.pie(value, autopct=make_autopct(value),
+            colors=[i["colors"] for i in array])
+    plt.title('Vulnerability by Severity', y=1.05, fontsize=15)
+    plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
+               fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
+
+    plt.savefig("backend/api/sources/image/Overview_Graph.png")
+
+    doc.replace_media("backend/api/sources/image/2.png",
+                      "backend/api/sources/image/Overview_Graph.png")
+except NameError as err:
+    print()
+except:
+    doc.replace_media("backend/api/sources/image/2.png",
+                      "backend/api/sources/image/noGraph.jpg")
 
 
 ################################################## krit ##################################################
@@ -214,7 +236,8 @@ for key, value in dict_ip_portopen.items():
     index += 1
 # -----------------------------------------------------------------------------------------------------------------------------
 # ==============================================-make data detail==============================================================
-name = [DataJSON[i]["Name"] for i in DataJSON if DataJSON[i]["Risk"] != "None"]
+name = [DataJSON[i]["Plugin ID"]
+        for i in DataJSON if DataJSON[i]["Risk"] != "None"]
 name = list(dict.fromkeys(name))
 dict_port_ip = {}
 vulnerability = []
@@ -224,10 +247,10 @@ GroupName = {}
 
 for i in DataJSON:
     if DataJSON[i]['Risk'] != 'None':
-        if DataJSON[i]['Name'] in GroupName:
-            GroupName[DataJSON[i]['Name']] += 1
+        if DataJSON[i]['Plugin ID'] in GroupName:
+            GroupName[DataJSON[i]['Plugin ID']] += 1
         else:
-            GroupName[DataJSON[i]['Name']] = 1
+            GroupName[DataJSON[i]['Plugin ID']] = 1
 
 for j in name:
     dict_port_ip = {}
@@ -236,7 +259,7 @@ for j in name:
     for i in DataJSON:
 
         if DataJSON[i]['Risk'] != "None":
-            if DataJSON[i]['Name'] == j:
+            if DataJSON[i]['Plugin ID'] == j:
 
                 if DataJSON[i]['Protocol'] == 'tcp':
                     port_tcp.append(DataJSON[i]['Port'])
@@ -249,7 +272,7 @@ for j in name:
                 else:
                     dict_port_ip[DataJSON[i]['Host']] = [DataJSON[i]['Port']]
                 countCheck += 1
-                if countCheck == GroupName[DataJSON[i]['Name']]:
+                if countCheck == GroupName[DataJSON[i]['Plugin ID']]:
 
                     port_tcp = list(dict.fromkeys(port_tcp))
                     port_tcp = sorted(port_tcp, key=lambda x: int(x))

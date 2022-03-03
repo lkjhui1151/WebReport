@@ -1,11 +1,7 @@
-from importlib import import_module
+import matplotlib.pyplot as plt
+import numpy as np
 
+y = np.array([0, 0, 0, 1])
 
-import datetime
-
-date = datetime.datetime.now()
-
-dateNow = "Date "+date.strftime("%B")+" " +
-date.strftime("%d")+" "+date.strftime("%Y")
-
-print()
+plt.pie(y)
+plt.show()
