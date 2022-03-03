@@ -54,7 +54,7 @@ DataJson = open(
     "backend/api/sources/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'backend/api/sources/iso/USUI.csv'
+csvFilePath = r'backend/api/sources/iso/Nutanix Cloud.csv'
 jsonFilePath = r'backend/api/sources/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
