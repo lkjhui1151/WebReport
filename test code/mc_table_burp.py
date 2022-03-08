@@ -5,8 +5,21 @@ from matplotlib import pyplot as plt
 import numpy as np
 import json
 import pandas
+import sys
 
-doc = DocxTemplate("E:/INETMS/doc/Nessus_template/template_nessus.docx")
+maxInt = sys.maxsize
+
+while True:
+    # decrease the maxInt value by factor 10 
+    # as long as the OverflowError occurs.
+
+    try:
+        csv.field_size_limit(maxInt)
+        break
+    except OverflowError:
+        maxInt = int(maxInt/10)
+
+doc = DocxTemplate("E:/INETMS/doc/Nessus_template/template_burp.docx")
 
 countCri = 0
 countHigh = 0
@@ -47,7 +60,7 @@ DataJson = open(
     "E:/INETMS/doc/Nessus_template/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'E:/INETMS/doc/Nessus_template/A2.csv'
+csvFilePath = r'E:/INETMS/doc/Nessus_template/Burp.csv'
 jsonFilePath = r'E:/INETMS/doc/Nessus_template/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
@@ -59,38 +72,39 @@ GroupName2 = []
 
 # Create New Data Source
 for row in DataJSON:
-    GroupName1["Risk"] = DataJSON[row]["Risk"]
-    GroupName1["Host"] = DataJSON[row]["Host"]
-    GroupName1["Name"] = DataJSON[row]["Name"]
-    GroupName1["Group"] = DataJSON[row]["Host"]
-    GroupName1["Port"] = DataJSON[row]["Port"]
+    GroupName1["Risk"] = DataJSON[row]["severity"]
+    GroupName1["ip"] = DataJSON[row]["host/_ip"]
+    GroupName1["url"] = DataJSON[row]["host/__text"]
+    GroupName1["Group"] = DataJSON[row]["host/__text"]
+    GroupName1["path"] = DataJSON[row]["path"]
+    GroupName1["location"] = DataJSON[row]["location"]
+    GroupName1["issue"] = DataJSON[row]["issueBackground"]
+    GroupName1["solution"] = DataJSON[row]["remediationBackground"]
+    GroupName1["references"] = DataJSON[row]["references"]
+    GroupName1["detail"] = DataJSON[row]["issueDetail"]
     GroupName2.append(GroupName1)
     GroupName1 = {}
 
-# Remove Data is duplicate
+# # Remove Data is duplicate
 results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
-newlist = sorted(results, key=lambda d: (tuple(map(int, d['Group'].split('.')))))
-#print(newlist)
+newlist = sorted(results, key=lambda d: d['Group'])
+# print(newlist)
 
-# Mean for loop
-# seen = set()
-# new_l = []
-# for d in GroupName2:
-#     t = tuple(d.items())
-#     if t not in seen:
-#         seen.add(t)
-#         new_l.append(d)
+# # Mean for loop
+# # seen = set()
+# # new_l = []
+# # for d in GroupName2:
+# #     t = tuple(d.items())
+# #     if t not in seen:
+# #         seen.add(t)
+# #         new_l.append(d)
 
 for row in newlist:
     if row['Group'] not in context:
-        context[row['Group']] = {"No":count,"Name": row['Group'], "device": {
-            row['Host']}, "Total_IP": 0, "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Total": 0}
+        context[row['Group']] = {"No":count,"Name": row['ip'], "url": row['url'], "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Total": 0}
         count+=1
-    else:
-         context[row['Group']]["device"].add(row['Host'])
 
-         countIP = len(context[row['Group']]["device"])
-         context[row['Group']]["Total_IP"] = countIP
+        
     if row['Group'] == "":
         context[row['Risk']]["Name"] = "etc"
         # Count amount of critaria in each group
@@ -108,7 +122,7 @@ for row in newlist:
         context[row['Group']]["Total"] += 1
       
 
-# print(context)
+# # print(context)
 
 l = list(context.values())
 
@@ -130,48 +144,48 @@ dictS = {"Critical": CriticalS,
 percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
     HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
 
-# Final JSON output
-# l = sorted(l, key=lambda d: (
-#     tuple(map(int, d['Name'].split('.')))))
+# # Final JSON output
+# # l = sorted(l, key=lambda d: (
+# #     tuple(map(int, d['Name'].split('.')))))
 
-# groupList = {}
+# # groupList = {}
 
-# for i in l:
-#     if i["Name"] in groupList:
-#         groupList[i["Name"]] += 1
-#     else:
-#         groupList[i["Name"]] = 1
-# key_list = list(groupList.keys())
-# # print(key_list)
-# GroupNew = {"Total_IP": 0, "Critical": 0,
-#             "High": 0, "Medium": 0, "Low": 0, "Info": 0}
-# totalIP = 0
-# count = 0
-# countCH = 0
+# # for i in l:
+# #     if i["Name"] in groupList:
+# #         groupList[i["Name"]] += 1
+# #     else:
+# #         groupList[i["Name"]] = 1
+# # key_list = list(groupList.keys())
+# # # print(key_list)
+# # GroupNew = {"Total_IP": 0, "Critical": 0,
+# #             "High": 0, "Medium": 0, "Low": 0, "Info": 0}
+# # totalIP = 0
+# # count = 0
+# # countCH = 0
 
-# resultALL = []
-# ListIP = []
-# ListIP = []
-# for i in l:
-#     if i["Name"] == key_list[count]:
-#         GroupNew["Total_IP"] += int(i["Total_IP"])
-#         GroupNew["Critical"] += int(i["Critical"])
-#         GroupNew["High"] += int(i["High"])
-#         GroupNew["Medium"] += int(i["Medium"])
-#         GroupNew["Low"] += int(i["Low"])
-#         GroupNew["Info"] += int(i["Info"])
-#         ListIP.append(i["device"])
-#         countCH += 1
-#         if countCH >= groupList[i["Name"]]:
-#             GroupNew["Name"] = i["Name"]
-#             GroupNew["Device"] = ListIP
-#             resultALL.append(GroupNew)
-#             ListIP = []
-#             GroupNew = {"Total_IP": 0, "Critical": 0,
-#                         "High": 0, "Medium": 0, "Low": 0, "Info": 0}
-#             countCH = 0
-#             count += 1
-# count = 0
+# # resultALL = []
+# # ListIP = []
+# # ListIP = []
+# # for i in l:
+# #     if i["Name"] == key_list[count]:
+# #         GroupNew["Total_IP"] += int(i["Total_IP"])
+# #         GroupNew["Critical"] += int(i["Critical"])
+# #         GroupNew["High"] += int(i["High"])
+# #         GroupNew["Medium"] += int(i["Medium"])
+# #         GroupNew["Low"] += int(i["Low"])
+# #         GroupNew["Info"] += int(i["Info"])
+# #         ListIP.append(i["device"])
+# #         countCH += 1
+# #         if countCH >= groupList[i["Name"]]:
+# #             GroupNew["Name"] = i["Name"]
+# #             GroupNew["Device"] = ListIP
+# #             resultALL.append(GroupNew)
+# #             ListIP = []
+# #             GroupNew = {"Total_IP": 0, "Critical": 0,
+# #                         "High": 0, "Medium": 0, "Low": 0, "Info": 0}
+# #             countCH = 0
+# #             count += 1
+# # count = 0
 
 l2 = {"table1": {"Group": l, "Summary": dictS, "Percent": percent}}
 
