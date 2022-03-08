@@ -4,4 +4,8 @@ test code >> mc_table
 
 Nessus General Template
 
-test code >> Nessus Genera >> mc_table_nessus
+test code >> Nessus General >> mc_table_nessus
+
+Burpsuite
+
+test code >> burpsuite >> reportBurpsuite
