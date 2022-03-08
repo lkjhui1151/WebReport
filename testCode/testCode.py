@@ -51,25 +51,25 @@ DataJson = open(
     "D:/github/WebReport/testCode/dataFile.json", "w")
 DataJson.close()
 
-csvFilePath = r'D:/github/WebReport/testCode/A.csv'
+csvFilePath = r'D:/github/WebReport/testCode/Burp.csv'
 jsonFilePath = r'D:/github/WebReport/testCode/dataFile.json'
 
 makeJson(csvFilePath, jsonFilePath)
 
-DataJSON = pandas.read_json(jsonFilePath)
+# DataJSON = pandas.read_json(jsonFilePath)
 
-GroupName1 = {}
-GroupName2 = []
+# GroupName1 = {}
+# GroupName2 = []
 
-# Create New Data Source
-for row in DataJSON:
-    GroupName1["Risk"] = DataJSON[row]["Risk"]
-    GroupName1["Host"] = DataJSON[row]["Host"]
-    GroupName1["Name"] = DataJSON[row]["Name"]
-    GroupName2.append(GroupName1)
-    GroupName1 = {}
+# # Create New Data Source
+# for row in DataJSON:
+#     GroupName1["Risk"] = DataJSON[row]["Risk"]
+#     GroupName1["Host"] = DataJSON[row]["Host"]
+#     GroupName1["Name"] = DataJSON[row]["Name"]
+#     GroupName2.append(GroupName1)
+#     GroupName1 = {}
 
-# Remove Data is duplicate
-results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
-newlist = sorted(results, key=lambda d: d['Host'].split("."))
-print(newlist)
+# # Remove Data is duplicate
+# results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
+# newlist = sorted(results, key=lambda d: d['Host'].split("."))
+# print(newlist)

@@ -27,16 +27,18 @@ def CompanyDetail(request, pk):
 def CompanyAdd(request):
     name = request.data['fileName']
     file = request.FILES['file']
-    serializer = company_csv(name=name, file=file)
-    serializer.save()
-    data = autoStart(name)
-    name = name.split(".csv")
-    if data == True:
-        company = company_csv.objects.values('id', 'name').order_by('-id')[:1]
-        docx = name[0]+".docx"
-        with connection.cursor() as cursor:
-            cursor.execute(
-                "INSERT INTO company (name,file,csv_id) VALUES (%s,%s,%s)", [name[0], docx, company[0]["id"]])
+    # serializer = company_csv(name=name, file=file)
+    # serializer.save()
+    # data = autoStart(name)
+    # name = name.split(".csv")
+    if name != None:
+        # company = company_csv.objects.values('id', 'name').order_by('-id')[:1]
+        # docx = name[0]+".docx"
+        # with connection.cursor() as cursor:
+        #     cursor.execute(
+        #         "INSERT INTO company (name,file,csv_id) VALUES (%s,%s,%s)", [name[0], docx, company[0]["id"]])
+        print("Name : ", name)
+        print("File : ", file)
         return Response(status.HTTP_200_OK)
     else:
         return Response("Error")
