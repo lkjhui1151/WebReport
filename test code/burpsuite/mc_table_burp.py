@@ -143,14 +143,15 @@ else:
     Amount
 dictS = {"Critical": CriticalS,
          "High": HighS, "Medium": MediumS, "Low": LowS, "Total": totalS}
+#+++++++++++++++++++++++++++++== FIX HERE +++++++++++++++++++++++++++++++++++++
 percent = {"Critical": '%0.2f' % (CriticalS/Amount*100), "High": '%0.2f' % (
     HighS/Amount*100), "Medium": '%0.2f' % (MediumS/Amount*100), "Low": '%0.2f' % (LowS/Amount*100)}
-
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 l2 = {"table1": {"Group": l, "Summary": dictS, "Percent": percent}}
 
 doc.render(l2)
-
+#+++++++++++++++++++++++++++++== FIX HERE +++++++++++++++++++++++++++++++++++++
 array = [
     {
         "risk": "Critical",
@@ -177,7 +178,7 @@ array = [
         "labels": "Low, " + str(l2["table1"]["Summary"]["Low"]) + " (" + str(l2["table1"]["Percent"]["Low"])+"%)"
     }
 ]
-
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # def make_autopct(values):
 #     def my_autopct(pct):
@@ -190,7 +191,7 @@ array = [
 #             return ''
 #     return my_autopct
 
-
+#+++++++++++++++++++++++++++++== FIX HERE +++++++++++++++++++++++++++++++++++++
 fig, ax = plt.subplots()
 Critical = mpatches.Patch(
     color="#7030A0", label='Critical')
@@ -200,15 +201,16 @@ Medium = mpatches.Patch(
     color="#FFC000", label='Medium')
 Low = mpatches.Patch(
     color="#FFFF00", label='Low')
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 if genGraph != 0:
+#+++++++++++++++++++++++++++++== FIX HERE +++++++++++++++++++++++++++++++++++++    
     value = [i["value"] for i in array if i["value"]!=0] 
     plt.pie(value, labels=[i["labels"] for i in array if i["value"]!=0], colors=[i["colors"] for i in array if i["value"]!=0], pctdistance=1.2)
     plt.title('Summary Vulnerability by Severity', y=1.05, fontsize=15)
     plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
                     fancybox=True, shadow=True, ncol=4, handles=[Critical, High, Medium, Low])
-    #plt.show()
-
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     plt.savefig("E:/INETMS/doc/Nessus_template/Overview_Graph.png")
 
     doc.replace_media("E:/INETMS/doc/Nessus_template/1.png",
