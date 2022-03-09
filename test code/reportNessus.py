@@ -151,7 +151,7 @@ array = [
     {
         "risk": "Low",
         "value": l2["table1"]["Summary"]["Low"],
-        "colors": "#FFD80C"
+        "colors": "#FFFF00"
     }
 ]
 
@@ -171,8 +171,8 @@ value = [i["value"] for i in array]
 
 try:
     plt.pie(value, autopct=make_autopct(value),
-            colors=[i["colors"] for i in array])
-    plt.title('Vulnerability by Severity', y=1.05, fontsize=15)
+            colors=[i["colors"] for i in array], pctdistance=1.2)
+    plt.title('Summary Vulnerability by Severity', y=1.05, fontsize=15)
     plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
                fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
 

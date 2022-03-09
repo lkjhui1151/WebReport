@@ -86,12 +86,12 @@ for row in DataJSON:
     GroupName1["ip"] = DataJSON[row]["host/_ip"]
     GroupName1["url"] = DataJSON[row]["host/__text"]
     GroupName1["Group"] = DataJSON[row]["host/__text"]
-    GroupName1["path"] = DataJSON[row]["path"]
-    GroupName1["location"] = DataJSON[row]["location"]
+ #   GroupName1["path"] = DataJSON[row]["path"]
+ #   GroupName1["location"] = DataJSON[row]["location"]
     GroupName1["issue"] = DataJSON[row]["issueBackground"]
     GroupName1["solution"] = DataJSON[row]["remediationBackground"]
     GroupName1["references"] = DataJSON[row]["references"]
-    GroupName1["detail"] = DataJSON[row]["issueDetail"]
+ #   GroupName1["detail"] = DataJSON[row]["issueDetail"]
     GroupName2.append(GroupName1)
     GroupName1 = {}
 
