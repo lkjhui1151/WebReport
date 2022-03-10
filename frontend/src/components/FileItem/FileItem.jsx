@@ -9,8 +9,15 @@ const FileItem = ({ file, deleteFile }) => {
             <FontAwesomeIcon icon={faFileAlt} />
             <p>{file.name}</p>
             <div className="file-item-actions">
-                {file.isUpload && <FontAwesomeIcon icon={faSpinner} className="fa-spin" />}
-                {!file.isUpload && <FontAwesomeIcon icon={faTrash} onClick={() => deleteFile(file.name)} />}
+                <div className="loading"></div>
+                {!file.isUploading && <FontAwesomeIcon
+                    icon={faSpinner} className="fa-spin"
+                    onClick={() => deleteFile(file.name)} />
+                }
+                {file.isUploading &&
+                    <FontAwesomeIcon icon={faTrash}
+                        onClick={() => deleteFile(file.name)} />
+                }
             </div>
         </li>
     )

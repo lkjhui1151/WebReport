@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React from 'react'
 import '../../assets/css/fileList.css'
 import FileItem from '../FileItem/FileItem'
@@ -9,13 +8,15 @@ const FileList = ({ files, removeFile }) => {
         // console.log(files);
     }
     return (
-        <div className='file-card-list'>
-            <ul className='file-list-upload'>
-                {
-                    files &&
-                    files.map(f => <FileItem key={f.name} file={f} deleteFile={deleteFileHandler} />)
-                }
-            </ul>
+        <div className="file-card-container">
+            <div className='file-card-list'>
+                <ul className='file-list-upload'>
+                    {
+                        files &&
+                        files.map(f => <FileItem key={f.name} file={f} deleteFile={deleteFileHandler} />)
+                    }
+                </ul>
+            </div>
         </div>
     )
 }

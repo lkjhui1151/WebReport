@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 
-const FileUpload = ({ files, setFiles, removeFile }) => {
+const FileUpload = ({ files, setFiles, removeFile, status }) => {
     const uploadHandler = (event) => {
+
         const file = event.target.files[0]
 
         // const fileType = file.name.split(".");
@@ -22,15 +23,20 @@ const FileUpload = ({ files, setFiles, removeFile }) => {
                 'content-type': 'multipart/form-data',
             },
         };
-        axios.post('http://localhost:8000/ReportVA/company-add/', formData, config)
-            .then((res) => {
-                file.isUploading = false
-                setFiles([...files, file])
-            })
-            .catch((err) => {
-                console.log(err);
-                removeFile(file.name)
-            })
+        if (status == "POST") {
+            axios.post('http://localhost:8000/ReportVA/company-add/', formData, config)
+                .then((res) => {
+                    file.isUploading = false
+                    setFiles([...files, file])
+                })
+                .catch((err) => {
+                    console.log(err);
+                    removeFile(file.name)
+                })
+        }
+        else {
+            console.log("Waiting");
+        }
     }
     return (
         <div className='file-card'>

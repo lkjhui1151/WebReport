@@ -159,7 +159,7 @@ doc.render(l2)
 array = [
     {
         "risk": "Critical",
-        "value": l2["table1"]["Summary"]["Critical"],
+        "value": [l2["table1"]["Summary"]["Critical"], l2["table1"]["Summary"]["Critical"], l2["table1"]["Summary"]["Critical"]],
         "colors": "#C20909"
     },
     {
@@ -174,7 +174,7 @@ array = [
     },
     {
         "risk": "Low",
-        "value": l2["table1"]["Summary"]["Critical"],
+        "value": l2["table1"]["Summary"]["Low"],
         "colors": "#23B800"
     }
 ]

@@ -1,5 +1,6 @@
 from msilib.schema import Error
 from matplotlib import pyplot as plt
+import matplotlib.patches as mpatches
 from docxtpl import *
 import numpy as np
 import pandas
@@ -78,6 +79,7 @@ context = {}
 countIP = 0
 GroupName1 = {}
 GroupName2 = []
+genGraph = 1
 
 # Create New Data Source
 for row in DataJSON:
@@ -92,7 +94,8 @@ for row in DataJSON:
 # Remove Data is duplicate
 results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
 
-Name = [DataJSON[i]["Plugin ID"] for i in DataJSON if DataJSON[i]["Risk"] != "None"]
+Name = [DataJSON[i]["Plugin ID"]
+        for i in DataJSON if DataJSON[i]["Risk"] != "None"]
 Name = list(dict.fromkeys(Name))
 
 # print(Name)
@@ -279,10 +282,14 @@ Amount = CriticalS+HighS+MediumS+LowS
 dictS = {"Total_IP": totalS, "Critical": CriticalS,
          "High": HighS, "Medium": MediumS, "Low": LowS, "Info": InfoS}
 
-Amount = 1 if Amount == 0 else Amount
+if Amount == 0:
+    Amount = 1
+    genGraph = 0
+else:
+    Amount
 
-percent = {"Critical": '%1.0f' % (CriticalS*100/Amount), "High": '%1.0f' % (
-    HighS*100/Amount), "Medium": '%1.0f' % (MediumS*100/Amount), "Low": '%1.0f' % (LowS*100/Amount)}
+percent = {"Critical": '%0.2f' % (CriticalS/Amount*100), "High": '%0.2f' % (
+    HighS/Amount*100), "Medium": '%0.2f' % (MediumS/Amount*100), "Low": '%0.2f' % (LowS/Amount*100)}
 
 # print(percent)
 groupList = {}
@@ -326,30 +333,45 @@ for i in l:
 count = 0
 
 l2 = {"Group": resultALL, "Summary": dictS, "Percent": percent}
+# l2 = {"table1": {"Group": l, "Summary": dictS, "Percent": percent}}
 
 
 array = [
     {
         "risk": "Critical",
         "value": l2["Summary"]["Critical"],
-        "colors": "#C20909"
+        "colors": "#7030A0",
+        "labels": "Critical, " + str(l2["Summary"]["Critical"]) + " (" + str(l2["Percent"]["Critical"])+"%)"
     },
     {
         "risk": "High",
         "value": l2["Summary"]["High"],
-        "colors": "#F09D1A"
+        "colors": "#FF0000",
+        "labels": "High, " + str(l2["Summary"]["High"]) + " (" + str(l2["Percent"]["High"])+"%)"
     },
     {
         "risk": "Medium",
         "value": l2["Summary"]["Medium"],
-        "colors": "#FFD80C"
+        "colors": "#FFC000",
+        "labels": "Medium, " + str(l2["Summary"]["Medium"]) + " (" + str(l2["Percent"]["Medium"])+"%)"
     },
     {
         "risk": "Low",
         "value": l2["Summary"]["Low"],
-        "colors": "#23B800"
+        "colors": "#FFFF00",
+        "labels": "Low, " + str(l2["Summary"]["Low"]) + " (" + str(l2["Percent"]["Low"])+"%)"
     }
 ]
+
+fig, ax = plt.subplots()
+Critical = mpatches.Patch(
+    color="#7030A0", label='Critical')
+High = mpatches.Patch(
+    color="#FF0000", label='High')
+Medium = mpatches.Patch(
+    color="#FFC000", label='Medium')
+Low = mpatches.Patch(
+    color="#FFFF00", label='Low')
 
 
 def make_autopct(values):
@@ -365,20 +387,19 @@ def make_autopct(values):
 
 value = [i["value"] for i in array]
 
-try:
-    plt.pie(value, autopct=make_autopct(value),
-            colors=[i["colors"] for i in array])
-    plt.title('Vulnerability by Severity', y=1.05, fontsize=15)
+if genGraph != 0:
+    value = [i["value"] for i in array if i["value"] != 0]
+    plt.pie(value, labels=[i["labels"] for i in array if i["value"] != 0], colors=[
+        i["colors"] for i in array if i["value"] != 0], pctdistance=1.2)
+    plt.title('Summary Vulnerability by Severity', y=1.05, fontsize=15)
     plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
-               fancybox=True, shadow=True, ncol=4, labels=[i["risk"] for i in array])
-
+               fancybox=True, shadow=True, ncol=4, handles=[Critical, High, Medium, Low])
     # plt.show()
+    plt.tight_layout()
     plt.savefig("backend/api/sources/image/Overview_Graph.png")
     doc.replace_media("backend/api/sources/image/1.png",
                       "backend/api/sources/image/Overview_Graph.png")
-except NameError as err:
-    print()
-except:
+else:
     doc.replace_media("backend/api/sources/image/1.png",
                       "backend/api/sources/image/noGraph.jpg")
 ################################################################################################
