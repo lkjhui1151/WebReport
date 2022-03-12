@@ -9,6 +9,7 @@
   background-color: var(--grey);
   min-width: 400px;
   min-height: 200px;
+  margin-right: 30px;
 }
 
 .file-card .file-inputs {

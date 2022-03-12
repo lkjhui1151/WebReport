@@ -27,6 +27,7 @@ def CompanyDetail(request, pk):
 def CompanyAdd(request):
     name = request.data['fileName']
     file = request.FILES['file']
+    print(name)
     # serializer = company_csv(name=name, file=file)
     # serializer.save()
     # data = autoStart(name)
@@ -37,8 +38,8 @@ def CompanyAdd(request):
         # with connection.cursor() as cursor:
         #     cursor.execute(
         #         "INSERT INTO company (name,file,csv_id) VALUES (%s,%s,%s)", [name[0], docx, company[0]["id"]])
-        print("Name : ", name)
-        print("File : ", file)
+        # print("Name : ", name)
+        # print("File : ", file)
         return Response(status.HTTP_200_OK)
     else:
         return Response("Error")

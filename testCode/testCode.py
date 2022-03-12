@@ -1,181 +1,172 @@
-import csv
-from docxtpl import *
-from matplotlib import pyplot as plt
-import json
-import pandas
-import matplotlib.patches as mpatches
+countGroupID = {}
+vulnerability_url = []
 
-doc = DocxTemplate("D:/github/WebReport/testCode/templateBurp.docx")
+for i in DataBurp:
+    if DataBurp[i]['severity'] != 'Information':
+        if DataBurp[i]['name'] in countGroupID:
+            countGroupID[DataBurp[i]['name']] += 1
+        else:
+            countGroupID[DataBurp[i]['name']] = 1
 
-countCri = 0
-countHigh = 0
-countMed = 0
-countLow = 0
-countInfo = 0
-count = 1
-context = {}
-countIP = 0
-genGraph = 1
+def cleanCode(x):
+    x = re.sub('</?[a-z]*>', "", x)
+    return (x)
+
+CriticalList = [DataBurp[i]['name']
+                for i in DataBurp if DataBurp[i]['severity'] == 'Critical']
+CriticalList = list(dict.fromkeys(CriticalList))
+
+HighList = [DataBurp[i]['name']
+            for i in DataBurp if DataBurp[i]['severity'] == 'High']
+HighList = list(dict.fromkeys(HighList))
+
+MediumList = [DataBurp[i]['name']
+              for i in DataBurp if DataBurp[i]['severity'] == 'Medium']
+MediumList = list(dict.fromkeys(MediumList))
+
+LowList = [DataBurp[i]['name']
+           for i in DataBurp if DataBurp[i]['severity'] == 'Low']
+LowList = list(dict.fromkeys(LowList))
+
+def DataCollection(**kwargs):
+    global DataBurp
+    global vulnerability_url
+    global countGroupID
+    for data in kwargs:
+        for i in kwargs[data]:
+            list_url = []
+            subContent = {}
+            # subContentLow = {}
+            countCheck = 0
+            for j in DataBurp:
+                if DataBurp[j]['severity'] != 'Information':
+                    if DataBurp[j]['name'] == i:
+                        list_url.append(
+                            DataBurp[j]['host/__text']+DataBurp[j]["location"])
+                        countCheck += 1
+                        # print(countCheck)
+                        if countCheck == countGroupID[i]:
+                            list_url = list(dict.fromkeys(list_url))
+                            url = ""
+                            for x in list_url:
+                                if url == "":
+                                    url = x
+                                else:
+                                    url = url + '\n' + x
+                            list_ref = re.findall(
+                                r'(http\S+)\"', DataBurp[j]['references'])
+                            ref = ""
+                            for temp in list_ref:
+                                if ref == "":
+                                    ref = temp
+                                else:
+                                    ref = ref + "\n" + temp
+                            if data == "CriticalList":
+                                if len(DataBurp[j]['host/__text'].split(":")) == 3:
+                                    subContent["port"] = DataBurp[j]['host/__text'].split(":")[
+                                        2].split('/')[0]
+                                elif DataBurp[j]['host/__text'].split(":")[0] == "https":
+                                    subContent["port"] = "443"
+                                elif DataBurp[j]['host/__text'].split(":")[0] == "http":
+                                    subContent["port"] = "80"
+                                else:
+                                    subContent["port"] = "N/A"
+                                subContent["host"] = url
+                                subContent["name"] = DataBurp[j]['name']
+                                subContent["description"] = cleanCode(
+                                    DataBurp[j]['issueBackground'])
+                                subContent["solution"] = cleanCode(
+                                    DataBurp[j]['remediationBackground'])
+                                subContent["remark"] = ref
+                                subContent["color"] = "#7030A0"
+                                subContent["severity"] = 1
+                                vulnerability_url.append(subContent)
+                            if data == "HighList":
+                                if len(DataBurp[j]['host/__text'].split(":")) == 3:
+                                    subContent["port"] = DataBurp[j]['host/__text'].split(":")[
+                                        2].split('/')[0]
+                                elif DataBurp[j]['host/__text'].split(":")[0] == "https":
+                                    subContent["port"] = "443"
+                                elif DataBurp[j]['host/__text'].split(":")[0] == "http":
+                                    subContent["port"] = "80"
+                                else:
+                                    subContent["port"] = "N/A"
+                                subContent["host"] = url
+                                subContent["name"] = DataBurp[j]['name']
+                                subContent["description"] = cleanCode(
+                                    DataBurp[j]['issueBackground'])
+                                subContent["solution"] = cleanCode(
+                                    DataBurp[j]['remediationBackground'])
+                                subContent["remark"] = ref
+                                subContent["color"] = "#FF0000"
+                                subContent["severity"] = 2
+                                vulnerability_url.append(subContent)
+                            if data == "MediumList":
+                                if len(DataBurp[j]['host/__text'].split(":")) == 3:
+                                    subContent["port"] = DataBurp[j]['host/__text'].split(":")[
+                                        2].split('/')[0]
+                                elif DataBurp[j]['host/__text'].split(":")[0] == "https":
+                                    subContent["port"] = "443"
+                                elif DataBurp[j]['host/__text'].split(":")[0] == "http":
+                                    subContent["port"] = "80"
+                                else:
+                                    subContent["port"] = "N/A"
+                                subContent["host"] = url
+                                subContent["name"] = DataBurp[j]['name']
+                                subContent["description"] = cleanCode(
+                                    DataBurp[j]['issueBackground'])
+                                subContent["solution"] = cleanCode(
+                                    DataBurp[j]['remediationBackground'])
+                                subContent["remark"] = ref
+                                subContent["color"] = "#FFC000"
+                                subContent["severity"] = 3
+                                vulnerability_url.append(subContent)
+                            if data == "LowList":
+                                if len(DataBurp[j]['host/__text'].split(":")) == 3:
+                                    subContent["port"] = DataBurp[j]['host/__text'].split(":")[
+                                        2].split('/')[0]
+                                elif DataBurp[j]['host/__text'].split(":")[0] == "https":
+                                    subContent["port"] = "443"
+                                elif DataBurp[j]['host/__text'].split(":")[0] == "http":
+                                    subContent["port"] = "80"
+                                else:
+                                    subContent["port"] = "N/A"
+                                subContent["host"] = url
+                                subContent["name"] = DataBurp[j]['name']
+                                subContent["description"] = cleanCode(
+                                    DataBurp[j]['issueBackground'])
+                                subContent["solution"] = cleanCode(
+                                    DataBurp[j]['remediationBackground'])
+                                subContent["remark"] = ref
+                                subContent["color"] = "#FFFF00"
+                                subContent["severity"] = 4
+                                vulnerability_url.append(subContent)
 
 
-def makeJson(csvFilePath, jsonFilePath):
-    data = {}
-    try:
-        with open(csvFilePath, encoding='utf-8') as csvf:
-            csvReader = csv.DictReader(csvf)
-            key_id = 0
-            for rows in csvReader:
-                key = key_id
-                data[key] = rows
-                key_id += 1
-        with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
-            jsonf.write(json.dumps(data, indent=4))
-    except NameError as exception:
-        print(exception)
-    except:
-        with open(csvFilePath, encoding='ISO-8859-1') as csvf:
-            csvReader = csv.DictReader(csvf)
-            key_id = 0
-            for rows in csvReader:
-                key = key_id
-                data[key] = rows
-                key_id += 1
-        with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
-            jsonf.write(json.dumps(data, indent=4))
+DataCollection(CriticalList=CriticalList, HighList=HighList,
+               MediumList=MediumList, LowList=LowList)
 
+def runIndex(e):
+    return e['severity']
 
-csvFilePath = r'D:/github/WebReport/testCode/Burp.csv'
-jsonFilePath = r'D:/github/WebReport/testCode/dataFile.json'
+vulnerability_url.sort(key=runIndex, reverse=False)
 
-makeJson(csvFilePath, jsonFilePath)
+for i in range(len(vulnerability_url)):
+    vulnerability_url[i]['no'] = i+1
+    if vulnerability_url[i]['severity'] == 1:
+        vulnerability_url[i]['severity'] = "Critical"
+    if vulnerability_url[i]['severity'] == 2:
+        vulnerability_url[i]['severity'] = "High"
+    if vulnerability_url[i]['severity'] == 3:
+        vulnerability_url[i]['severity'] = "Medium"
+    if vulnerability_url[i]['severity'] == 4:
+        vulnerability_url[i]['severity'] = "Low"
 
-DataJSON = pandas.read_json(jsonFilePath)
-
-GroupName1 = {}
-GroupName2 = []
-
-# Create New Data Source
-for row in DataJSON:
-    GroupName1["Risk"] = DataJSON[row]["severity"]
-    GroupName1["ip"] = DataJSON[row]["host/_ip"]
-    GroupName1["url"] = DataJSON[row]["host/__text"]
-    GroupName1["Group"] = DataJSON[row]["host/__text"]
-    GroupName1["path"] = DataJSON[row]["path"]
-    GroupName1["location"] = DataJSON[row]["location"]
-    GroupName1["issue"] = DataJSON[row]["issueBackground"]
-    GroupName1["solution"] = DataJSON[row]["remediationBackground"]
-    GroupName1["references"] = DataJSON[row]["references"]
-    GroupName1["detail"] = DataJSON[row]["issueDetail"]
-    GroupName2.append(GroupName1)
-    GroupName1 = {}
-
-# # Remove Data is duplicate
-results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
-newlist = sorted(results, key=lambda d: d['Group'])
-
-
-for row in newlist:
-    if row['Group'] not in context:
-        context[row['Group']] = {"No": count, "Name": row['ip'], "url": row['url'],
-                                 "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Total": 0}
-        count += 1
-
-    if row['Group'] == "":
-        context[row['Risk']]["Name"] = "etc"
-        # Count amount of critaria in each group
-    if row['Risk'] == "Critical":
-        context[row['Group']]["Critical"] += 1
-        context[row['Group']]["Total"] += 1
-    if row['Risk'] == "High":
-        context[row['Group']]["High"] += 1
-        context[row['Group']]["Total"] += 1
-    if row['Risk'] == "Medium":
-        context[row['Group']]["Medium"] += 1
-        context[row['Group']]["Total"] += 1
-    if row['Risk'] == "Low":
-        context[row['Group']]["Low"] += 1
-        context[row['Group']]["Total"] += 1
-
-
-# # print(context)
-
-l = list(context.values())
-
-totalS = (sum([d['Total'] for d in l]))
-CriticalS = (sum([d['Critical'] for d in l]))
-HighS = (sum([d['High'] for d in l]))
-MediumS = (sum([d['Medium'] for d in l]))
-LowS = (sum([d['Low'] for d in l]))
-#InfoS = (sum([d['Info'] for d in l]))
-Amount = CriticalS+HighS+MediumS+LowS
-#Amount = 0
-if Amount == 0:
-    Amount = 1
-    genGraph = 0
-else:
-    Amount
-dictS = {"Critical": CriticalS,
-         "High": HighS, "Medium": MediumS, "Low": LowS, "Total": totalS}
-# +++++++++++++++++++++++++++++== FIX HERE +++++++++++++++++++++++++++++++++++++
-percent = {"Critical": '%0.2f' % (CriticalS/Amount*100), "High": '%0.2f' % (
-    HighS/Amount*100), "Medium": '%0.2f' % (MediumS/Amount*100), "Low": '%0.2f' % (LowS/Amount*100)}
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-l2 = {"table1": {"Group": l, "Summary": dictS, "Percent": percent}}
-
-# +++++++++++++++++++++++++++++== FIX HERE +++++++++++++++++++++++++++++++++++++
-array = [
-    {
-        "risk": "Critical",
-        "value": l2["table1"]["Summary"]["Critical"],
-        "colors": "#7030A0",
-        "labels": "Critical, " + str(l2["table1"]["Summary"]["Critical"]) + " (" + str(l2["table1"]["Percent"]["Critical"])+"%)"
-    },
-    {
-        "risk": "High",
-        "value": l2["table1"]["Summary"]["High"],
-        "colors": "#FF0000",
-        "labels": "High, " + str(l2["table1"]["Summary"]["High"]) + " (" + str(l2["table1"]["Percent"]["High"])+"%)"
-    },
-    {
-        "risk": "Medium",
-        "value": l2["table1"]["Summary"]["Medium"],
-        "colors": "#FFC000",
-        "labels": "Medium, " + str(l2["table1"]["Summary"]["Medium"]) + " (" + str(l2["table1"]["Percent"]["Medium"])+"%)"
-    },
-    {
-        "risk": "Low",
-        "value": l2["table1"]["Summary"]["Low"],
-        "colors": "#FFFF00",
-        "labels": "Low, " + str(l2["table1"]["Summary"]["Low"]) + " (" + str(l2["table1"]["Percent"]["Low"])+"%)"
-    }
-]
-# +++++++++++++++++++++++++++++== FIX HERE +++++++++++++++++++++++++++++++++++++
-fig, ax = plt.subplots()
-Critical = mpatches.Patch(
-    color="#7030A0", label='Critical')
-High = mpatches.Patch(
-    color="#FF0000", label='High')
-Medium = mpatches.Patch(
-    color="#FFC000", label='Medium')
-Low = mpatches.Patch(
-    color="#FFFF00", label='Low')
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-if genGraph != 0:
-    # +++++++++++++++++++++++++++++== FIX HERE +++++++++++++++++++++++++++++++++++++
-    value = [i["value"] for i in array if i["value"] != 0]
-    plt.pie(value, labels=[i["labels"] for i in array if i["value"] != 0], colors=[
-            i["colors"] for i in array if i["value"] != 0], pctdistance=1.2)
-    plt.title('Summary Vulnerability by Severity', y=1.05, fontsize=15)
-    plt.legend(loc='upper center', bbox_to_anchor=(0.5, 0),
-               fancybox=True, shadow=True, ncol=4, handles=[Critical, High, Medium, Low])
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    plt.savefig("D:/github/WebReport/testCode/Overview_Graph.png")
-
-    doc.replace_media("D:/github/WebReport/testCode/1.png",
-                      "D:/github/WebReport/testCode/Overview_Graph.png")
-doc.render(l2)
-# print(l2)
-
-doc.save("D:/github/WebReport/testCode/generated_doc.docx")
+try:
+    with open('backend/api/sources/dataout.json', 'w', encoding='utf-8') as jsonf:
+        jsonf.write(json.dumps(vulnerability_url, indent=4))
+except NameError as err:
+    print(err)
+except:
+    with open('backend/api/sources/dataout.json', 'w', encoding='ISO-8859-1') as jsonf:
+        jsonf.write(json.dumps(vulnerability_url, indent=4))
