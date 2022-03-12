@@ -14,7 +14,6 @@ np.seterr(divide='ignore', invalid='ignore')
 
 doc = DocxTemplate("backend/api/sources/templates/templateNessus.docx")
 
-
 countCri = 0
 countHigh = 0
 countMed = 0
@@ -406,7 +405,6 @@ for i in range(len(vulnerability)):
 
 # ==========================================================================================================
 
-
 # ======================================  krit Burp ====================================================================
 countGroupID = {}
 vulnerability_url = []
@@ -418,9 +416,11 @@ for i in DataBurp:
         else:
             countGroupID[DataBurp[i]['name']] = 1
 
+
 def cleanCode(x):
     x = re.sub('</?[a-z]*>', "", x)
     return (x)
+
 
 CriticalList = [DataBurp[i]['name']
                 for i in DataBurp if DataBurp[i]['severity'] == 'Critical']
@@ -437,6 +437,7 @@ MediumList = list(dict.fromkeys(MediumList))
 LowList = [DataBurp[i]['name']
            for i in DataBurp if DataBurp[i]['severity'] == 'Low']
 LowList = list(dict.fromkeys(LowList))
+
 
 def DataCollection(**kwargs):
     global DataBurp
@@ -556,8 +557,10 @@ def DataCollection(**kwargs):
 DataCollection(CriticalList=CriticalList, HighList=HighList,
                MediumList=MediumList, LowList=LowList)
 
+
 def runIndex(e):
     return e['severity']
+
 
 vulnerability_url.sort(key=runIndex, reverse=False)
 
