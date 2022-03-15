@@ -333,7 +333,6 @@ for i in l:
 count = 0
 
 l2 = {"Group": resultALL, "Summary": dictS, "Percent": percent}
-# l2 = {"table1": {"Group": l, "Summary": dictS, "Percent": percent}}
 
 
 array = [

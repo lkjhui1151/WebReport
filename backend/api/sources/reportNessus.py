@@ -32,7 +32,7 @@ dateNow = date.strftime("%B")+" " + \
     date.strftime("%d")+" "+date.strftime("%Y")
 
 
-def makeJson(csvFilePath, csvFilePath2, jsonFilePath, jsonFilePath2):
+def makeJson(csvFilePath, csvFilePath2, csvFilePath3, jsonFilePath, jsonFilePath2, jsonFilePath3):
     data = {}
     data2 = {}
     try:
@@ -54,6 +54,16 @@ def makeJson(csvFilePath, csvFilePath2, jsonFilePath, jsonFilePath2):
                 data2[key] = rows
                 key_id += 1
         with open(jsonFilePath2, 'w', encoding='utf-8') as jsonf:
+            jsonf.write(json.dumps(data2, indent=4))
+
+        with open(csvFilePath3, encoding='utf-8') as csvf:
+            csvReader = csv.DictReader(csvf)
+            key_id = 0
+            for rows in csvReader:
+                key = key_id
+                data2[key] = rows
+                key_id += 1
+        with open(jsonFilePath3, 'w', encoding='utf-8') as jsonf:
             jsonf.write(json.dumps(data2, indent=4))
     except NameError as exception:
         print(exception)
@@ -78,18 +88,34 @@ def makeJson(csvFilePath, csvFilePath2, jsonFilePath, jsonFilePath2):
         with open(jsonFilePath2, 'w', encoding='ISO-8859-1') as jsonf:
             jsonf.write(json.dumps(data2, indent=4))
 
+        with open(csvFilePath3, encoding='ISO-8859-1') as csvf:
+            csvReader = csv.DictReader(csvf)
+            key_id = 0
+            for rows in csvReader:
+                key = key_id
+                data2[key] = rows
+                key_id += 1
+        with open(jsonFilePath3, 'w', encoding='ISO-8859-1') as jsonf:
+            jsonf.write(json.dumps(data2, indent=4))
 
-csvFilePath = r'backend/api/sources/iso/Network Cloud.csv'
+
+csvFilePath = r'backend/api/sources/iso/COCO-IDC1.csv'
 jsonFilePath = r'backend/api/sources/dataNessus.json'
 
 # <--Burp-->
 csvFilePath2 = r'backend/api/sources/iso/burpresult3.csv'
 jsonFilePath2 = r'backend/api/sources/dataBurp.json'
 
-makeJson(csvFilePath, csvFilePath2, jsonFilePath, jsonFilePath2)
+# <--Nmap-->
+csvFilePath3 = r'backend/api/sources/iso/nmap.csv'
+jsonFilePath3 = r'backend/api/sources/dataNmap.json'
+
+makeJson(csvFilePath, csvFilePath2, csvFilePath3,
+         jsonFilePath, jsonFilePath2, jsonFilePath3)
 
 DataJSON = pandas.read_json(jsonFilePath)
 DataBurp = pandas.read_json(jsonFilePath2)
+DataNmap = pandas.read_json(jsonFilePath3)
 
 GroupName1 = {}
 GroupName2 = []
@@ -410,11 +436,11 @@ countGroupID = {}
 vulnerability_url = []
 
 for i in DataBurp:
-    if DataBurp[i]['severity'] != 'Information':
-        if DataBurp[i]['name'] in countGroupID:
-            countGroupID[DataBurp[i]['name']] += 1
+    if DataBurp[i]['issue__severity'] != 'Information':
+        if DataBurp[i]['issue__name'] in countGroupID:
+            countGroupID[DataBurp[i]['issue__name']] += 1
         else:
-            countGroupID[DataBurp[i]['name']] = 1
+            countGroupID[DataBurp[i]['issue__name']] = 1
 
 
 def cleanCode(x):
@@ -422,20 +448,20 @@ def cleanCode(x):
     return (x)
 
 
-CriticalList = [DataBurp[i]['name']
-                for i in DataBurp if DataBurp[i]['severity'] == 'Critical']
+CriticalList = [DataBurp[i]['issue__name']
+                for i in DataBurp if DataBurp[i]['issue__severity'] == 'Critical']
 CriticalList = list(dict.fromkeys(CriticalList))
 
-HighList = [DataBurp[i]['name']
-            for i in DataBurp if DataBurp[i]['severity'] == 'High']
+HighList = [DataBurp[i]['issue__name']
+            for i in DataBurp if DataBurp[i]['issue__severity'] == 'High']
 HighList = list(dict.fromkeys(HighList))
 
-MediumList = [DataBurp[i]['name']
-              for i in DataBurp if DataBurp[i]['severity'] == 'Medium']
+MediumList = [DataBurp[i]['issue__name']
+              for i in DataBurp if DataBurp[i]['issue__severity'] == 'Medium']
 MediumList = list(dict.fromkeys(MediumList))
 
-LowList = [DataBurp[i]['name']
-           for i in DataBurp if DataBurp[i]['severity'] == 'Low']
+LowList = [DataBurp[i]['issue__name']
+           for i in DataBurp if DataBurp[i]['issue__severity'] == 'Low']
 LowList = list(dict.fromkeys(LowList))
 
 
@@ -450,10 +476,10 @@ def DataCollection(**kwargs):
             # subContentLow = {}
             countCheck = 0
             for j in DataBurp:
-                if DataBurp[j]['severity'] != 'Information':
-                    if DataBurp[j]['name'] == i:
+                if DataBurp[j]['issue__severity'] != 'Information':
+                    if DataBurp[j]['issue__name'] == i:
                         list_url.append(
-                            DataBurp[j]['host/__text']+DataBurp[j]["location"])
+                            DataBurp[j]['issue__host__#Text']+DataBurp[j]["issue__location"])
                         countCheck += 1
                         # print(countCheck)
                         if countCheck == countGroupID[i]:
@@ -465,7 +491,7 @@ def DataCollection(**kwargs):
                                 else:
                                     url = url + '\n' + x
                             list_ref = re.findall(
-                                r'(http\S+)\"', DataBurp[j]['references'])
+                                r'(http\S+)\"', DataBurp[j]['issue__references'])
                             ref = ""
                             for temp in list_ref:
                                 if ref == "":
@@ -473,81 +499,81 @@ def DataCollection(**kwargs):
                                 else:
                                     ref = ref + "\n" + temp
                             if data == "CriticalList":
-                                if len(DataBurp[j]['host/__text'].split(":")) == 3:
-                                    subContent["port"] = DataBurp[j]['host/__text'].split(":")[
+                                if len(DataBurp[j]['issue__host__#Text'].split(":")) == 3:
+                                    subContent["port"] = DataBurp[j]['issue__host__#Text'].split(":")[
                                         2].split('/')[0]
-                                elif DataBurp[j]['host/__text'].split(":")[0] == "https":
+                                elif DataBurp[j]['issue__host__#Text'].split(":")[0] == "https":
                                     subContent["port"] = "443"
-                                elif DataBurp[j]['host/__text'].split(":")[0] == "http":
+                                elif DataBurp[j]['issue__host__#Text'].split(":")[0] == "http":
                                     subContent["port"] = "80"
                                 else:
                                     subContent["port"] = "N/A"
                                 subContent["host"] = url
-                                subContent["name"] = DataBurp[j]['name']
+                                subContent["name"] = DataBurp[j]['issue__name']
                                 subContent["description"] = cleanCode(
-                                    DataBurp[j]['issueBackground'])
+                                    DataBurp[j]['issue__issueBackground'])
                                 subContent["solution"] = cleanCode(
-                                    DataBurp[j]['remediationBackground'])
+                                    DataBurp[j]['issue__remediationBackground'])
                                 subContent["remark"] = ref
                                 subContent["color"] = "#7030A0"
                                 subContent["severity"] = 1
                                 vulnerability_url.append(subContent)
                             if data == "HighList":
-                                if len(DataBurp[j]['host/__text'].split(":")) == 3:
-                                    subContent["port"] = DataBurp[j]['host/__text'].split(":")[
+                                if len(DataBurp[j]['issue__host__#Text'].split(":")) == 3:
+                                    subContent["port"] = DataBurp[j]['issue__host__#Text'].split(":")[
                                         2].split('/')[0]
-                                elif DataBurp[j]['host/__text'].split(":")[0] == "https":
+                                elif DataBurp[j]['issue__host__#Text'].split(":")[0] == "https":
                                     subContent["port"] = "443"
-                                elif DataBurp[j]['host/__text'].split(":")[0] == "http":
+                                elif DataBurp[j]['issue__host__#Text'].split(":")[0] == "http":
                                     subContent["port"] = "80"
                                 else:
                                     subContent["port"] = "N/A"
                                 subContent["host"] = url
-                                subContent["name"] = DataBurp[j]['name']
+                                subContent["name"] = DataBurp[j]['issue__name']
                                 subContent["description"] = cleanCode(
-                                    DataBurp[j]['issueBackground'])
+                                    DataBurp[j]['issue__issueBackground'])
                                 subContent["solution"] = cleanCode(
-                                    DataBurp[j]['remediationBackground'])
+                                    DataBurp[j]['issue__remediationBackground'])
                                 subContent["remark"] = ref
                                 subContent["color"] = "#FF0000"
                                 subContent["severity"] = 2
                                 vulnerability_url.append(subContent)
                             if data == "MediumList":
-                                if len(DataBurp[j]['host/__text'].split(":")) == 3:
-                                    subContent["port"] = DataBurp[j]['host/__text'].split(":")[
+                                if len(DataBurp[j]['issue__host__#Text'].split(":")) == 3:
+                                    subContent["port"] = DataBurp[j]['issue__host__#Text'].split(":")[
                                         2].split('/')[0]
-                                elif DataBurp[j]['host/__text'].split(":")[0] == "https":
+                                elif DataBurp[j]['issue__host__#Text'].split(":")[0] == "https":
                                     subContent["port"] = "443"
-                                elif DataBurp[j]['host/__text'].split(":")[0] == "http":
+                                elif DataBurp[j]['issue__host__#Text'].split(":")[0] == "http":
                                     subContent["port"] = "80"
                                 else:
                                     subContent["port"] = "N/A"
                                 subContent["host"] = url
-                                subContent["name"] = DataBurp[j]['name']
+                                subContent["name"] = DataBurp[j]['issue__name']
                                 subContent["description"] = cleanCode(
-                                    DataBurp[j]['issueBackground'])
+                                    DataBurp[j]['issue__issueBackground'])
                                 subContent["solution"] = cleanCode(
-                                    DataBurp[j]['remediationBackground'])
+                                    DataBurp[j]['issue__remediationBackground'])
                                 subContent["remark"] = ref
                                 subContent["color"] = "#FFC000"
                                 subContent["severity"] = 3
                                 vulnerability_url.append(subContent)
                             if data == "LowList":
-                                if len(DataBurp[j]['host/__text'].split(":")) == 3:
-                                    subContent["port"] = DataBurp[j]['host/__text'].split(":")[
+                                if len(DataBurp[j]['issue__host__#Text'].split(":")) == 3:
+                                    subContent["port"] = DataBurp[j]['issue__host__#Text'].split(":")[
                                         2].split('/')[0]
-                                elif DataBurp[j]['host/__text'].split(":")[0] == "https":
+                                elif DataBurp[j]['issue__host__#Text'].split(":")[0] == "https":
                                     subContent["port"] = "443"
-                                elif DataBurp[j]['host/__text'].split(":")[0] == "http":
+                                elif DataBurp[j]['issue__host__#Text'].split(":")[0] == "http":
                                     subContent["port"] = "80"
                                 else:
                                     subContent["port"] = "N/A"
                                 subContent["host"] = url
-                                subContent["name"] = DataBurp[j]['name']
+                                subContent["name"] = DataBurp[j]['issue__name']
                                 subContent["description"] = cleanCode(
-                                    DataBurp[j]['issueBackground'])
+                                    DataBurp[j]['issue__issueBackground'])
                                 subContent["solution"] = cleanCode(
-                                    DataBurp[j]['remediationBackground'])
+                                    DataBurp[j]['issue__remediationBackground'])
                                 subContent["remark"] = ref
                                 subContent["color"] = "#FFFF00"
                                 subContent["severity"] = 4
@@ -590,13 +616,13 @@ GroupName1 = {}
 GroupName2 = []
 # Create New Data Source burp
 for row in DataBurp:
-    GroupName1["Risk"] = DataBurp[row]["severity"]
-    GroupName1["ip"] = DataBurp[row]["host/_ip"]
-    GroupName1["url"] = DataBurp[row]["host/__text"]
-    GroupName1["Group"] = DataBurp[row]["host/__text"]
-    GroupName1["issue"] = DataBurp[row]["issueBackground"]
-    GroupName1["solution"] = DataBurp[row]["remediationBackground"]
-    GroupName1["references"] = DataBurp[row]["references"]
+    GroupName1["Risk"] = DataBurp[row]["issue__severity"]
+    GroupName1["ip"] = DataBurp[row]["issue__host__ip"]
+    GroupName1["url"] = DataBurp[row]["issue__host__#Text"]
+    GroupName1["Group"] = DataBurp[row]["issue__host__#Text"]
+    GroupName1["issue"] = DataBurp[row]["issue__issueBackground"]
+    GroupName1["solution"] = DataBurp[row]["issue__remediationBackground"]
+    GroupName1["references"] = DataBurp[row]["issue__references"]
     GroupName2.append(GroupName1)
     GroupName1 = {}
 
@@ -699,6 +725,41 @@ else:
     doc.replace_media("backend/api/sources/image/1.png",
                       "backend/api/sources/image/noGraph.jpg")
 # ==========================================================================================================
+
+# =================================     Krit NAMP   =========================================================================
+dict_IP_port = {}
+temp_IP = "a"
+list_port = []
+list_port_prot_serv = []
+dict_port_prot_serv = {}
+
+for i in DataNmap:
+    if DataNmap[i]['host__address__addr'] != "":
+        dict_IP_port[temp_IP] = list_port
+        temp_IP = DataNmap[i]['host__address__addr']
+        list_port = []
+    list_port.append(DataNmap[i]['host__ports__port__portid'])
+# ======================================================================================================
+    if DataNmap[i]['host__ports__port__state__state'] == "open":
+        dict_port_prot_serv["port"] = DataNmap[i]['host__ports__port__portid']
+        dict_port_prot_serv["protocol"] = DataNmap[i]['host__ports__port__protocol']
+        dict_port_prot_serv["service"] = DataNmap[i]['host__ports__port__service__name']
+        list_port_prot_serv.append(dict_port_prot_serv)
+        dict_port_prot_serv = {}
+
+dict_IP_port[temp_IP] = list_port
+del dict_IP_port['a']
+
+seen = set()
+new_l = []
+for d in list_port_prot_serv:
+    t = tuple(d.items())
+    if t not in seen:
+        seen.add(t)
+        new_l.append(d)
+
+list_port_prot_serv = (sorted(new_l, key=lambda x: int(x['port'])))
+# ==========================================================================================================
 contents = {}
 
 name = csvFilePath.split("/")
@@ -711,6 +772,7 @@ contents['table1'] = l2
 contents['table11'] = l3
 contents["fileName"] = name[0]
 contents['Date'] = dateNow
+contents['nmap_port'] = list_port_prot_serv
 
 doc.render(contents)
 
