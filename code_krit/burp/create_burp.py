@@ -81,7 +81,7 @@ for j in host_id:
 
                 countCheck += 1
                 if countCheck == groupID[DataJSON[i]['type']]:
-                    ist_url=list(dict.fromkeys(list_url))
+                    list_url=list(dict.fromkeys(list_url))
                     url = ""
                     for x in list_url:
                         if url == "":
