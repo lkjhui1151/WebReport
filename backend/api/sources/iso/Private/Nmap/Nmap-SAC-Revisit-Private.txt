@@ -1,0 +1,143 @@
+# Nmap 7.92 scan initiated Wed Mar 16 09:44:10 2022 as: nmap -iL SAC.txt -Pn -oX Nmap-SAC-Revisit-Private.xml -oN Nmap-SAC-Revisit-Private.txt
+Nmap scan report for 10.1.0.25
+Host is up (0.0083s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 10.1.0.21
+Host is up (0.0081s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+3306/tcp open   mysql
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 10.1.0.20
+Host is up (0.0085s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for www.sac.or.th (10.1.1.10)
+Host is up (0.0079s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 10.1.1.2
+Host is up (0.0081s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+53/tcp   open   domain
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 10.1.1.11
+Host is up (0.0081s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 10.1.0.10
+Host is up (0.0088s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 10.1.1.19
+Host is up (0.0084s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 10.1.1.18
+Host is up (0.0084s latency).
+Not shown: 994 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 10.1.1.244
+Host is up (0.0091s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+3306/tcp open   mysql
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for lib.sac.or.th (10.1.1.121)
+Host is up (0.0083s latency).
+Not shown: 992 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+21/tcp   open   ftp
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+3389/tcp open   ms-wbt-server
+8008/tcp open   http
+8010/tcp open   xmpp
+8081/tcp open   blackice-icecap
+
+Nmap scan report for 10.1.0.254
+Host is up (0.0081s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT    STATE  SERVICE
+113/tcp closed ident
+
+Nmap scan report for 10.1.0.251
+Host is up (0.0081s latency).
+Not shown: 995 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+8008/tcp open   http
+8010/tcp open   xmpp
+
+# Nmap done at Wed Mar 16 09:44:31 2022 -- 13 IP addresses (13 hosts up) scanned in 20.41 seconds

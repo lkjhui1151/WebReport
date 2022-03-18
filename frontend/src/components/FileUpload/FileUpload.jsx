@@ -31,10 +31,21 @@ const FileUpload = ({ files, setFiles, removeFile }) => {
         // state = true
         FileList.push(fileType[0])
         // state = 1
+        if (fileType[fileType.length - 1] === "csv") {
+            state = true
+        }
+        else {
+            setShowModal(true)
+            for (let i = 0; i < FileList.length; i++) {
+                if (FileList[i] == fileType[0]) {
+                    FileList.splice(i, 1);
+                }
+            }
+        }
         console.log(FileList);
         console.log(state);
 
-        if (fileType[fileType.length - 1] === "csv" && state === true) {
+        if (state === true) {
             file.isUploading = true
             setFiles([...files, file])
             const formData = new FormData()
@@ -55,14 +66,6 @@ const FileUpload = ({ files, setFiles, removeFile }) => {
                     console.log(err);
                     removeFile(file.name)
                 })
-        }
-        else {
-            setShowModal(true)
-            // for (let i = 0; i < FileList.length; i++) {
-            //     if (FileList[i] == fileType[0]) {
-            //         FileList.splice(i, 1);
-            //     }
-            // }
         }
     }
     return (

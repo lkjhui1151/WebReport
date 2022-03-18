@@ -738,7 +738,8 @@ for i in DataNmap:
         dict_IP_port[temp_IP] = list_port
         temp_IP = DataNmap[i]['host__address__addr']
         list_port = []
-    list_port.append(DataNmap[i]['host__ports__port__portid'])
+    list_port.append(DataNmap[i]['host__ports__port__protocol'] +
+                     ","+DataNmap[i]['host__ports__port__portid'])
 # ======================================================================================================
     if DataNmap[i]['host__ports__port__state__state'] == "open":
         dict_port_prot_serv["port"] = DataNmap[i]['host__ports__port__portid']

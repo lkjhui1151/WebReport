@@ -1,0 +1,160 @@
+# Nmap 7.92 scan initiated Wed Mar 16 17:13:10 2022 as: "C:\\Program Files (x86)\\Nmap\\nmap.exe" -iL .\\target.txt -oX Nmap-SAC-Revisit-Public-All.xml -oN Nmap-SAC-Revisit-Public-All.txt
+Nmap scan report for 83.118.33.130
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.132
+Host is up (0.013s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+53/tcp   open   domain
+5061/tcp closed sip-tls
+
+Nmap scan report for 83.118.33.138
+Host is up (0.018s latency).
+Not shown: 995 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+443/tcp  open   https
+5000/tcp closed upnp
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 83.118.33.135
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.145
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.144
+Host is up (0.018s latency).
+Not shown: 995 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+443/tcp  open   https
+3000/tcp closed ppp
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 83.118.33.148
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.131
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.190
+Host is up (0.017s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT    STATE  SERVICE
+113/tcp closed ident
+
+Nmap scan report for 202.29.72.50
+Host is up (0.018s latency).
+Not shown: 992 filtered tcp ports (no-response), 4 filtered tcp ports (admin-prohibited)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for db.sac.or.th (202.29.72.42)
+Host is up (0.018s latency).
+Other addresses for db.sac.or.th (not scanned): 83.118.33.138
+Not shown: 994 filtered tcp ports (no-response), 1 filtered tcp ports (admin-prohibited)
+PORT     STATE  SERVICE
+80/tcp   open   http
+443/tcp  open   https
+5000/tcp closed upnp
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for pmop.sac.or.th (202.29.72.51)
+Host is up (0.018s latency).
+Other addresses for pmop.sac.or.th (not scanned): 83.118.33.145
+Not shown: 995 filtered tcp ports (no-response), 1 filtered tcp ports (admin-prohibited)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for communityarchive.sac.or.th (202.29.72.49)
+Host is up (0.019s latency).
+Other addresses for communityarchive.sac.or.th (not scanned): 83.118.33.144
+Not shown: 992 filtered tcp ports (no-response), 3 filtered tcp ports (admin-prohibited)
+PORT     STATE  SERVICE
+80/tcp   open   http
+443/tcp  open   https
+3000/tcp closed ppp
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for www.sac.or.th (83.118.33.130)
+Host is up (0.017s latency).
+Other addresses for www.sac.or.th (not scanned): 2001:3c8:1605:1:202:29:72:34 202.29.72.34
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for mis.sac.or.th (83.118.33.135)
+Host is up (0.014s latency).
+Other addresses for mis.sac.or.th (not scanned): 202.29.72.40
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for tv.sac.or.th (83.118.33.148)
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for lib.sac.or.th (83.118.33.131)
+Host is up (0.014s latency).
+Other addresses for lib.sac.or.th (not scanned): 202.29.72.36
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+# Nmap done at Wed Mar 16 17:14:03 2022 -- 17 IP addresses (17 hosts up) scanned in 53.24 seconds

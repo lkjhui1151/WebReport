@@ -1,0 +1,89 @@
+# Nmap 7.92 scan initiated Tue Mar 15 09:26:29 2022 as: "C:\\Program Files (x86)\\Nmap\\nmap.exe" -iL .\\Target.txt -oN Revisit-SAC.txt
+Nmap scan report for 83.118.33.130
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.132
+Host is up (0.013s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+53/tcp   open   domain
+5061/tcp closed sip-tls
+
+Nmap scan report for 83.118.33.138
+Host is up (0.016s latency).
+Not shown: 995 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+443/tcp  open   https
+5000/tcp closed upnp
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 83.118.33.135
+Host is up (0.014s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.145
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.144
+Host is up (0.013s latency).
+Not shown: 995 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+80/tcp   open   http
+443/tcp  open   https
+3000/tcp closed ppp
+8008/tcp open   http
+8010/tcp open   xmpp
+
+Nmap scan report for 83.118.33.148
+Host is up (0.013s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.131
+Host is up (0.017s latency).
+Not shown: 996 filtered tcp ports (no-response)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+Nmap scan report for 83.118.33.190
+Host is up (0.016s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT    STATE  SERVICE
+113/tcp closed ident
+
+Nmap scan report for 202.29.72.50
+Host is up (0.015s latency).
+Not shown: 993 filtered tcp ports (no-response), 3 filtered tcp ports (admin-prohibited)
+PORT     STATE SERVICE
+80/tcp   open  http
+443/tcp  open  https
+8008/tcp open  http
+8010/tcp open  xmpp
+
+# Nmap done at Tue Mar 15 09:27:02 2022 -- 10 IP addresses (10 hosts up) scanned in 33.42 seconds

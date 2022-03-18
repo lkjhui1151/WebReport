@@ -28,7 +28,7 @@ dateNow = date.strftime("%B")+" " + \
     date.strftime("%d")+", "+date.strftime("%Y")
 
 
-def makeJson(csvFilePath, jsonFilePath,):
+def makeJson(csvFilePath, jsonFilePath):
     data = {}
     try:
         with open(csvFilePath, encoding='utf-8') as csvf:
@@ -56,7 +56,7 @@ def makeJson(csvFilePath, jsonFilePath,):
 
 
 # <--Nessus-->
-csvFilePath = r'backend/api/sources/iso/Network Cloud.csv'
+csvFilePath = r'backend/api/sources/iso/SAC_Revisit_Public.csv'
 jsonFilePath = r'backend/api/sources/dataNessus.json'
 
 # <--Burp-->
@@ -64,7 +64,7 @@ csvFilePath2 = r'backend/api/sources/iso/burpresult3.csv'
 jsonFilePath2 = r'backend/api/sources/dataBurp.json'
 
 # <--Nmap-->
-csvFilePath3 = r'backend/api/sources/iso/nmap.csv'
+csvFilePath3 = r'backend/api/sources/iso/SAC_Revisit_Public-Nmap.csv'
 jsonFilePath3 = r'backend/api/sources/dataNmap.json'
 
 makeJson(csvFilePath, jsonFilePath)
@@ -219,9 +219,9 @@ value = [i["value"] for i in array]
 
 if genGraph != 0:
     value = [i["value"] for i in array if i["value"] != 0]
-    if value[2] == value[3]:
-        a, b = value[1], value[0]
-        value[b], value[a] = value[a], value[b]
+    # if value[2] == value[3]:
+    #     a, b = value[1], value[0]
+    #     value[b], value[a] = value[a], value[b]
     ax1.pie(value, labels=[i["labels"] for i in array if i["value"] != 0], colors=[
         i["colors"] for i in array if i["value"] != 0], pctdistance=1.2)
     ax1.set_title('Summary Vulnerability by Severity', y=1.05, fontsize=15)
@@ -244,7 +244,12 @@ dict_port_prot_serv = {}
 for i in DataNmap:
     if DataNmap[i]['host__address__addr'] != "":
         dict_IP_port[temp_IP] = list_port
-        temp_IP = DataNmap[i]['group']+","+DataNmap[i]['host__address__addr']
+        if DataNmap[i]['group'] == "nessus":
+            temp_IP = DataNmap[i]['group']+"," + \
+                DataNmap[i]['host__address__addr']
+        if DataNmap[i]['group'] == "burp":
+            temp_IP = DataNmap[i]['group']+"," + \
+                DataNmap[i]['host__hostnames__hostname__name']
         list_port = []
     list_port.append(DataNmap[i]['host__ports__port__protocol'] +
                      ","+DataNmap[i]['host__ports__port__portid'])
@@ -256,7 +261,10 @@ for i in DataNmap:
         list_port_prot_serv.append(dict_port_prot_serv)
         dict_port_prot_serv = {}
 dict_IP_port[temp_IP] = list_port
+# print(dict_IP_port)
 del dict_IP_port['a']
+
+# print(dict_IP_port)
 
 list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
 list_port_prot_serv = (
@@ -265,10 +273,17 @@ list_port_prot_serv = (
 ip = [DataJSON[i]["Host"] for i in DataJSON]
 ip = list(dict.fromkeys(ip))
 ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
+
+domainName = [DataNmap[i]['host__hostnames__hostname__name']
+              for i in DataNmap if DataNmap[i]['host__hostnames__hostname__name']]
+domainName = list(dict.fromkeys(domainName))
 # --------------------------------------make data ip port------------------------------------------------------------
-dict_ip_portopen = {}
-for i in ip:
-    dict_ip_portopen[i] = {'TCP': [], 'UDP': []}
+# print(domainName)
+dict_ip_portopen = {i: {'TCP': [], 'UDP': []} for i in ip}
+# URL
+dict_url_portopen = {i: {'TCP': [], 'UDP': []} for i in domainName}
+
+# print(dict_url_portopen)
 
 for i in DataJSON:
     if DataJSON[i]["Protocol"] == 'tcp':
@@ -277,9 +292,37 @@ for i in DataJSON:
     elif DataJSON[i]["Protocol"] == 'udp':
         dict_ip_portopen[DataJSON[i]["Host"]
                          ]['UDP'].append(DataJSON[i]["Port"])
+
+# print(dict_ip_portopen)
+
+# print("+++++++++++++++++++++++++++++")
+
+# URL
+for i in DataNmap:
+    # print(DataNmap[i]["host__hostnames__hostname__name"])
+    if DataNmap[i]["host__hostnames__hostname__name"] in dict_url_portopen.keys():
+        if DataNmap[i]["host__ports__port__protocol"] == 'tcp':
+            dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]]['TCP'].append(
+                DataNmap[i]["host__ports__port__portid"])
+
+        elif DataNmap[i]["host__ports__port__protocol"] == 'udp':
+            dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]]['TCP'].append(
+                DataNmap[i]["host__ports__port__portid"])
+
+for i in DataNmap:
+    if DataNmap[i]["host__hostnames__hostname__name"] != "" and DataNmap[i]["host__address__addr"] != "":
+        dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]+","+DataNmap[i]
+                          ["host__address__addr"]] = dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]]
+        del dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]]
+
+# print(dict_url_portopen)
+
 for i, j in dict_IP_port.items():
     temp0 = i.split(',')
+    # print(temp0[0])
     if temp0[0] == "nessus" and temp0[1] in dict_ip_portopen:
+        # print(dict_ip_portopen)
+        # pass
         for x in j:
             temp = x.split(',')
             if temp[0] == 'tcp':
@@ -308,16 +351,56 @@ for key, value in dict_ip_portopen.items():
             else:
                 temp = temp+', '+value[i][index]
     dict_ip_portopen[key]['port'] = temp
+
+# URL
+for key, value in dict_url_portopen.items():
+    temp = ""
+    for i in value:
+        value[i] = list(dict.fromkeys(value[i]))
+        value[i] = sorted(value[i], key=lambda d: (
+            tuple(map(int, d.split('.')))))
+        if '0' in value[i]:
+            value[i].remove('0')
+
+        for index in range(len(value[i])):
+            if index == 0:
+                if i == 'UDP':
+                    if temp != "":
+                        temp = temp+'\n'+i+' : '+value[i][index]
+                    else:
+                        temp = i+': '+value[i][index]
+                else:
+                    temp = i+': '+value[i][index]
+            else:
+                temp = temp+', '+value[i][index]
+    dict_url_portopen[key]['port'] = temp
+
+# print(dict_ip_portopen)
+
 list_all_ip_port = []
+list_all_domain_port = []
 index = 1
 for key, value in dict_ip_portopen.items():
     ip_port_ = {}
-    ip_port_['No'] = index
+    ip_port_['no'] = index
     ip_port_['host'] = key
     ip_port_['port'] = value['port']
     list_all_ip_port.append(ip_port_)
     index += 1
 
+
+index = 1
+for key, value in dict_url_portopen.items():
+    key = key.split(",")
+    ip_port_ = {}
+    ip_port_['no'] = index
+    ip_port_['host'] = key[0]
+    ip_port_['ip'] = key[1]
+    ip_port_['port'] = value['port']
+    list_all_domain_port.append(ip_port_)
+    index += 1
+
+# print(list_all_domain_port)
 # ==============================================-make data detail==============================================================
 name = [DataJSON[i]["Plugin ID"]
         for i in DataJSON if DataJSON[i]["Risk"] != "None"]
@@ -564,7 +647,10 @@ for i in range(len(vulnerability_url)):
 
 # --------------------------------------make data ip port burp----------------------------------------------------------
 dict_ip_portopen_burp = {}
+
+
 for i in newlist:
+    # print(i)
     if i['url']+','+i['ip'] not in dict_ip_portopen_burp:
         if len(i['url'].split(":")) == 3:
             list_port_burp = [i['url'].split(":")[
@@ -575,6 +661,7 @@ for i in newlist:
             list_port_burp = ["80"]
         dict_ip_portopen_burp[i['url']+','+i['ip']] = list_port_burp
 
+
 for i, j in dict_IP_port.items():
     list_port = []
     temp0 = i.split(',')
@@ -584,6 +671,7 @@ for i, j in dict_IP_port.items():
             for a in j:
                 a = a.split(",")
                 dict_ip_portopen_burp[x].append(a[1])
+
 
 for key, value in dict_ip_portopen_burp.items():
     temp = ""
@@ -600,6 +688,7 @@ for key, value in dict_ip_portopen_burp.items():
             temp = temp+', '+value[i]
     dict_ip_portopen_burp[key] = temp
 
+
 index = 1
 list_all_ip_port_burp = []
 for key, value in dict_ip_portopen_burp.items():
@@ -611,6 +700,7 @@ for key, value in dict_ip_portopen_burp.items():
     ip_port_burp['port'] = value
     list_all_ip_port_burp.append(ip_port_burp)
     index += 1
+
 # =====================================     Max burp    =====================================================================
 
 count = 1
@@ -643,9 +733,9 @@ CriticalS = (sum([d['Critical'] for d in l]))
 HighS = (sum([d['High'] for d in l]))
 MediumS = (sum([d['Medium'] for d in l]))
 LowS = (sum([d['Low'] for d in l]))
-#InfoS = (sum([d['Info'] for d in l]))
+# InfoS = (sum([d['Info'] for d in l]))
 Amount = CriticalS+HighS+MediumS+LowS
-#Amount = 0
+# Amount = 0
 if Amount == 0:
     Amount = 1
     genGraph = 0
@@ -710,6 +800,7 @@ name = csvFilePath.split("/")
 name = name[-1].split(".csv")
 
 contents['contents_ip'] = list_all_ip_port
+contents['contents_domain'] = list_all_domain_port
 contents['vulnerability'] = vulnerability
 contents['vulnerability_url'] = vulnerability_url
 contents['table1'] = l2
