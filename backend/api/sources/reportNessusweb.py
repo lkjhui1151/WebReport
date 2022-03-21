@@ -54,6 +54,7 @@ def makeJson(csvFilePath, jsonFilePath):
         with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
             jsonf.write(json.dumps(data, indent=4))
 
+
 # <--Burp-->
 csvBurp = r'backend/api/sources/iso/burpresult3.csv'
 jsonBurp = r'backend/api/sources/dataBurp.json'
@@ -100,6 +101,7 @@ def cleanCode(x):
     x = re.sub(r'</?[a-z]*>', "", x)
     return (x)
 
+
 # =================================     Krit NAMP   ===================================================
 dict_IP_port = {}
 temp_IP = "a"
@@ -108,28 +110,19 @@ list_port_prot_serv = []
 dict_port_prot_serv = {}
 
 for i in DataNmap:
-    if DataNmap[i]['host__address__addr'] != "":
-        dict_IP_port[temp_IP] = list_port
-        if DataNmap[i]['group'] == "nessus":
-            temp_IP = DataNmap[i]['group']+"," + \
-                DataNmap[i]['host__address__addr']
-        if DataNmap[i]['group'] == "burp":
-            temp_IP = DataNmap[i]['group']+"," + \
-                DataNmap[i]['host__hostnames__hostname__name']
-        list_port = []
-    list_port.append(DataNmap[i]['host__ports__port__protocol'] +
-                     ","+DataNmap[i]['host__ports__port__portid'])
-# ===========================================Table nmap======================================================
-    if DataNmap[i]['host__ports__port__state__state'] == "open":
-        dict_port_prot_serv["port"] = DataNmap[i]['host__ports__port__portid']
-        dict_port_prot_serv["protocol"] = DataNmap[i]['host__ports__port__protocol']
-        dict_port_prot_serv["service"] = DataNmap[i]['host__ports__port__service__name']
-        list_port_prot_serv.append(dict_port_prot_serv)
-        dict_port_prot_serv = {}
+    if DataNmap[i]['group'] == "burp":
+        if DataNmap[i]['host__ports__port__state__state'] == "open":
+            dict_port_prot_serv["port"] = DataNmap[i]['host__ports__port__portid']
+            dict_port_prot_serv["protocol"] = DataNmap[i]['host__ports__port__protocol']
+            dict_port_prot_serv["service"] = DataNmap[i]['host__ports__port__service__name']
+            list_port_prot_serv.append(dict_port_prot_serv)
+            dict_port_prot_serv = {}
+
 dict_IP_port[temp_IP] = list_port
 del dict_IP_port['a']
 
 list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
+
 list_port_prot_serv = (
     sorted(list_port_prot_serv, key=lambda x: int(x['port'])))
 ################################################## krit ##################################################
@@ -144,13 +137,14 @@ dict_url_portopen = {i: {'TCP': [], 'UDP': []} for i in domainName}
 # URL
 for i in DataNmap:
     if DataNmap[i]["host__hostnames__hostname__name"] in dict_url_portopen.keys():
-        if DataNmap[i]["host__ports__port__protocol"] == 'tcp':
-            dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]]['TCP'].append(
-                DataNmap[i]["host__ports__port__portid"])
+        if DataNmap[i]["host__ports__port__state__state"] == "open":
+            if DataNmap[i]["host__ports__port__protocol"] == 'tcp':
+                dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]]['TCP'].append(
+                    DataNmap[i]["host__ports__port__portid"])
 
-        elif DataNmap[i]["host__ports__port__protocol"] == 'udp':
-            dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]]['TCP'].append(
-                DataNmap[i]["host__ports__port__portid"])
+            elif DataNmap[i]["host__ports__port__protocol"] == 'udp':
+                dict_url_portopen[DataNmap[i]["host__hostnames__hostname__name"]]['TCP'].append(
+                    DataNmap[i]["host__ports__port__portid"])
 
 for i in DataNmap:
     if DataNmap[i]["host__hostnames__hostname__name"] != "" and DataNmap[i]["host__address__addr"] != "":
@@ -431,6 +425,6 @@ contents['vulnerability_url'] = vulnerability_url   # use
 contents['table11'] = l3    # use
 contents["fileName"] = name[0]  # use
 contents['Date'] = dateNow  # use
-contents['nmap_port'] = list_port_prot_serv # use
+contents['nmap_port'] = list_port_prot_serv  # use
 doc.render(contents)
 doc.save("backend/api/sources/results/"+name[0]+" Nessus Web"+".docx")
