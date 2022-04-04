@@ -1,16 +1,5 @@
-from dataclasses import dataclass
-from MySQLdb import DBAPISet
 import mysql.connector
-import pandas as pd
-from importlib.resources import contents
-from multiprocessing.sharedctypes import Value
-from operator import index
-from tokenize import group
-from turtle import home
-from xmlrpc.server import list_public_methods
 from docxtpl import *
-from numpy import append, empty
-from collections import OrderedDict
 
 mydb = mysql.connector.connect(
     host="10.11.101.32",
@@ -19,7 +8,6 @@ mydb = mysql.connector.connect(
     database="inetms_autoreport"
 )
 
-
 def dictfetchall(cursor):
     # Return all rows from a cursor as a dict
     columns = [col[0] for col in cursor.description]
@@ -27,7 +15,6 @@ def dictfetchall(cursor):
         dict(zip(columns, row))
         for row in cursor.fetchall()
     ]
-
 
 def create_index(list, DB):
     temp_index = 1
@@ -39,10 +26,14 @@ def create_index(list, DB):
 
 
 path = 'D:/INET-MS/Auto report/GitHub/WebReport/code_krit/report_SOC/'
+doc = DocxTemplate(path+"templateSOC.docx")
+
+
 start_date = '2022-03-01'
 end_date = '2022-04-01'
 month_report = "มีนาคม 2565"
 cus_name = "xspringam"
+
 mycursor = mydb.cursor()
 
 sql = "select category,name_en,detail_th,priority from vulnerability"
@@ -56,7 +47,7 @@ device_DB = dictfetchall(mycursor)
 sql = "select AVG(value) from capa_daily_log join company_list ON company_list.id = capa_daily_log.company_id where company_list.initials = \"" + \
     cus_name+"\" and capa_daily_log.date between \"" + \
     start_date+"\" and \""+end_date+"\""
-mycursor.execute(sql)
+mycursor.execute(sql)   
 capa_DB = dictfetchall(mycursor)
 
 device = []
@@ -65,6 +56,9 @@ create_index(device, device_DB)
 create_index(vulnerability, vulnerability_DB)
 
 contents = {}
+img = "inet.png" if device_DB[0]['service_provider'] == "INET" else "inetms.png"
+image = InlineImage(doc, path+img)
+contents['img_provider'] =  image
 contents['month_report'] = month_report
 contents['Service_provider'] = "บริษัท อินเทอร์เน็ตประเทศไทย จำกัด (มหาชน)" if device_DB[0]['service_provider'] == "INET" else "บริษัท ไอเน็ต แมเนจด์ เซอร์วิสเซส จำกัด"
 contents['name_capany'] = device_DB[0]['name_th']
@@ -73,8 +67,7 @@ contents['capa'] = '{:.4f}'.format(float(capa_DB[0]['AVG(value)']))
 contents['vulnerability'] = vulnerability
 contents['device'] = device
 
-doc = DocxTemplate(path+"templateSOC.docx")
-
+image = InlineImage(doc, path+"inet.png")
 doc.render(contents)
 doc.save(path+"SOC.docx")
 # os.system(path+"SOC.docx")
