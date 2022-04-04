@@ -1,0 +1,94 @@
+# Nmap 7.92 scan initiated Sun Mar 27 06:50:55 2022 as: nmap -Pn -oN zone_poc_infra.txt -iL zone_poc.txt
+Nmap scan report for 192.168.1.10
+Host is up (0.014s latency).
+Not shown: 972 filtered tcp ports (no-response), 19 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+111/tcp  open   rpcbind
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+2049/tcp open   nfs
+4567/tcp open   tram
+5060/tcp open   sip
+
+Nmap scan report for 192.168.1.11
+Host is up (0.014s latency).
+Not shown: 973 filtered tcp ports (no-response), 19 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+113/tcp  closed ident
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8081/tcp closed blackice-icecap
+9000/tcp closed cslistener
+
+Nmap scan report for 192.168.1.51
+Host is up (0.013s latency).
+Not shown: 975 filtered tcp ports (no-response), 19 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+113/tcp  closed ident
+2000/tcp open   cisco-sccp
+4567/tcp open   tram
+5060/tcp open   sip
+
+Nmap scan report for 192.168.1.254
+Host is up (0.013s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT    STATE  SERVICE
+113/tcp closed ident
+
+Nmap scan report for 192.168.2.10
+Host is up (0.016s latency).
+Not shown: 972 filtered tcp ports (no-response), 19 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+90/tcp   open   dnsix
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+5432/tcp open   postgresql
+8080/tcp open   http-proxy
+
+Nmap scan report for 192.168.3.50
+Host is up (0.012s latency).
+Not shown: 988 closed tcp ports (reset)
+PORT      STATE SERVICE
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+443/tcp   open  https
+445/tcp   open  microsoft-ds
+2000/tcp  open  cisco-sccp
+3389/tcp  open  ms-wbt-server
+5060/tcp  open  sip
+49152/tcp open  unknown
+49153/tcp open  unknown
+49154/tcp open  unknown
+49155/tcp open  unknown
+49156/tcp open  unknown
+
+Nmap scan report for 192.168.1.12
+Host is up (0.00070s latency).
+Not shown: 988 closed tcp ports (reset)
+PORT     STATE    SERVICE
+135/tcp  open     msrpc
+139/tcp  open     netbios-ssn
+445/tcp  open     microsoft-ds
+902/tcp  filtered iss-realsecure
+912/tcp  filtered apex-mesh
+1028/tcp filtered unknown
+1042/tcp filtered afrog
+1043/tcp filtered boinc
+5357/tcp filtered wsdapi
+8000/tcp filtered http-alt
+8081/tcp open     blackice-icecap
+8089/tcp filtered unknown
+
+# Nmap done at Sun Mar 27 06:51:10 2022 -- 7 IP addresses (7 hosts up) scanned in 15.92 seconds

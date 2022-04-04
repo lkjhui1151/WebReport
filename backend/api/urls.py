@@ -10,7 +10,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('company-list/', views.CompanyList, name="get-company"),
-    path('company-detail/<int:pk>', views.CompanyDetail, name="detail-company"),
+    path('company-detail/<str:type>', views.CompanyDetail, name="detail-company"),
     path('company-download/<int:pk>',
          views.CompanyDownload, name="download-company"),
     path('company-add/', views.CompanyAdd, name="add-company"),

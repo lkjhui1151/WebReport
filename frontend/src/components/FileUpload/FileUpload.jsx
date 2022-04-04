@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import '../../assets/css/fileUpload.css'
+import './fileUpload.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import Alert, { ModalHeader, ModalBody, ModalFooter } from '../Alert/Alert';
@@ -13,18 +13,17 @@ const FileUpload = ({ files, setFiles, removeFile }) => {
     const [showModal, setShowModal] = useState(false)
 
     const uploadHandler = (event) => {
-        console.log(FileList);
+        // console.log(FileList);
         const file = event.target.files[0]
         const fileType = file.name.split(".");
 
         for (let i = 0; i < FileList.length; i++) {
             if (FileList[i] == fileType[0]) {
                 FileList.splice(i, 1);
-                console.log("state 0s");
+                file.isUploading = false
                 break;
             }
             else {
-                console.log("state 0");
                 state = true
             }
         }
@@ -42,8 +41,6 @@ const FileUpload = ({ files, setFiles, removeFile }) => {
                 }
             }
         }
-        console.log(FileList);
-        console.log(state);
 
         if (state === true) {
             file.isUploading = true
@@ -56,9 +53,10 @@ const FileUpload = ({ files, setFiles, removeFile }) => {
                     'content-type': 'multipart/form-data',
                 },
             };
-            console.log("File is : " + formData);
+            // console.log("File is : " + formData);
             axios.post('http://localhost:8000/ReportVA/company-add/', formData, config)
                 .then((res) => {
+                    // console.log(res);
                     file.isUploading = false
                     setFiles([...files, file])
                 })
@@ -66,6 +64,7 @@ const FileUpload = ({ files, setFiles, removeFile }) => {
                     console.log(err);
                     removeFile(file.name)
                 })
+            state = false
         }
     }
     return (

@@ -1,0 +1,115 @@
+# Nmap 7.92 scan initiated Sat Mar 26 22:00:10 2022 as: nmap -Pn -oN zone_third_infra.txt -iL zone_third_party.txt
+Nmap scan report for 10.0.2.1
+Host is up (0.021s latency).
+Not shown: 993 closed tcp ports (reset)
+PORT     STATE SERVICE
+135/tcp  open  msrpc
+139/tcp  open  netbios-ssn
+443/tcp  open  https
+445/tcp  open  microsoft-ds
+2000/tcp open  cisco-sccp
+3389/tcp open  ms-wbt-server
+5060/tcp open  sip
+
+Nmap scan report for 10.0.2.2
+Host is up (0.021s latency).
+Not shown: 992 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+113/tcp  closed ident
+135/tcp  open   msrpc
+139/tcp  open   netbios-ssn
+443/tcp  open   https
+445/tcp  open   microsoft-ds
+2000/tcp open   cisco-sccp
+3389/tcp open   ms-wbt-server
+5060/tcp open   sip
+
+Nmap scan report for 10.0.2.3
+Host is up (0.029s latency).
+Not shown: 993 closed tcp ports (reset)
+PORT     STATE SERVICE
+135/tcp  open  msrpc
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+1433/tcp open  ms-sql-s
+2000/tcp open  cisco-sccp
+3389/tcp open  ms-wbt-server
+5060/tcp open  sip
+
+Nmap scan report for 10.0.2.4
+Host is up (0.022s latency).
+Not shown: 993 closed tcp ports (reset)
+PORT     STATE SERVICE
+135/tcp  open  msrpc
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+1433/tcp open  ms-sql-s
+2000/tcp open  cisco-sccp
+3389/tcp open  ms-wbt-server
+5060/tcp open  sip
+
+Nmap scan report for 10.0.2.8
+Host is up (0.019s latency).
+Not shown: 989 filtered tcp ports (no-response)
+PORT      STATE  SERVICE
+80/tcp    open   http
+113/tcp   closed ident
+135/tcp   open   msrpc
+139/tcp   open   netbios-ssn
+443/tcp   open   https
+445/tcp   open   microsoft-ds
+2000/tcp  open   cisco-sccp
+3389/tcp  open   ms-wbt-server
+5060/tcp  open   sip
+7070/tcp  open   realserver
+49154/tcp open   unknown
+
+Nmap scan report for 10.0.2.10
+Host is up (0.023s latency).
+Not shown: 976 filtered tcp ports (no-response), 17 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+161/tcp  closed snmp
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+
+Nmap scan report for 10.0.2.11
+Host is up (0.018s latency).
+Not shown: 972 filtered tcp ports (no-response), 17 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  closed https
+514/tcp  open   shell
+2000/tcp open   cisco-sccp
+3000/tcp open   ppp
+5060/tcp open   sip
+9090/tcp open   zeus-admin
+9091/tcp closed xmltec-xmlmail
+9200/tcp closed wap-wsp
+
+Nmap scan report for 10.0.2.12
+Host is up (0.023s latency).
+Not shown: 982 filtered tcp ports (no-response), 15 filtered tcp ports (host-unreach)
+PORT     STATE  SERVICE
+113/tcp  closed ident
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+
+Nmap scan report for 10.0.2.13
+Host is up (0.019s latency).
+Not shown: 976 filtered tcp ports (no-response), 17 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+514/tcp  open   shell
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+
+# Nmap done at Sat Mar 26 22:00:28 2022 -- 9 IP addresses (9 hosts up) scanned in 18.14 seconds

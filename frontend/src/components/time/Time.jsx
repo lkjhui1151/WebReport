@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import '../../assets/css/time.css'
+import './time.css'
 import { AiOutlineClockCircle, AiOutlineCalendar } from 'react-icons/ai';
 // import { BsFillCalendarEventFill } from 'react-icons/bs';
 

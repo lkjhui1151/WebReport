@@ -1,0 +1,22 @@
+.file-card-container {
+  min-width: 50.5%;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px dashed var(--black2);
+  border-radius: 15px;
+  background-color: var(--grey);
+  max-height: 200px;
+  min-height: 200px;
+  overflow: auto;
+}
+
+
+/* .file-list-upload {
+  display: table-column;
+  justify-content: center;
+  width: 90%;
+  height: 100%;
+} */

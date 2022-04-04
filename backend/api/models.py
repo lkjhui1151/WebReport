@@ -35,7 +35,8 @@ class company(models.Model):
     file = models.FileField(upload_to=file_path)
     csv = models.ForeignKey(
         company_csv, on_delete=CASCADE, null=True, blank=True)
-    dete = models.DateField(auto_now_add=True)
+    type = models.CharField(max_length=50, null=True, blank=True)
+    date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -88,3 +89,80 @@ class vulnerability(models.Model):
         ordering = ('id',)
         verbose_name = "Vulnerability"
         verbose_name_plural = "Vulnerability List"
+
+
+# class company_list(models.Model):
+#     name_en = models.CharField(max_length=100, null=True, blank=True)
+#     name_th = models.CharField(max_length=100, null=True, blank=True)
+#     initials = models.CharField(max_length=100, null=True, blank=True)
+#     join_date = models.DateField(auto_now_add=True)
+
+#     class Meta:
+#         db_table = 'company_list'
+
+
+# class address_list(models.Model):
+#     company_id = models.ForeignKey(company_list, on_delete=models.CASCADE)
+#     address = models.CharField(max_length=100, null=True, blank=True)
+
+#     class Meta:
+#         db_table = 'address_list'
+
+
+# class device_type(models.Model):
+#     type = models.CharField(max_length=100, null=True, blank=True)
+
+#     class Meta:
+#         db_table = 'device_type'
+
+
+# class device(models.Model):
+#     name = models.CharField(max_length=100, null=True, blank=True)
+#     address = models.CharField(max_length=100, null=True, blank=True)
+#     remark = models.CharField(max_length=100, null=True, blank=True)
+#     device_id = models.ForeignKey(device_type, on_delete=models.CASCADE)
+#     company_id = models.ForeignKey(company_list, on_delete=models.CASCADE)
+
+#     class Meta:
+#         db_table = 'device'
+
+
+# class company_contact(models.Model):
+#     first_name_en = models.CharField(max_length=100, null=True, blank=True)
+#     last_name_en = models.CharField(max_length=100, null=True, blank=True)
+#     first_name_th = models.CharField(max_length=100, null=True, blank=True)
+#     last_name_th = models.CharField(max_length=100, null=True, blank=True)
+#     email = models.CharField(max_length=100, null=True, blank=True)
+#     phone = models.IntegerField(max_length=100, null=True, blank=True)
+#     company_id = models.ForeignKey(company_list, on_delete=models.CASCADE)
+
+#     class Meta:
+#         db_table = 'company_contact'
+
+
+# class trend(models.Model):
+#     type = models.CharField(max_length=100, null=True, blank=True)
+#     critical = models.IntegerField(max_length=100, null=True, blank=True)
+#     high = models.IntegerField(max_length=100, null=True, blank=True)
+#     medium = models.IntegerField(max_length=100, null=True, blank=True)
+#     low = models.IntegerField(max_length=100, null=True, blank=True)
+#     company_id = models.ForeignKey(company_list, on_delete=models.CASCADE)
+
+#     class Meta:
+#         db_table = 'trend'
+
+
+# class vulnerability(models.Model):
+#     category = models.CharField(max_length=100, null=True, blank=True)
+#     name_en = models.CharField(max_length=100, null=True, blank=True)
+#     name_th = models.CharField(max_length=100, null=True, blank=True)
+#     detail_en = models.TextField(validators=[MinLengthValidator(20)])
+#     detail_th = models.TextField(validators=[MinLengthValidator(20)])
+#     solution_en = models.TextField(validators=[MinLengthValidator(20)])
+#     solution_th = models.TextField(validators=[MinLengthValidator(20)])
+#     priority = models.CharField(max_length=100, null=True, blank=True)
+#     remark = models.CharField(max_length=100, null=True, blank=True)
+#     company_id = models.ForeignKey(company_list, on_delete=models.CASCADE)
+
+#     class Meta:
+#         db_table = 'vulnerability'

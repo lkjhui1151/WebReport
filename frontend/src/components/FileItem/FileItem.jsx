@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { faFileAlt, faSpinner, faTrash } from '@fortawesome/free-solid-svg-icons'
-import '../../assets/css/fileItem.css'
+import './fileItem.css'
 
 const FileItem = ({ file, deleteFile }) => {
     return (
@@ -24,3 +24,4 @@ const FileItem = ({ file, deleteFile }) => {
 }
 
 export default FileItem
+

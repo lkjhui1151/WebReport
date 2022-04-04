@@ -17,9 +17,10 @@ def CompanyList(request):
 
 
 @api_view(['GET'])
-def CompanyDetail(request, pk):
-    data = company.objects.get(id=pk)
-    serializer = CompanySerializer(data, many=False)
+def CompanyDetail(request, type):
+    data = company.objects.filter(type=type)
+    serializer = CompanySerializer(data, many=True)
+    # print(serializer.data)
     return Response(serializer.data)
 
 
@@ -27,12 +28,12 @@ def CompanyDetail(request, pk):
 def CompanyAdd(request):
     name = request.data['fileName']
     file = request.FILES['file']
-    print(name)
     # serializer = company_csv(name=name, file=file)
     # serializer.save()
     # data = autoStart(name)
     # name = name.split(".csv")
     if name != None:
+        # print(name)
         # company = company_csv.objects.values('id', 'name').order_by('-id')[:1]
         # docx = name[0]+".docx"
         # with connection.cursor() as cursor:

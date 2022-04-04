@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../../assets/css/fileList.css'
+import './fileList.css'
 import FileItem from '../FileItem/FileItem'
 
 const FileList = ({ files, removeFile }) => {

@@ -1,0 +1,32 @@
+# Nmap 7.92 scan initiated Sun Mar 27 06:45:22 2022 as: nmap -Pn -oN zone_security_infra.txt -iL zone_security.txt
+Nmap scan report for 10.0.3.1
+Host is up (0.014s latency).
+Not shown: 926 filtered tcp ports (no-response), 15 filtered tcp ports (port-unreach), 57 closed tcp ports (reset)
+PORT     STATE SERVICE
+2000/tcp open  cisco-sccp
+5060/tcp open  sip
+
+Nmap scan report for 10.0.3.2
+Host is up (0.013s latency).
+Not shown: 926 filtered tcp ports (no-response), 15 filtered tcp ports (port-unreach), 57 closed tcp ports (reset)
+PORT     STATE SERVICE
+2000/tcp open  cisco-sccp
+5060/tcp open  sip
+
+Nmap scan report for 10.0.3.5
+Host is up (0.015s latency).
+Not shown: 980 filtered tcp ports (no-response), 15 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+113/tcp  closed ident
+2000/tcp open   cisco-sccp
+4567/tcp open   tram
+5060/tcp open   sip
+
+Nmap scan report for 10.0.3.254
+Host is up (0.012s latency).
+Not shown: 999 filtered tcp ports (no-response)
+PORT    STATE  SERVICE
+113/tcp closed ident
+
+# Nmap done at Sun Mar 27 06:45:32 2022 -- 4 IP addresses (4 hosts up) scanned in 9.98 seconds

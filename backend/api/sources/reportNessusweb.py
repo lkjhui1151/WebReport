@@ -56,11 +56,11 @@ def makeJson(csvFilePath, jsonFilePath):
 
 
 # <--Burp-->
-csvBurp = r'backend/api/sources/iso/burpresult3.csv'
+csvBurp = r'backend/api/sources/iso/KTC-uatloan.csv'
 jsonBurp = r'backend/api/sources/dataBurp.json'
 
 # <--Nmap-->
-csvNMAP = r'backend/api/sources/iso/SAC_Revisit_Public-Nmap.csv'
+csvNMAP = r'backend/api/sources/iso/null.csv'
 jsonNMAP = r'backend/api/sources/dataNmap.json'
 
 makeJson(csvBurp, jsonBurp)

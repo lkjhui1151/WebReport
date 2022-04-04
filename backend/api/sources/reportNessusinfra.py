@@ -56,11 +56,11 @@ def makeJson(csvFilePath, jsonFilePath):
 
 
 # <--Nessus-->
-CSVNessus = r'backend/api/sources/iso/SAC_Revisit_Public.csv'
+CSVNessus = r'backend/api/sources/iso/SAC_Revisit_Private.csv'
 jsonNessus = r'backend/api/sources/dataNessus.json'
 
 # <--Nmap-->
-CSVNMAP = r'backend/api/sources/iso/SAC_Revisit_Public-Nmap.csv'
+CSVNMAP = r'backend/api/sources/iso/SAC-Revisit-Private-Nmap.csv'
 jsonNMAP = r'backend/api/sources/dataNmap.json'
 
 makeJson(CSVNessus, jsonNessus)
@@ -260,6 +260,7 @@ del dict_IP_port['a']
 ip = [DataNmap[i]['host__address__addr']
       for i in DataNmap if DataNmap[i]['host__hostnames__hostname__name'] == ""]
 ip = list(dict.fromkeys(ip))
+ip.remove("")
 ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
 
 # --------------------------------------make data ip port------------------------------------------------------------

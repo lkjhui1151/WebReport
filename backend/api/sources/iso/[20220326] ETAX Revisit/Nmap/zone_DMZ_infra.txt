@@ -1,0 +1,155 @@
+# Nmap 7.92 scan initiated Sat Mar 26 20:47:25 2022 as: nmap -Pn -oN zone_DMZ_infra.txt -iL zone_DMZ.txt
+Nmap scan report for 10.0.0.1
+Host is up (0.013s latency).
+Not shown: 971 filtered tcp ports (no-response), 22 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8800/tcp closed sunwebadmin
+
+Nmap scan report for 10.0.0.2
+Host is up (0.015s latency).
+Not shown: 972 filtered tcp ports (no-response), 21 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   open   http
+113/tcp  closed ident
+443/tcp  open   https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8800/tcp closed sunwebadmin
+
+Nmap scan report for 10.0.0.4
+Host is up (0.016s latency).
+Not shown: 971 filtered tcp ports (no-response), 21 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+113/tcp  closed ident
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8080/tcp open   http-proxy
+9080/tcp closed glrpc
+
+Nmap scan report for 10.0.0.5
+Host is up (0.015s latency).
+Not shown: 969 filtered tcp ports (no-response), 23 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+113/tcp  closed ident
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+8080/tcp open   http-proxy
+9080/tcp closed glrpc
+
+Nmap scan report for 10.0.0.8
+Host is up (0.014s latency).
+Not shown: 971 filtered tcp ports (no-response), 22 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+113/tcp  closed ident
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+5432/tcp open   postgresql
+
+Nmap scan report for 10.0.0.9
+Host is up (0.014s latency).
+Not shown: 971 filtered tcp ports (no-response), 22 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+113/tcp  closed ident
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+5432/tcp open   postgresql
+
+Nmap scan report for 10.0.0.10
+Host is up (0.015s latency).
+Not shown: 969 filtered tcp ports (no-response), 22 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+113/tcp  closed ident
+161/tcp  closed snmp
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+9000/tcp open   cslistener
+9100/tcp open   jetdirect
+
+Nmap scan report for 10.0.0.11
+Host is up (0.013s latency).
+Not shown: 991 closed tcp ports (reset)
+PORT     STATE    SERVICE
+22/tcp   open     ssh
+111/tcp  open     rpcbind
+2000/tcp open     cisco-sccp
+5060/tcp open     sip
+8009/tcp filtered ajp13
+8010/tcp filtered xmpp
+8011/tcp filtered unknown
+9000/tcp open     cslistener
+9100/tcp open     jetdirect
+
+Nmap scan report for 10.0.1.1
+Host is up (0.013s latency).
+Not shown: 968 filtered tcp ports (no-response), 23 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+111/tcp  open   rpcbind
+113/tcp  closed ident
+161/tcp  closed snmp
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+2049/tcp open   nfs
+5060/tcp open   sip
+
+Nmap scan report for 10.0.1.27
+Host is up (0.013s latency).
+Not shown: 969 filtered tcp ports (no-response), 22 filtered tcp ports (host-prohibited)
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+80/tcp   closed http
+111/tcp  open   rpcbind
+113/tcp  closed ident
+161/tcp  closed snmp
+443/tcp  closed https
+2000/tcp open   cisco-sccp
+2049/tcp open   nfs
+5060/tcp open   sip
+
+Nmap scan report for 10.0.0.18
+Host is up (0.024s latency).
+Not shown: 979 filtered tcp ports (no-response), 18 filtered tcp ports (host-unreach)
+PORT     STATE  SERVICE
+113/tcp  closed ident
+2000/tcp open   cisco-sccp
+5060/tcp open   sip
+
+Nmap scan report for 10.0.0.19
+Host is up (0.013s latency).
+Not shown: 968 filtered tcp ports (no-response), 22 filtered tcp ports (host-prohibited)
+PORT      STATE  SERVICE
+22/tcp    open   ssh
+80/tcp    open   http
+113/tcp   closed ident
+161/tcp   closed snmp
+443/tcp   open   https
+2000/tcp  open   cisco-sccp
+5060/tcp  open   sip
+8000/tcp  closed http-alt
+8001/tcp  open   vcom-tunnel
+32768/tcp open   filenet-tms
+
+# Nmap done at Sat Mar 26 20:47:53 2022 -- 12 IP addresses (12 hosts up) scanned in 28.45 seconds
