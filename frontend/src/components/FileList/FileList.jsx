@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './fileList.css'
 import FileItem from '../FileItem/FileItem'
 
-const FileList = ({ files, removeFile }) => {
-    const [status, setStatus] = useState("")
+import { v4 as uuidv4 } from 'uuid'
 
-    const deleteFileHandler = ({ files, removeFile }) => {
-        // axios.delete()
-        // console.log(files);
+const FileList = ({ files, removeFile }) => {
+
+    const deleteFileHandler = (_name) => {
+        removeFile(_name)
+        // axios.post("http://localhost:8000/ReportVA/company-add/", _name)
+        //     .then((res) => removeFile(_name))
+        //     .catch((err) => console.error(err));
     }
 
     return (
@@ -16,7 +19,7 @@ const FileList = ({ files, removeFile }) => {
                 <ul className='file-list-upload'>
                     {
                         files &&
-                        files.map(f => <FileItem key={f.name} file={f} deleteFile={deleteFileHandler} />)
+                        files.map(f => <FileItem key={uuidv4()} file={f} deleteFile={deleteFileHandler} />)
                     }
                 </ul>
             </div>

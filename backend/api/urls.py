@@ -10,11 +10,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('company-list/', views.CompanyList, name="get-company"),
-    path('company-detail/<str:type>', views.CompanyDetail, name="detail-company"),
-    path('company-download/<int:pk>',
-         views.CompanyDownload, name="download-company"),
+    path('company-detail/<int:pk>', views.CompanyDetail, name="detail-company"),
     path('company-add/', views.CompanyAdd, name="add-company"),
-    path('company-update/<int:pk>', views.CompanyUpdate, name="update-company"),
-    path('company-delete/<int:pk>', views.CompanyDelete, name="delete-company"),
-]+static(settings.MEDIA_URL,
-         document_root=settings.MEDIA_ROOT)
+    path('report-delete/<int:pk>', views.ReportDelete, name="delete-report"),
+    path('report-detail/<str:type>', views.ReportDetail, name="detail-report"),
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,8 +4,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 3px dashed var(--black2);
-  border-radius: 5%;
+  border: 2px dashed var(--black2);
+  border-radius: 15px;
   background-color: var(--grey);
   min-width: 40%;
   min-height: 200px;

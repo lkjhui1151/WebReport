@@ -1,3 +1,15 @@
+:root {
+  --blue: #5f68f9;
+  --blue2: #0f62fe;
+  --white: #ffffff;
+  --orange: #ff7e2f;
+  --red: #da1e28;
+  --green: #0dff76;
+  --grey: #f4f4f4;
+  --black1: #030303;
+  --black2: #999;
+}
+
 .card {
   position: relative;
   padding: 2px;
@@ -9,12 +21,27 @@
   margin-right: 20px;
 }
 
-.card,
 .title {
   display: flex;
   align-items: center;
+  margin-bottom: 50px;
 }
 
-.card h2 {
+h2 {
   color: var(--black2);
+}
+
+.iso-container {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+.icon {
+  padding-right: 15px;
+  width: 25px;
+  height: 25px;
 }

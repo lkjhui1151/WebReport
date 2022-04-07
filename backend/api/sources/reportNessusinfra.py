@@ -56,11 +56,11 @@ def makeJson(csvFilePath, jsonFilePath):
 
 
 # <--Nessus-->
-CSVNessus = r'backend/api/sources/iso/SAC_Revisit_Private.csv'
+CSVNessus = r'backend/api/sources/iso/SIPH-nessus.csv'
 jsonNessus = r'backend/api/sources/dataNessus.json'
 
 # <--Nmap-->
-CSVNMAP = r'backend/api/sources/iso/SAC-Revisit-Private-Nmap.csv'
+CSVNMAP = r'backend/api/sources/iso/SIPH-nmap.csv'
 jsonNMAP = r'backend/api/sources/dataNmap.json'
 
 makeJson(CSVNessus, jsonNessus)
@@ -257,12 +257,14 @@ dict_IP_port[temp_IP] = list_port
 del dict_IP_port['a']
 
 
-ip = [DataNmap[i]['host__address__addr']
-      for i in DataNmap if DataNmap[i]['host__hostnames__hostname__name'] == ""]
+ip = [DataNmap[i]['host__address__addr'] for i in DataNmap]
 ip = list(dict.fromkeys(ip))
-ip.remove("")
+# ip.remove("")
 ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
 
+list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
+list_port_prot_serv = (
+    sorted(list_port_prot_serv, key=lambda x: int(x['port'])))
 # --------------------------------------make data ip port------------------------------------------------------------
 
 dict_ip_portopen = {i: {'TCP': [], 'UDP': []} for i in ip}
@@ -440,5 +442,6 @@ contents['vulnerability'] = vulnerability   # use
 contents['table1'] = l2  # use
 contents["fileName"] = name[0]  # use
 contents['Date'] = dateNow  # use
+contents['nmap_port'] = list_port_prot_serv  # use
 doc.render(contents)
 doc.save("backend/api/sources/results/"+name[0]+" Nessus Infra"+".docx")

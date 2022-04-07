@@ -1,0 +1,282 @@
+Starting Nmap 7.91 ( https://nmap.org ) at 2022-04-01 09:25 SE Asia Standard Time
+NSE: Loaded 153 scripts for scanning.
+NSE: Script Pre-scanning.
+Initiating NSE at 09:25
+Completed NSE at 09:25, 0.00s elapsed
+Initiating NSE at 09:25
+Completed NSE at 09:25, 0.00s elapsed
+Initiating NSE at 09:25
+Completed NSE at 09:25, 0.00s elapsed
+Initiating Ping Scan at 09:25
+Scanning 12 hosts [4 ports/host]
+Completed Ping Scan at 09:25, 2.82s elapsed (12 total hosts)
+Initiating Parallel DNS resolution of 12 hosts. at 09:25
+Completed Parallel DNS resolution of 12 hosts. at 09:25, 0.05s elapsed
+Initiating SYN Stealth Scan at 09:25
+Scanning 12 hosts [1000 ports/host]
+Discovered open port 8080/tcp on 10.150.1.6
+Discovered open port 3306/tcp on 10.150.1.9
+Discovered open port 3306/tcp on 10.150.1.8
+Discovered open port 30000/tcp on 10.150.1.21
+Discovered open port 7000/tcp on 10.150.1.7
+Completed SYN Stealth Scan against 10.150.1.24 in 15.17s (11 hosts left)
+Completed SYN Stealth Scan against 10.150.1.25 in 15.17s (10 hosts left)
+Completed SYN Stealth Scan against 10.150.1.26 in 15.17s (9 hosts left)
+Completed SYN Stealth Scan against 10.150.1.27 in 15.17s (8 hosts left)
+Completed SYN Stealth Scan against 10.150.1.8 in 15.23s (7 hosts left)
+Completed SYN Stealth Scan against 10.150.1.9 in 15.24s (6 hosts left)
+Completed SYN Stealth Scan against 10.150.1.30 in 15.24s (5 hosts left)
+Completed SYN Stealth Scan against 10.150.1.21 in 15.28s (4 hosts left)
+Completed SYN Stealth Scan against 10.150.1.6 in 15.29s (3 hosts left)
+Completed SYN Stealth Scan against 10.150.1.7 in 15.29s (2 hosts left)
+Completed SYN Stealth Scan against 10.150.1.28 in 15.29s (1 host left)
+Completed SYN Stealth Scan at 09:25, 15.29s elapsed (12000 total ports)
+Initiating Service scan at 09:25
+Scanning 5 services on 12 hosts
+Completed Service scan at 09:26, 31.42s elapsed (5 services on 12 hosts)
+Initiating OS detection (try #1) against 12 hosts
+Retrying OS detection (try #2) against 5 hosts
+Initiating Traceroute at 09:26
+Completed Traceroute at 09:26, 0.08s elapsed
+Initiating Parallel DNS resolution of 12 hosts. at 09:26
+Completed Parallel DNS resolution of 12 hosts. at 09:26, 0.03s elapsed
+NSE: Script scanning 12 hosts.
+Initiating NSE at 09:26
+Completed NSE at 09:26, 7.22s elapsed
+Initiating NSE at 09:26
+Completed NSE at 09:26, 1.56s elapsed
+Initiating NSE at 09:26
+Completed NSE at 09:26, 0.00s elapsed
+Nmap scan report for 10.150.1.6
+Host is up (0.038s latency).
+Not shown: 999 filtered ports
+PORT     STATE SERVICE VERSION
+8080/tcp open  http    nginx
+|_http-open-proxy: Proxy might be redirecting requests
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|load balancer|WAP|router|storage-misc|firewall
+Running (JUST GUESSING): Linux 2.6.X (89%), F5 Networks TMOS 11.1.X (88%), Ubiquiti embedded (88%), Synology embedded (87%), Netgear embedded (87%), Palo Alto embedded (86%)
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32 cpe:/o:f5:tmos:11.1 cpe:/h:synology:rt1900ac cpe:/o:linux:linux_kernel:2.6 cpe:/h:netgear:readynas_3200 cpe:/h:paloalto:pa-500
+Aggressive OS guesses: Linux 2.6.32 (89%), F5 3600 LTM load balancer (88%), Ubiquiti WAP (Linux 2.6.32) (88%), Synology RT1900ac router (87%), Netgear ReadyNAS 3200 NAS device (Linux 2.6) (87%), Palo Alto PA-500 firewall (86%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 10.689 days (since Mon Mar 21 16:53:59 2022)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=261 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   16.00 ms 10.150.1.6
+
+Nmap scan report for 10.150.1.7
+Host is up (0.037s latency).
+Not shown: 999 filtered ports
+PORT     STATE SERVICE VERSION
+7000/tcp open  redis   Redis key-value store
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|load balancer|router|storage-misc|WAP|firewall
+Running (JUST GUESSING): Linux 2.6.X (88%), F5 Networks TMOS 11.1.X (88%), Synology embedded (87%), Netgear embedded (87%), Ubiquiti embedded (87%), Palo Alto embedded (86%)
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32 cpe:/o:f5:tmos:11.1 cpe:/h:synology:rt1900ac cpe:/o:linux:linux_kernel:2.6 cpe:/h:netgear:readynas_3200 cpe:/h:paloalto:pa-500
+Aggressive OS guesses: Linux 2.6.32 (88%), F5 3600 LTM load balancer (88%), Synology RT1900ac router (87%), Netgear ReadyNAS 3200 NAS device (Linux 2.6) (87%), Ubiquiti WAP (Linux 2.6.32) (87%), Palo Alto PA-500 firewall (86%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 9.576 days (since Tue Mar 22 19:37:12 2022)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=261 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   16.00 ms 10.150.1.7
+
+Nmap scan report for 10.150.1.8
+Host is up (0.039s latency).
+Not shown: 999 filtered ports
+PORT     STATE SERVICE VERSION
+3306/tcp open  mysql   MySQL 5.7.32-log
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.7.32-log
+|   Thread ID: 8876
+|   Capabilities flags: 65535
+|   Some Capabilities: SupportsTransactions, Support41Auth, SwitchToSSLAfterHandshake, Speaks41ProtocolOld, ODBCClient, LongPassword, IgnoreSigpipes, InteractiveClient, SupportsCompression, Speaks41ProtocolNew, IgnoreSpaceBeforeParenthesis, DontAllowDatabaseTableColumn, FoundRows, SupportsLoadDataLocal, ConnectWithDatabase, LongColumnFlag, SupportsMultipleStatments, SupportsAuthPlugins, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: \x1Dmj\x19uU^}\x01j09[CDBM\x0C6+
+|_  Auth Plugin Name: mysql_native_password
+| ssl-cert: Subject: commonName=MySQL_Server_5.7.32_Auto_Generated_Server_Certificate
+| Issuer: commonName=MySQL_Server_5.7.32_Auto_Generated_CA_Certificate
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-03-28T18:50:46
+| Not valid after:  2032-03-25T18:50:46
+| MD5:   ce67 18dd b427 b1f0 699c 098a 68f5 9a94
+|_SHA-1: 3f05 d471 1c2d b83d 0223 b3a4 4c28 dc33 6637 044b
+|_ssl-date: TLS randomness does not represent time
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|router|load balancer|WAP|storage-misc|firewall
+Running (JUST GUESSING): Linux 2.6.X (87%), Synology embedded (87%), F5 Networks TMOS 11.1.X (87%), Ubiquiti embedded (87%), Netgear embedded (86%), Palo Alto embedded (85%)
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32 cpe:/h:synology:rt1900ac cpe:/o:f5:tmos:11.1 cpe:/o:linux:linux_kernel:2.6 cpe:/h:netgear:readynas_3200 cpe:/h:paloalto:pa-500
+Aggressive OS guesses: Linux 2.6.32 (87%), Synology RT1900ac router (87%), F5 3600 LTM load balancer (87%), Ubiquiti WAP (Linux 2.6.32) (87%), Netgear ReadyNAS 3200 NAS device (Linux 2.6) (86%), Palo Alto PA-500 firewall (85%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 3.097 days (since Tue Mar 29 07:07:06 2022)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=239 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   16.00 ms 10.150.1.8
+
+Nmap scan report for 10.150.1.9
+Host is up (0.037s latency).
+Not shown: 999 filtered ports
+PORT     STATE SERVICE VERSION
+3306/tcp open  mysql   MySQL 5.7.32-log
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.7.32-log
+|   Thread ID: 8878
+|   Capabilities flags: 65535
+|   Some Capabilities: SupportsTransactions, Support41Auth, SwitchToSSLAfterHandshake, Speaks41ProtocolOld, ODBCClient, LongPassword, IgnoreSigpipes, InteractiveClient, SupportsCompression, Speaks41ProtocolNew, IgnoreSpaceBeforeParenthesis, DontAllowDatabaseTableColumn, FoundRows, SupportsLoadDataLocal, ConnectWithDatabase, LongColumnFlag, SupportsMultipleStatments, SupportsAuthPlugins, SupportsMultipleResults
+|   Status: Autocommit
+|   Salt: \x7Ff"L7e-a%0I\x01v_7)ZC\x10\x0F
+|_  Auth Plugin Name: mysql_native_password
+| ssl-cert: Subject: commonName=MySQL_Server_5.7.32_Auto_Generated_Server_Certificate
+| Issuer: commonName=MySQL_Server_5.7.32_Auto_Generated_CA_Certificate
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2022-03-28T18:50:46
+| Not valid after:  2032-03-25T18:50:46
+| MD5:   ce67 18dd b427 b1f0 699c 098a 68f5 9a94
+|_SHA-1: 3f05 d471 1c2d b83d 0223 b3a4 4c28 dc33 6637 044b
+|_ssl-date: TLS randomness does not represent time
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|load balancer|WAP|router|storage-misc
+Running (JUST GUESSING): Linux 2.6.X (88%), F5 Networks TMOS 11.1.X (88%), Ubiquiti embedded (88%), Synology embedded (87%), Linksys embedded (87%), Netgear embedded (86%)
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32 cpe:/o:f5:tmos:11.1 cpe:/h:synology:rt1900ac cpe:/h:linksys:befw11s4 cpe:/o:linux:linux_kernel:2.6 cpe:/h:netgear:readynas_3200
+Aggressive OS guesses: Linux 2.6.32 (88%), F5 3600 LTM load balancer (88%), Ubiquiti WAP (Linux 2.6.32) (88%), Synology RT1900ac router (87%), Linksys BEFW11S4 WAP (87%), Netgear ReadyNAS 3200 NAS device (Linux 2.6) (86%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 1.959 days (since Wed Mar 30 10:25:10 2022)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=264 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   16.00 ms 10.150.1.9
+
+Nmap scan report for 10.150.1.21
+Host is up (0.038s latency).
+Not shown: 999 filtered ports
+PORT      STATE SERVICE  VERSION
+30000/tcp open  ssl/http nginx
+| http-methods: 
+|_  Supported Methods: GET HEAD
+|_http-title: Site doesn't have a title (text/html).
+| ssl-cert: Subject: commonName=tapbackktc.ktc.co.th/organizationName=Krungthai Card Public Company Limited/stateOrProvinceName=Bangkok/countryName=TH
+| Subject Alternative Name: DNS:tapbackktc.ktc.co.th
+| Issuer: commonName=KTCCAPRD3
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2020-06-08T03:38:35
+| Not valid after:  2039-02-18T09:53:18
+| MD5:   b6bc 5784 0507 eac4 7114 8238 a66b d43a
+|_SHA-1: 4f3d 23d6 53e4 f193 04ed 3de5 f55f 79e8 dbb0 d3e8
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose|load balancer|WAP|router|storage-misc
+Running (JUST GUESSING): Linux 2.6.X (89%), F5 Networks TMOS 11.1.X (88%), Ubiquiti embedded (88%), Synology embedded (87%), Linksys embedded (87%), Netgear embedded (87%)
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32 cpe:/o:f5:tmos:11.1 cpe:/h:synology:rt1900ac cpe:/h:linksys:befw11s4 cpe:/o:linux:linux_kernel:2.6 cpe:/h:netgear:readynas_3200
+Aggressive OS guesses: Linux 2.6.32 (89%), F5 3600 LTM load balancer (88%), Ubiquiti WAP (Linux 2.6.32) (88%), Synology RT1900ac router (87%), Linksys BEFW11S4 WAP (87%), Netgear ReadyNAS 3200 NAS device (Linux 2.6) (87%)
+No exact OS matches for host (test conditions non-ideal).
+Uptime guess: 2.153 days (since Wed Mar 30 05:45:28 2022)
+Network Distance: 1 hop
+TCP Sequence Prediction: Difficulty=262 (Good luck!)
+IP ID Sequence Generation: All zeros
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   16.00 ms 10.150.1.21
+
+Nmap scan report for 10.150.1.24
+Host is up (0.015s latency).
+All 1000 scanned ports on 10.150.1.24 are filtered
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   16.00 ms 10.150.1.24
+
+Nmap scan report for 10.150.1.25
+Host is up (0.015s latency).
+All 1000 scanned ports on 10.150.1.25 are filtered
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   16.00 ms 10.150.1.25
+
+Nmap scan report for 10.150.1.26
+Host is up (0.017s latency).
+All 1000 scanned ports on 10.150.1.26 are filtered
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   16.00 ms 10.150.1.26
+
+Nmap scan report for 10.150.1.27
+Host is up (0.016s latency).
+All 1000 scanned ports on 10.150.1.27 are filtered
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   12.00 ms 10.150.1.27
+
+Nmap scan report for 10.150.1.28
+Host is up (0.017s latency).
+All 1000 scanned ports on 10.150.1.28 are filtered
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   12.00 ms 10.150.1.28
+
+Nmap scan report for 10.150.1.29
+Host is up (0.017s latency).
+All 1000 scanned ports on 10.150.1.29 are filtered
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   12.00 ms 10.150.1.29
+
+Nmap scan report for 10.150.1.30
+Host is up (0.017s latency).
+All 1000 scanned ports on 10.150.1.30 are filtered
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE (using port 80/tcp)
+HOP RTT      ADDRESS
+1   12.00 ms 10.150.1.30
+
+NSE: Script Post-scanning.
+Initiating NSE at 09:26
+Completed NSE at 09:26, 0.00s elapsed
+Initiating NSE at 09:26
+Completed NSE at 09:26, 0.00s elapsed
+Initiating NSE at 09:26
+Completed NSE at 09:26, 0.00s elapsed
+Read data files from: C:\Program Files (x86)\Nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 12 IP addresses (12 hosts up) scanned in 67.77 seconds
+           Raw packets sent: 24611 (1.120MB) | Rcvd: 359 (16.336KB)

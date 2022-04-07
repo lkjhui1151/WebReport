@@ -1,46 +1,45 @@
 import React, { useState, useEffect } from 'react'
-import ReactFlexyTable from "react-flexy-table"
-import "react-flexy-table/dist/index.css"
 import '../assets/css/iso.css'
 import { AiOutlineSecurityScan } from 'react-icons/ai';
 import FileUpload from '../components/FileUpload/FileUpload';
 import FileList from '../components/FileList/FileList';
-// import axios from 'axios';
-import { MdDelete } from 'react-icons/md';
-import { AiOutlineDownload } from 'react-icons/ai';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid'
 
+import Table from '../components/table/Table';
 
 
 function Vaiso() {
 
     const [files, setFiles] = useState([])
     const [data, setGET] = useState([]);
-    
+
+    async function getUser() {
+        try {
+            const response = await axios.get('http://localhost:8000/web/report/report-detail/iso');
+            console.log(response.data);
+            setGET(response.data)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const removeFile = (filename) => {
         setFiles(files.filter(file => file.name !== filename))
     }
 
-    // console.log(api);
-    useEffect(() => {
-        const doFetch = async () => {
-            const response = await fetch("http://localhost:8000/ReportVA/company-detail/iso")
-            const body = await response.json()
-            const contacts = body
-            // console.log(contacts)
-            setGET(contacts)
-        }
-        doFetch()
-    }, [])
+    const deleteFile = (id, name) => {
+        axios.delete('http://localhost:8000/web/report/report-delete/' + id)
+            .then(res => {
+                console.log(res.data);
+                getUser()
+            })
+    }
+    // getUser()
 
-    const additionalCols = [{
-        header: "Actions",
-        td: (data) => {
-            return <div>
-                <MdDelete className='icon' onClick={() => alert("this is delete for id " + data.id)} />
-                <AiOutlineDownload className='icon' onClick={() => alert("this is download for id " + data.id)} />
-            </div>
-        }
-    }]
+    useEffect(() => {
+        getUser()
+    }, [])
 
     return (
         <div>
@@ -51,10 +50,10 @@ function Vaiso() {
                 <h2>VA SCAN ISO</h2>
             </div>
             <div className="iso-container">
-                <FileUpload files={files} setFiles={setFiles} removeFile={removeFile} />
-                <FileList files={files} removeFile={removeFile} />
+                <FileUpload files={files} type={"iso"} setFiles={setFiles} removeFile={removeFile} key={uuidv4()} />
+                <FileList files={files} removeFile={removeFile} key={uuidv4()} />
             </div>
-            <ReactFlexyTable data={data} filterable nonFilterCols={["id", "file", "type"]} additionalCols={additionalCols} />
+            <Table data={data} deleteFile={deleteFile} key={uuidv4()} />
         </div>
     )
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import './sidebar.css'
-import dog from '../../assets/dog.jpg'
 
 function Sidebar() {
     return (
