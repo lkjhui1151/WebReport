@@ -1,0 +1,809 @@
+IP,Hostname,Port,Port Protocol,CVSS,Severity,Solution Type,NVT Name,Summary,Specific Result,NVT OID,CVEs,Task ID,Task Name,Timestamp,Result ID,Impact,Solution,Affected Software/OS,Vulnerability Insight,Vulnerability Detection Method,Product Detection Result,BIDs,CERTs,Other References
+172.28.137.112,,22,tcp,7.5,High,"VendorFix","OpenSSH Denial of Service And User Enumeration Vulnerabilities (Windows)","openssh is prone to denial of service and user enumeration vulnerabilities.","Installed version: 7.2
+Fixed version:     7.3
+Installation
+path / port:       22/tcp
+
+",1.3.6.1.4.1.25623.1.0.809121,"CVE-2016-6515,CVE-2016-6210",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,8d995d2d-d8bf-4b2c-9ef9-8a11d3e4fb17,"Successfully exploiting this issue allows
+  remote attackers to cause a denial of service (crypt CPU consumption) and
+  to enumerate users by leveraging the timing difference between responses
+  when a large password is provided.","Upgrade to OpenSSH version 7.3 or later.","OpenSSH versions before 7.3 on Windows","Multiple flaws exist due to:
+
+  - The auth_password function in 'auth-passwd.c' script does not limit password
+    lengths for password authentication.
+
+  - The sshd in OpenSSH, when SHA256 or SHA512 are used for user password hashing
+    uses BLOWFISH hashing on a static password when the username does not exist
+    and it takes much longer to calculate SHA256/SHA512 hash than BLOWFISH hash.","Checks if a vulnerable version is present on the target host.
+Details:
+OpenSSH Denial of Service And User Enumeration Vulnerabilities (Windows)
+(OID: 1.3.6.1.4.1.25623.1.0.809121)
+Version used: 2021-10-15T11:13:32Z
+","Product: cpe:/a:openbsd:openssh:7.2
+Method: OpenSSH Detection Consolidation
+(OID: 1.3.6.1.4.1.25623.1.0.108577)
+","92212","DFN-CERT-2019-1408,DFN-CERT-2018-1828,DFN-CERT-2018-1070,DFN-CERT-2018-0046,DFN-CERT-2017-2320,DFN-CERT-2017-2208,DFN-CERT-2017-1831,DFN-CERT-2017-1407,DFN-CERT-2017-1340,DFN-CERT-2017-0060,DFN-CERT-2016-1943,DFN-CERT-2016-1729,DFN-CERT-2016-1576,DFN-CERT-2016-1574,DFN-CERT-2016-1331,DFN-CERT-2016-1243,DFN-CERT-2016-1149,CB-K18/0041,CB-K17/2219,CB-K17/2112,CB-K17/1753,CB-K17/1349,CB-K17/1292,CB-K17/0055,CB-K16/1837,CB-K16/1629,CB-K16/1487,CB-K16/1485,CB-K16/1252,CB-K16/1221,CB-K16/1082",""
+172.28.137.112,,22,tcp,7.3,High,"VendorFix","OpenSSH Multiple Vulnerabilities Jan17 (Windows)","openssh is prone to multiple vulnerabilities.","Installed version: 7.2
+Fixed version:     7.4
+Installation
+path / port:       22/tcp
+
+",1.3.6.1.4.1.25623.1.0.810325,"CVE-2016-10009,CVE-2016-10010,CVE-2016-10011,CVE-2016-10012,CVE-2016-10708",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,2353cbd2-c448-4607-9aa0-782299589681,"Successfully exploiting this issue allows
+  local users to obtain sensitive private-key information, to gain privileges,
+  conduct a senial-of-service condition and allows remote attackers to execute
+  arbitrary local PKCS#11 modules.","Upgrade to OpenSSH version 7.4 or later.","OpenSSH versions before 7.4 on Windows.","Multiple flaws exist due to:
+
+  - An 'authfile.c' script does not properly consider the effects of realloc
+    on buffer contents.
+
+  - The shared memory manager (associated with pre-authentication compression)
+    does not ensure that a bounds check is enforced by all compilers.
+
+  - The sshd in OpenSSH creates forwarded Unix-domain sockets as root, when
+    privilege separation is not used.
+
+  - An untrusted search path vulnerability in ssh-agent.c in ssh-agent.
+
+  - NULL pointer dereference error due to an out-of-sequence NEWKEYS message.","Checks if a vulnerable version is present on the target host.
+Details:
+OpenSSH Multiple Vulnerabilities Jan17 (Windows)
+(OID: 1.3.6.1.4.1.25623.1.0.810325)
+Version used: 2021-10-12T09:28:32Z
+","Product: cpe:/a:openbsd:openssh:7.2
+Method: OpenSSH Detection Consolidation
+(OID: 1.3.6.1.4.1.25623.1.0.108577)
+","94968,94972,94977,94975","DFN-CERT-2021-0776,DFN-CERT-2019-1408,DFN-CERT-2018-2259,DFN-CERT-2018-2191,DFN-CERT-2018-2068,DFN-CERT-2018-1828,DFN-CERT-2018-1568,DFN-CERT-2018-1432,DFN-CERT-2018-1112,DFN-CERT-2018-1070,DFN-CERT-2018-1068,DFN-CERT-2018-0150,DFN-CERT-2018-0046,DFN-CERT-2017-2320,DFN-CERT-2017-2208,DFN-CERT-2017-1340,DFN-CERT-2017-1096,DFN-CERT-2017-0532,DFN-CERT-2017-0386,DFN-CERT-2017-0130,DFN-CERT-2017-0042,DFN-CERT-2016-2099,CB-K18/0919,CB-K18/0591,CB-K18/0137,CB-K18/0041,CB-K17/2219,CB-K17/2112,CB-K17/1292,CB-K17/1061,CB-K17/0527,CB-K17/0377,CB-K17/0127,CB-K17/0041,CB-K16/1991",""
+172.28.137.112,,7630,tcp,6.4,Medium,"Mitigation","SSL/TLS: Missing `secure` Cookie Attribute","a server with SSL/TLS is prone to an information disclosure vulnerability.","The cookies:
+
+Set-Cookie: locale=en_US; path=/
+Set-Cookie: hawk=V2dEZCtBODJ0eHhPM2svTUwvVUFiZnlTbmM2aTBLV2w1TU03YXJyQ2dSZk9lQzhjQy9hZ0UxZHdKNFJ1VlFwc3FlT0xOWkFrV1V3Wi91OStSc0lkNmhFTmxRTktiUWZqQ2dJeUxwaEhET2Z2U1laKzRtQTl6SDlLeVl0UmZzb1QtLVV0a2FtZ0xnVTFPdFFWcWx3NHBJYkE9PQ%3D%3D--dc854531e0bb21a4bfab8fb4b853b0d5c57b8f06; path=/; expires=Thu, 14 Apr 2022 15:58:25 -0000; HttpOnly
+
+are missing the ""secure"" attribute.
+",1.3.6.1.4.1.25623.1.0.902661,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,653cf61f-3532-476b-ab79-dc39552c8eb3,"","Set the 'secure' attribute for any cookies that are sent over a SSL/TLS connection.","Server with SSL/TLS.","The flaw is due to cookie is not using 'secure' attribute, which
+  allows cookie to be passed to the server by the client over non-secure channels (http) and allows attacker
+  to conduct session hijacking attacks.","
+Details:
+SSL/TLS: Missing `secure` Cookie Attribute
+(OID: 1.3.6.1.4.1.25623.1.0.902661)
+Version used: 2022-02-15T13:40:32Z
+","","","",""
+172.28.137.112,,22,tcp,5.3,Medium,"VendorFix","OpenSSH < 7.8 User Enumeration Vulnerability - Windows","OpenSSH is prone to a user enumeration vulnerability.","Installed version: 7.2
+Fixed version:     7.8
+Installation
+path / port:       22/tcp
+
+",1.3.6.1.4.1.25623.1.0.813863,"CVE-2018-15473",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,e5228438-f053-471c-8c3b-0a32acb8c6de,"Successfully exploitation will allow remote attacker to test
+  whether a certain user exists or not (username enumeration) on a target OpenSSH server.","Update to version 7.8 or later.","OpenSSH versions 7.7 and prior.","The flaw is due to not delaying bailout for an invalid
+  authenticating user until after the packet containing the request has been fully parsed, related
+  to auth2-gss.c, auth2-hostbased.c, and auth2-pubkey.c","Checks if a vulnerable version is present on the target host.
+Details:
+OpenSSH < 7.8 User Enumeration Vulnerability - Windows
+(OID: 1.3.6.1.4.1.25623.1.0.813863)
+Version used: 2021-10-11T09:46:29Z
+","Product: cpe:/a:openbsd:openssh:7.2
+Method: OpenSSH Detection Consolidation
+(OID: 1.3.6.1.4.1.25623.1.0.108577)
+","","DFN-CERT-2021-2178,DFN-CERT-2020-2189,DFN-CERT-2020-0228,DFN-CERT-2019-2046,DFN-CERT-2019-0857,DFN-CERT-2019-0362,DFN-CERT-2018-2293,DFN-CERT-2018-2259,DFN-CERT-2018-2191,DFN-CERT-2018-1806,DFN-CERT-2018-1696,CB-K20/0041,CB-K18/1031,CB-K18/0873",""
+172.28.137.112,,22,tcp,5.3,Medium,"VendorFix","OpenSSH sftp-server Security Bypass Vulnerability (Windows)","openssh is prone to a security bypass vulnerability.","Installed version: 7.2
+Fixed version:     7.6
+Installation
+path / port:       22/tcp
+
+",1.3.6.1.4.1.25623.1.0.812050,"CVE-2017-15906",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,d716e09f-d9fe-4e62-b9fa-d6da82345583,"Successfully exploiting this issue allows
+  local users to bypass certain security restrictions and perform unauthorized
+  actions. This may lead to further attacks.","Upgrade to OpenSSH version 7.6 or later.","OpenSSH versions before 7.6 on Windows","The flaw exists in the 'process_open' function
+  in sftp-server.c script which does not properly prevent write operations in
+  readonly mode.","Checks if a vulnerable version is present on the target host.
+Details:
+OpenSSH 'sftp-server' Security Bypass Vulnerability (Windows)
+(OID: 1.3.6.1.4.1.25623.1.0.812050)
+Version used: 2021-10-12T09:28:32Z
+","Product: cpe:/a:openbsd:openssh:7.2
+Method: OpenSSH Detection Consolidation
+(OID: 1.3.6.1.4.1.25623.1.0.108577)
+","101552","DFN-CERT-2019-0362,DFN-CERT-2018-2554,DFN-CERT-2018-2191,DFN-CERT-2018-2068,DFN-CERT-2018-1828,DFN-CERT-2018-1568,DFN-CERT-2018-0150,DFN-CERT-2017-2217,DFN-CERT-2017-2100,DFN-CERT-2017-2093,CB-K20/0041,CB-K18/0137,CB-K17/2126,CB-K17/2014,CB-K17/2002",""
+172.28.137.112,,22,tcp,5.3,Medium,"Mitigation","Weak Host Key Algorithm(s) (SSH)","The remote SSH server is configured to allow / support weak host
+  key algorithm(s).","The remote SSH server supports the following weak host key algorithm(s):
+
+host key algorithm | Description
+-----------------------------------------------------------------------------------------
+ssh-dss            | Digital Signature Algorithm (DSA) / Digital Signature Standard (DSS)
+",1.3.6.1.4.1.25623.1.0.117687,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,5a577b2d-5a10-424a-a789-41cbf4b49766,"","Disable the reported weak host key algorithm(s).","","","Checks the supported host key algorithms of the remote SSH
+  server.
+
+  Currently weak host key algorithms are defined as the following:
+
+  - ssh-dss: Digital Signature Algorithm (DSA) / Digital Signature Standard (DSS)
+Details:
+Weak Host Key Algorithm(s) (SSH)
+(OID: 1.3.6.1.4.1.25623.1.0.117687)
+Version used: 2021-11-24T06:31:19Z
+","","","",""
+172.28.137.112,,22,tcp,5.3,Medium,"WillNotFix","OpenSSH auth2-gss.c User Enumeration Vulnerability - Windows","OpenSSH is prone to a user enumeration vulnerability.","Installed version: 7.2
+Fixed version:     None
+Installation
+path / port:       22/tcp
+
+",1.3.6.1.4.1.25623.1.0.813887,"CVE-2018-15919",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,82561920-6416-4636-bd53-82593b81d184,"Successfully exploitation will allow a remote attacker to harvest
+  valid user accounts, which may aid in brute-force attacks.","No known solution was made available for at least one year
+  since the disclosure of this vulnerability. Likely none will be provided anymore. General solution
+  options are to upgrade to a newer release, disable respective features, remove the product or
+  replace the product by another one.","OpenSSH version 5.9 through 7.8.","The flaw exists in the 'auth-gss2.c' source code file of the
+  affected software and is due to insufficient validation of an authentication request packet when
+  the Guide Star Server II (GSS2) component is used on an affected system.","Checks if a vulnerable version is present on the target host.
+Details:
+OpenSSH 'auth2-gss.c' User Enumeration Vulnerability - Windows
+(OID: 1.3.6.1.4.1.25623.1.0.813887)
+Version used: 2021-05-28T07:06:21Z
+","Product: cpe:/a:openbsd:openssh:7.2
+Method: OpenSSH Detection Consolidation
+(OID: 1.3.6.1.4.1.25623.1.0.108577)
+","","DFN-CERT-2018-2293,DFN-CERT-2018-2191,CB-K18/0885",""
+172.28.137.112,,7630,tcp,5.0,Medium,"VendorFix","SSL/TLS: Renegotiation DoS Vulnerability (CVE-2011-1473, CVE-2011-5094)","The remote SSL/TLS service is prone to a denial of service (DoS)
+  vulnerability.","The following indicates that the remote SSL/TLS service is affected:
+
+Protocol Version | Successful re-done SSL/TLS handshakes (Renegotiation) over an existing / already established SSL/TLS connection
+----------------------------------------------------------------------------------------------------------------------------------
+TLSv1.0          | 10
+TLSv1.1          | 10
+TLSv1.2          | 10
+",1.3.6.1.4.1.25623.1.0.117761,"CVE-2011-1473,CVE-2011-5094",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,abc3d0b5-da7f-4145-a680-c1ebf5bf275a,"The flaw might make it easier for remote attackers to cause a
+  DoS (CPU consumption) by performing many renegotiations within a single connection.","Users should contact their vendors for specific patch information.
+
+  A general solution is to remove/disable renegotiation capabilities altogether from/in the affected
+  SSL/TLS service.","Every SSL/TLS service which does not properly restrict
+  client-initiated renegotiation.","The flaw exists because the remote SSL/TLS service does not
+  properly restrict client-initiated renegotiation within the SSL and TLS protocols.
+
+  Note: The referenced CVEs are affecting OpenSSL and Mozilla Network Security Services (NSS) but
+  both are in a DISPUTED state with the following rationale:
+
+  > It can also be argued that it is the responsibility of server deployments, not a security
+  library, to prevent or limit renegotiation when it is inappropriate within a specific environment.
+
+  Both CVEs are still kept in this VT as a reference to the origin of this flaw.","Checks if the remote service allows to re-do the same SSL/TLS
+  handshake (Renegotiation) over an existing / already established SSL/TLS connection.
+Details:
+SSL/TLS: Renegotiation DoS Vulnerability (CVE-2011-1473, CVE-2011-5094)
+(OID: 1.3.6.1.4.1.25623.1.0.117761)
+Version used: 2021-11-15T10:28:20Z
+","","","DFN-CERT-2017-1013,DFN-CERT-2017-1012,DFN-CERT-2014-0809,DFN-CERT-2013-1928,DFN-CERT-2012-1112,CB-K17/0980,CB-K17/0979,CB-K14/0772,CB-K13/0915,CB-K13/0462",""
+172.28.136.111,,135,tcp,5.0,Medium,"Mitigation","DCE/RPC and MSRPC Services Enumeration Reporting","Distributed Computing Environment / Remote Procedure Calls (DCE/RPC) or MSRPC services running
+  on the remote host can be enumerated by connecting on port 135 and doing the appropriate queries.","Here is the list of DCE/RPC or MSRPC services running on this host via the TCP protocol:
+
+Port: 11731/tcp
+
+     UUID: d107c6e0-fc35-49ba-ba03-3e192de6797d, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[11731]
+     Annotation: Veeam Deployer
+
+     UUID: d1c2c07a-d989-48cc-a423-b73ecd518d40, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[11731]
+     Annotation: Veeam RPC Invoker
+
+Port: 49152/tcp
+
+     UUID: d95afe70-a6d5-4259-822e-2c84da1ddb0d, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49152]
+
+Port: 49153/tcp
+
+     UUID: 30adc50c-5cbc-46ce-9a0e-91914789e23c, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49153]
+     Annotation: NRP server endpoint
+
+     UUID: 3c4728c5-f0ab-448b-bda1-6ce01eb0a6d5, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49153]
+     Annotation: DHCP Client LRPC Endpoint
+
+     UUID: 3c4728c5-f0ab-448b-bda1-6ce01eb0a6d6, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49153]
+     Annotation: DHCPv6 Client LRPC Endpoint
+
+     UUID: abfb6ca3-0c5e-4734-9285-0aee72fe8d1c, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49153]
+     Annotation: Wcm Service
+
+     UUID: f6beaff7-1e19-4fbb-9f8f-b89e2018337c, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49153]
+     Annotation: Event log TCPIP
+
+Port: 49154/tcp
+
+     UUID: 1a0d010f-1c33-432c-b0f5-8cf4e8053099, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: IdSegSrv service
+
+     UUID: 201ef99a-7fa0-444c-9399-19ba84f12a1a, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: AppInfo
+
+     UUID: 2e6035b2-e8f1-41a7-a044-656b439c4c34, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: Proxy Manager provider server endpoint
+
+     UUID: 30b044a5-a225-43f0-b3a4-e060df91f9c1, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+
+     UUID: 3a9ef155-691d-4449-8d05-09ad57031823, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+
+     UUID: 552d076a-cb29-4e44-8b6a-d15e59e2c0af, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: IP Transition Configuration endpoint
+
+     UUID: 58e604e8-9adb-4d2e-a464-3b0683fb1480, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: AppInfo
+
+     UUID: 5f54ce7d-5b79-4175-8584-cb65313a0e98, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: AppInfo
+
+     UUID: 86d35949-83c9-4044-b424-db363231fd0c, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+
+     UUID: 98716d03-89ac-44c7-bb8c-285824e51c4a, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: XactSrv service
+
+     UUID: a398e520-d59a-4bdd-aa7a-3c1e0303a511, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: IKE/Authip API
+
+     UUID: c36be077-e14b-4fe9-8abc-e856ef4f048b, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: Proxy Manager client server endpoint
+
+     UUID: c49a5a70-8a7f-4e70-ba16-1e8f1f193ef1, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: Adh APIs
+
+     UUID: c9ac6db5-82b7-4e55-ae8a-e464ed7b4277, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: Impl friendly name
+
+     UUID: fd7a0523-dc70-43dd-9b2e-9c5ed48225b1, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49154]
+     Annotation: AppInfo
+
+Port: 49155/tcp
+
+     UUID: 0b1c2170-5732-4e0e-8cd3-d9b16f3b84d7, version 0
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49155]
+     Annotation: RemoteAccessCheck
+
+     UUID: 12345778-1234-abcd-ef00-0123456789ac, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49155]
+     Named pipe : lsass
+     Win32 service or process : lsass.exe
+     Description : SAM access
+
+     UUID: b25a52bf-e5dd-4f4a-aea6-8ca7272a0e86, version 2
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49155]
+     Annotation: KeyIso
+
+Port: 49167/tcp
+
+     UUID: 0b6edbfa-4a24-4fc6-8a23-942b1eca65d1, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49167]
+
+     UUID: 12345678-1234-abcd-ef00-0123456789ab, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49167]
+     Named pipe : spoolss
+     Win32 service or process : spoolsv.exe
+     Description : Spooler service
+
+     UUID: 4a452661-8290-4b36-8fbe-7f4093a94978, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49167]
+
+     UUID: 76f03f96-cdfd-44fc-a22c-64950a001209, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49167]
+
+     UUID: ae33069b-a2a8-46ee-a235-ddfd339be281, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49167]
+
+Port: 49178/tcp
+
+     UUID: 12345778-1234-abcd-ef00-0123456789ac, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49178]
+     Named pipe : lsass
+     Win32 service or process : lsass.exe
+     Description : SAM access
+
+     UUID: b25a52bf-e5dd-4f4a-aea6-8ca7272a0e86, version 2
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49178]
+     Annotation: KeyIso
+
+Port: 49235/tcp
+
+     UUID: b97db8b2-4c63-11cf-bff6-08002be23f2f, version 3
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49235]
+     Annotation: Microsoft Cluster Server API
+
+Port: 49355/tcp
+
+     UUID: 367abb81-9844-35f1-ad32-98f038001003, version 2
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49355]
+
+Port: 49361/tcp
+
+     UUID: 6b5bdd1e-528c-422c-af8c-a4079be4fe48, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49361]
+     Annotation: Remote Fw APIs
+
+Port: 49363/tcp
+
+     UUID: 906b0ce0-c70b-1067-b317-00dd010662da, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[49363]
+
+Port: 54728/tcp
+
+     UUID: a2484e1a-a313-4ea2-8fe9-8a873ea275ba, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[54728]
+     Annotation: Witness Provider RPC Server
+
+     UUID: ccd8c074-d0e5-4a40-92b4-d074faa6ba28, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[54728]
+     Annotation: Witness RPC Server
+
+Port: 6160/tcp
+
+     UUID: d107c6e0-fc35-49ba-ba03-3e192de6797d, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[6160]
+     Annotation: Veeam Deployer
+
+     UUID: d1c2c07a-d989-48cc-a423-b73ecd518d40, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[6160]
+     Annotation: Veeam RPC Invoker
+
+Port: 6183/tcp
+
+     UUID: d107c6e0-fc35-49ba-ba03-3e192de6797d, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[6183]
+     Annotation: Veeam Deployer
+
+     UUID: d1c2c07a-d989-48cc-a423-b73ecd518d40, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.111[6183]
+     Annotation: Veeam Invoker
+
+Note: DCE/RPC or MSRPC services running on this host locally were identified. Reporting this list is not enabled by default due to the possible large size of this list. See the script preferences to enable this reporting.
+",1.3.6.1.4.1.25623.1.0.10736,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,fb4a0c65-e5eb-4b89-ab69-5fb7e7f05e40,"An attacker may use this fact to gain more knowledge
+  about the remote host.","Filter incoming traffic to this ports.","","","
+Details:
+DCE/RPC and MSRPC Services Enumeration Reporting
+(OID: 1.3.6.1.4.1.25623.1.0.10736)
+Version used: 2017-06-13T07:06:12Z
+","","","",""
+172.28.137.112,,7630,tcp,5.0,Medium,"Mitigation","Missing `httpOnly` Cookie Attribute","The application is missing the 'httpOnly' cookie attribute","The cookies:
+
+Set-Cookie: locale=en_US; path=/
+
+are missing the ""httpOnly"" attribute.
+",1.3.6.1.4.1.25623.1.0.105925,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,40f06b27-3c70-46a4-9a33-7df5d3999e2b,"","Set the 'httpOnly' attribute for any session cookie.","Application with session handling in cookies.","The flaw is due to a cookie is not using the 'httpOnly' attribute. This
+  allows a cookie to be accessed by JavaScript which could lead to session hijacking attacks.","Check all cookies sent by the application for a missing 'httpOnly' attribute
+Details:
+Missing `httpOnly` Cookie Attribute
+(OID: 1.3.6.1.4.1.25623.1.0.105925)
+Version used: 2020-08-24T15:18:35Z
+","","","",""
+172.28.136.141,,135,tcp,5.0,Medium,"Mitigation","DCE/RPC and MSRPC Services Enumeration Reporting","Distributed Computing Environment / Remote Procedure Calls (DCE/RPC) or MSRPC services running
+  on the remote host can be enumerated by connecting on port 135 and doing the appropriate queries.","Here is the list of DCE/RPC or MSRPC services running on this host via the TCP protocol:
+
+Port: 49664/tcp
+
+     UUID: d95afe70-a6d5-4259-822e-2c84da1ddb0d, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49664]
+
+Port: 49665/tcp
+
+     UUID: f6beaff7-1e19-4fbb-9f8f-b89e2018337c, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49665]
+     Annotation: Event log TCPIP
+
+Port: 49668/tcp
+
+     UUID: 3a9ef155-691d-4449-8d05-09ad57031823, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49668]
+
+     UUID: 86d35949-83c9-4044-b424-db363231fd0c, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49668]
+
+Port: 49670/tcp
+
+     UUID: 0b1c2170-5732-4e0e-8cd3-d9b16f3b84d7, version 0
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49670]
+     Annotation: RemoteAccessCheck
+
+     UUID: 12345778-1234-abcd-ef00-0123456789ac, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49670]
+     Named pipe : lsass
+     Win32 service or process : lsass.exe
+     Description : SAM access
+
+     UUID: 51a227ae-825b-41f2-b4a9-1ac9557a1018, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49670]
+     Annotation: Ngc Pop Key Service
+
+     UUID: 8fb74744-b2ff-4c00-be0d-9ef9a191fe1b, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49670]
+     Annotation: Ngc Pop Key Service
+
+     UUID: b25a52bf-e5dd-4f4a-aea6-8ca7272a0e86, version 2
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49670]
+     Annotation: KeyIso
+
+Port: 49673/tcp
+
+     UUID: 29770a8f-829b-4158-90a2-78cd488501f7, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49673]
+
+Port: 49683/tcp
+
+     UUID: 0b6edbfa-4a24-4fc6-8a23-942b1eca65d1, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49683]
+
+     UUID: 12345678-1234-abcd-ef00-0123456789ab, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49683]
+     Named pipe : spoolss
+     Win32 service or process : spoolsv.exe
+     Description : Spooler service
+
+     UUID: 4a452661-8290-4b36-8fbe-7f4093a94978, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49683]
+
+     UUID: 76f03f96-cdfd-44fc-a22c-64950a001209, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49683]
+
+     UUID: ae33069b-a2a8-46ee-a235-ddfd339be281, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49683]
+
+Port: 49715/tcp
+
+     UUID: 6b5bdd1e-528c-422c-af8c-a4079be4fe48, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49715]
+     Annotation: Remote Fw APIs
+
+Port: 49720/tcp
+
+     UUID: 367abb81-9844-35f1-ad32-98f038001003, version 2
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49720]
+
+Port: 49723/tcp
+
+     UUID: 906b0ce0-c70b-1067-b317-00dd010662da, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49723]
+
+Port: 49724/tcp
+
+     UUID: 906b0ce0-c70b-1067-b317-00dd010662da, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49724]
+
+Port: 49737/tcp
+
+     UUID: 12345778-1234-abcd-ef00-0123456789ac, version 1
+     Endpoint: ncacn_ip_tcp:172.28.136.141[49737]
+     Named pipe : lsass
+     Win32 service or process : lsass.exe
+     Description : SAM access
+
+Port: 50020/tcp
+
+     UUID: b97db8b2-4c63-11cf-bff6-08002be23f2f, version 3
+     Endpoint: ncacn_ip_tcp:172.28.136.141[50020]
+     Annotation: Microsoft Cluster Server API
+
+Note: DCE/RPC or MSRPC services running on this host locally were identified. Reporting this list is not enabled by default due to the possible large size of this list. See the script preferences to enable this reporting.
+",1.3.6.1.4.1.25623.1.0.10736,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,31ac53bf-9286-47d3-b83a-40bcde861659,"An attacker may use this fact to gain more knowledge
+  about the remote host.","Filter incoming traffic to this ports.","","","
+Details:
+DCE/RPC and MSRPC Services Enumeration Reporting
+(OID: 1.3.6.1.4.1.25623.1.0.10736)
+Version used: 2017-06-13T07:06:12Z
+","","","",""
+172.28.136.111,,3389,tcp,5.0,Medium,"Mitigation","SSL/TLS: Report Weak Cipher Suites","This routine reports all Weak SSL/TLS cipher suites accepted
+  by a service.
+
+  NOTE: No severity for SMTP services with 'Opportunistic TLS' and weak cipher suites on port
+  25/tcp is reported. If too strong cipher suites are configured for this service the alternative
+  would be to fall back to an even more insecure cleartext communication.","'Weak' cipher suites accepted by this service via the TLSv1.0 protocol:
+
+TLS_RSA_WITH_RC4_128_MD5
+TLS_RSA_WITH_RC4_128_SHA
+
+'Weak' cipher suites accepted by this service via the TLSv1.1 protocol:
+
+TLS_RSA_WITH_RC4_128_MD5
+TLS_RSA_WITH_RC4_128_SHA
+
+'Weak' cipher suites accepted by this service via the TLSv1.2 protocol:
+
+TLS_RSA_WITH_RC4_128_MD5
+TLS_RSA_WITH_RC4_128_SHA
+
+
+",1.3.6.1.4.1.25623.1.0.103440,"CVE-2013-2566,CVE-2015-2808,CVE-2015-4000",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,fcdc39e0-d7ac-44b1-a85b-c2af33f66540,"","The configuration of this services should be changed so
+  that it does not accept the listed weak cipher suites anymore.
+
+  Please see the references for more resources supporting you with this task.","","These rules are applied for the evaluation of the cryptographic
+  strength:
+
+  - RC4 is considered to be weak (CVE-2013-2566, CVE-2015-2808)
+
+  - Ciphers using 64 bit or less are considered to be vulnerable to brute force methods
+  and therefore considered as weak (CVE-2015-4000)
+
+  - 1024 bit RSA authentication is considered to be insecure and therefore as weak
+
+  - Any cipher considered to be secure for only the next 10 years is considered as medium
+
+  - Any other cipher is considered as strong","
+Details:
+SSL/TLS: Report Weak Cipher Suites
+(OID: 1.3.6.1.4.1.25623.1.0.103440)
+Version used: 2021-12-01T13:10:37Z
+","","","DFN-CERT-2021-0775,DFN-CERT-2020-1561,DFN-CERT-2020-1276,DFN-CERT-2017-1821,DFN-CERT-2016-1692,DFN-CERT-2016-1648,DFN-CERT-2016-1168,DFN-CERT-2016-0665,DFN-CERT-2016-0642,DFN-CERT-2016-0184,DFN-CERT-2016-0135,DFN-CERT-2016-0101,DFN-CERT-2016-0035,DFN-CERT-2015-1853,DFN-CERT-2015-1679,DFN-CERT-2015-1632,DFN-CERT-2015-1608,DFN-CERT-2015-1542,DFN-CERT-2015-1518,DFN-CERT-2015-1406,DFN-CERT-2015-1341,DFN-CERT-2015-1194,DFN-CERT-2015-1144,DFN-CERT-2015-1113,DFN-CERT-2015-1078,DFN-CERT-2015-1067,DFN-CERT-2015-1038,DFN-CERT-2015-1016,DFN-CERT-2015-1012,DFN-CERT-2015-0980,DFN-CERT-2015-0977,DFN-CERT-2015-0976,DFN-CERT-2015-0960,DFN-CERT-2015-0956,DFN-CERT-2015-0944,DFN-CERT-2015-0937,DFN-CERT-2015-0925,DFN-CERT-2015-0884,DFN-CERT-2015-0881,DFN-CERT-2015-0879,DFN-CERT-2015-0866,DFN-CERT-2015-0844,DFN-CERT-2015-0800,DFN-CERT-2015-0737,DFN-CERT-2015-0696,DFN-CERT-2014-0977,CB-K21/0067,CB-K19/0812,CB-K17/1750,CB-K16/1593,CB-K16/1552,CB-K16/1102,CB-K16/0617,CB-K16/0599,CB-K16/0168,CB-K16/0121,CB-K16/0090,CB-K16/0030,CB-K15/1751,CB-K15/1591,CB-K15/1550,CB-K15/1517,CB-K15/1514,CB-K15/1464,CB-K15/1442,CB-K15/1334,CB-K15/1269,CB-K15/1136,CB-K15/1090,CB-K15/1059,CB-K15/1022,CB-K15/1015,CB-K15/0986,CB-K15/0964,CB-K15/0962,CB-K15/0932,CB-K15/0927,CB-K15/0926,CB-K15/0907,CB-K15/0901,CB-K15/0896,CB-K15/0889,CB-K15/0877,CB-K15/0850,CB-K15/0849,CB-K15/0834,CB-K15/0827,CB-K15/0802,CB-K15/0764,CB-K15/0733,CB-K15/0667,CB-K14/0935,CB-K13/0942",""
+172.28.137.112,,7630,tcp,5.0,Medium,"Mitigation","SSL/TLS: Certificate Expired","The remote server's SSL/TLS certificate has already expired.","The certificate of the remote service expired on 2021-08-28 10:08:49.
+
+Certificate details:
+fingerprint (SHA-1)             | 32E162A61A55C3214CE48549A52F1012F627E504
+fingerprint (SHA-256)           | 45A6524BCD57AFF2B5C7F8452A6D96653417F743CC62601C97D2F109DB3BB08F
+issued by                       | OU=Automatically Generated Certificate,O=HA Web Konsole,1.2.840.113549.1.9.1=#726F6F7440736970687068646230362E736970682E636F6D,CN=siphphdb06.siph.com
+public key algorithm            | RSA
+public key size (bits)          | 2048
+serial                          | 00FF475E2DF2789777
+signature algorithm             | sha256WithRSAEncryption
+subject                         | OU=Automatically Generated Certificate,O=HA Web Konsole,1.2.840.113549.1.9.1=#726F6F7440736970687068646230362E736970682E636F6D,CN=siphphdb06.siph.com
+subject alternative names (SAN) | None
+valid from                      | 2018-08-29 10:08:49 UTC
+valid until                     | 2021-08-28 10:08:49 UTC
+",1.3.6.1.4.1.25623.1.0.103955,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,c47ccca6-e73e-4f0d-a8e3-bd2e761bc453,"","Replace the SSL/TLS certificate by a new one.","","This script checks expiry dates of certificates associated with
+  SSL/TLS-enabled services on the target and reports whether any have already expired.","
+Details:
+SSL/TLS: Certificate Expired
+(OID: 1.3.6.1.4.1.25623.1.0.103955)
+Version used: 2021-11-22T15:32:39Z
+","","","",""
+172.28.136.141,,3389,tcp,4.3,Medium,"Mitigation","SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection","It was possible to detect the usage of the deprecated TLSv1.0
+  and/or TLSv1.1 protocol on this system.","In addition to TLSv1.2+ the service is also providing the deprecated TLSv1.0 and TLSv1.1 protocols and supports one or more ciphers. Those supported ciphers can be found in the 'SSL/TLS: Report Supported Cipher Suites' (OID: 1.3.6.1.4.1.25623.1.0.802067) VT.
+",1.3.6.1.4.1.25623.1.0.117274,"CVE-2011-3389,CVE-2015-0204",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,68b64b24-1616-418e-9559-65d551e22631,"An attacker might be able to use the known cryptographic flaws
+  to eavesdrop the connection between clients and the service to get access to sensitive data
+  transferred within the secured connection.
+
+  Furthermore newly uncovered vulnerabilities in this protocols won't receive security updates
+  anymore.","It is recommended to disable the deprecated TLSv1.0 and/or
+  TLSv1.1 protocols in favor of the TLSv1.2+ protocols. Please see the references for more
+  information.","All services providing an encrypted communication using the
+  TLSv1.0 and/or TLSv1.1 protocols.","The TLSv1.0 and TLSv1.1 protocols contain known cryptographic
+  flaws like:
+
+  - CVE-2011-3389: Browser Exploit Against SSL/TLS (BEAST)
+
+  - CVE-2015-0204: Factoring Attack on RSA-EXPORT Keys Padding Oracle On Downgraded Legacy
+  Encryption (FREAK)","Check the used TLS protocols of the services provided by this
+  system.
+Details:
+SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection
+(OID: 1.3.6.1.4.1.25623.1.0.117274)
+Version used: 2021-07-19T08:11:48Z
+","","","DFN-CERT-2020-0177,DFN-CERT-2020-0111,DFN-CERT-2019-0068,DFN-CERT-2018-1441,DFN-CERT-2018-1408,DFN-CERT-2016-1372,DFN-CERT-2016-1164,DFN-CERT-2016-0388,DFN-CERT-2015-1853,DFN-CERT-2015-1332,DFN-CERT-2015-0884,DFN-CERT-2015-0800,DFN-CERT-2015-0758,DFN-CERT-2015-0567,DFN-CERT-2015-0544,DFN-CERT-2015-0530,DFN-CERT-2015-0396,DFN-CERT-2015-0375,DFN-CERT-2015-0374,DFN-CERT-2015-0305,DFN-CERT-2015-0199,DFN-CERT-2015-0079,DFN-CERT-2015-0021,DFN-CERT-2014-1414,DFN-CERT-2013-1847,DFN-CERT-2013-1792,DFN-CERT-2012-1979,DFN-CERT-2012-1829,DFN-CERT-2012-1530,DFN-CERT-2012-1380,DFN-CERT-2012-1377,DFN-CERT-2012-1292,DFN-CERT-2012-1214,DFN-CERT-2012-1213,DFN-CERT-2012-1180,DFN-CERT-2012-1156,DFN-CERT-2012-1155,DFN-CERT-2012-1039,DFN-CERT-2012-0956,DFN-CERT-2012-0908,DFN-CERT-2012-0868,DFN-CERT-2012-0867,DFN-CERT-2012-0848,DFN-CERT-2012-0838,DFN-CERT-2012-0776,DFN-CERT-2012-0722,DFN-CERT-2012-0638,DFN-CERT-2012-0627,DFN-CERT-2012-0451,DFN-CERT-2012-0418,DFN-CERT-2012-0354,DFN-CERT-2012-0234,DFN-CERT-2012-0221,DFN-CERT-2012-0177,DFN-CERT-2012-0170,DFN-CERT-2012-0146,DFN-CERT-2012-0142,DFN-CERT-2012-0126,DFN-CERT-2012-0123,DFN-CERT-2012-0095,DFN-CERT-2012-0051,DFN-CERT-2012-0047,DFN-CERT-2012-0021,DFN-CERT-2011-1953,DFN-CERT-2011-1946,DFN-CERT-2011-1844,DFN-CERT-2011-1826,DFN-CERT-2011-1774,DFN-CERT-2011-1743,DFN-CERT-2011-1738,DFN-CERT-2011-1706,DFN-CERT-2011-1628,DFN-CERT-2011-1627,DFN-CERT-2011-1619,DFN-CERT-2011-1482,CB-K18/0799,CB-K16/1289,CB-K16/1096,CB-K15/1751,CB-K15/1266,CB-K15/0850,CB-K15/0764,CB-K15/0720,CB-K15/0548,CB-K15/0526,CB-K15/0509,CB-K15/0493,CB-K15/0384,CB-K15/0365,CB-K15/0364,CB-K15/0302,CB-K15/0192,CB-K15/0079,CB-K15/0016,CB-K14/1342,CB-K14/0231,CB-K13/0845,CB-K13/0796,CB-K13/0790",""
+172.28.136.111,,1129,tcp,4.3,Medium,"Mitigation","SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection","It was possible to detect the usage of the deprecated TLSv1.0
+  and/or TLSv1.1 protocol on this system.","In addition to TLSv1.2+ the service is also providing the deprecated TLSv1.0 and TLSv1.1 protocols and supports one or more ciphers. Those supported ciphers can be found in the 'SSL/TLS: Report Supported Cipher Suites' (OID: 1.3.6.1.4.1.25623.1.0.802067) VT.
+",1.3.6.1.4.1.25623.1.0.117274,"CVE-2011-3389,CVE-2015-0204",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,6b1f5fbe-e548-4089-8844-a1611686d5a6,"An attacker might be able to use the known cryptographic flaws
+  to eavesdrop the connection between clients and the service to get access to sensitive data
+  transferred within the secured connection.
+
+  Furthermore newly uncovered vulnerabilities in this protocols won't receive security updates
+  anymore.","It is recommended to disable the deprecated TLSv1.0 and/or
+  TLSv1.1 protocols in favor of the TLSv1.2+ protocols. Please see the references for more
+  information.","All services providing an encrypted communication using the
+  TLSv1.0 and/or TLSv1.1 protocols.","The TLSv1.0 and TLSv1.1 protocols contain known cryptographic
+  flaws like:
+
+  - CVE-2011-3389: Browser Exploit Against SSL/TLS (BEAST)
+
+  - CVE-2015-0204: Factoring Attack on RSA-EXPORT Keys Padding Oracle On Downgraded Legacy
+  Encryption (FREAK)","Check the used TLS protocols of the services provided by this
+  system.
+Details:
+SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection
+(OID: 1.3.6.1.4.1.25623.1.0.117274)
+Version used: 2021-07-19T08:11:48Z
+","","","DFN-CERT-2020-0177,DFN-CERT-2020-0111,DFN-CERT-2019-0068,DFN-CERT-2018-1441,DFN-CERT-2018-1408,DFN-CERT-2016-1372,DFN-CERT-2016-1164,DFN-CERT-2016-0388,DFN-CERT-2015-1853,DFN-CERT-2015-1332,DFN-CERT-2015-0884,DFN-CERT-2015-0800,DFN-CERT-2015-0758,DFN-CERT-2015-0567,DFN-CERT-2015-0544,DFN-CERT-2015-0530,DFN-CERT-2015-0396,DFN-CERT-2015-0375,DFN-CERT-2015-0374,DFN-CERT-2015-0305,DFN-CERT-2015-0199,DFN-CERT-2015-0079,DFN-CERT-2015-0021,DFN-CERT-2014-1414,DFN-CERT-2013-1847,DFN-CERT-2013-1792,DFN-CERT-2012-1979,DFN-CERT-2012-1829,DFN-CERT-2012-1530,DFN-CERT-2012-1380,DFN-CERT-2012-1377,DFN-CERT-2012-1292,DFN-CERT-2012-1214,DFN-CERT-2012-1213,DFN-CERT-2012-1180,DFN-CERT-2012-1156,DFN-CERT-2012-1155,DFN-CERT-2012-1039,DFN-CERT-2012-0956,DFN-CERT-2012-0908,DFN-CERT-2012-0868,DFN-CERT-2012-0867,DFN-CERT-2012-0848,DFN-CERT-2012-0838,DFN-CERT-2012-0776,DFN-CERT-2012-0722,DFN-CERT-2012-0638,DFN-CERT-2012-0627,DFN-CERT-2012-0451,DFN-CERT-2012-0418,DFN-CERT-2012-0354,DFN-CERT-2012-0234,DFN-CERT-2012-0221,DFN-CERT-2012-0177,DFN-CERT-2012-0170,DFN-CERT-2012-0146,DFN-CERT-2012-0142,DFN-CERT-2012-0126,DFN-CERT-2012-0123,DFN-CERT-2012-0095,DFN-CERT-2012-0051,DFN-CERT-2012-0047,DFN-CERT-2012-0021,DFN-CERT-2011-1953,DFN-CERT-2011-1946,DFN-CERT-2011-1844,DFN-CERT-2011-1826,DFN-CERT-2011-1774,DFN-CERT-2011-1743,DFN-CERT-2011-1738,DFN-CERT-2011-1706,DFN-CERT-2011-1628,DFN-CERT-2011-1627,DFN-CERT-2011-1619,DFN-CERT-2011-1482,CB-K18/0799,CB-K16/1289,CB-K16/1096,CB-K15/1751,CB-K15/1266,CB-K15/0850,CB-K15/0764,CB-K15/0720,CB-K15/0548,CB-K15/0526,CB-K15/0509,CB-K15/0493,CB-K15/0384,CB-K15/0365,CB-K15/0364,CB-K15/0302,CB-K15/0192,CB-K15/0079,CB-K15/0016,CB-K14/1342,CB-K14/0231,CB-K13/0845,CB-K13/0796,CB-K13/0790",""
+172.28.136.141,,1129,tcp,4.3,Medium,"Mitigation","SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection","It was possible to detect the usage of the deprecated TLSv1.0
+  and/or TLSv1.1 protocol on this system.","In addition to TLSv1.2+ the service is also providing the deprecated TLSv1.0 and TLSv1.1 protocols and supports one or more ciphers. Those supported ciphers can be found in the 'SSL/TLS: Report Supported Cipher Suites' (OID: 1.3.6.1.4.1.25623.1.0.802067) VT.
+",1.3.6.1.4.1.25623.1.0.117274,"CVE-2011-3389,CVE-2015-0204",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,d10f4923-816c-42b8-b000-abbcfa7bbb5e,"An attacker might be able to use the known cryptographic flaws
+  to eavesdrop the connection between clients and the service to get access to sensitive data
+  transferred within the secured connection.
+
+  Furthermore newly uncovered vulnerabilities in this protocols won't receive security updates
+  anymore.","It is recommended to disable the deprecated TLSv1.0 and/or
+  TLSv1.1 protocols in favor of the TLSv1.2+ protocols. Please see the references for more
+  information.","All services providing an encrypted communication using the
+  TLSv1.0 and/or TLSv1.1 protocols.","The TLSv1.0 and TLSv1.1 protocols contain known cryptographic
+  flaws like:
+
+  - CVE-2011-3389: Browser Exploit Against SSL/TLS (BEAST)
+
+  - CVE-2015-0204: Factoring Attack on RSA-EXPORT Keys Padding Oracle On Downgraded Legacy
+  Encryption (FREAK)","Check the used TLS protocols of the services provided by this
+  system.
+Details:
+SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection
+(OID: 1.3.6.1.4.1.25623.1.0.117274)
+Version used: 2021-07-19T08:11:48Z
+","","","DFN-CERT-2020-0177,DFN-CERT-2020-0111,DFN-CERT-2019-0068,DFN-CERT-2018-1441,DFN-CERT-2018-1408,DFN-CERT-2016-1372,DFN-CERT-2016-1164,DFN-CERT-2016-0388,DFN-CERT-2015-1853,DFN-CERT-2015-1332,DFN-CERT-2015-0884,DFN-CERT-2015-0800,DFN-CERT-2015-0758,DFN-CERT-2015-0567,DFN-CERT-2015-0544,DFN-CERT-2015-0530,DFN-CERT-2015-0396,DFN-CERT-2015-0375,DFN-CERT-2015-0374,DFN-CERT-2015-0305,DFN-CERT-2015-0199,DFN-CERT-2015-0079,DFN-CERT-2015-0021,DFN-CERT-2014-1414,DFN-CERT-2013-1847,DFN-CERT-2013-1792,DFN-CERT-2012-1979,DFN-CERT-2012-1829,DFN-CERT-2012-1530,DFN-CERT-2012-1380,DFN-CERT-2012-1377,DFN-CERT-2012-1292,DFN-CERT-2012-1214,DFN-CERT-2012-1213,DFN-CERT-2012-1180,DFN-CERT-2012-1156,DFN-CERT-2012-1155,DFN-CERT-2012-1039,DFN-CERT-2012-0956,DFN-CERT-2012-0908,DFN-CERT-2012-0868,DFN-CERT-2012-0867,DFN-CERT-2012-0848,DFN-CERT-2012-0838,DFN-CERT-2012-0776,DFN-CERT-2012-0722,DFN-CERT-2012-0638,DFN-CERT-2012-0627,DFN-CERT-2012-0451,DFN-CERT-2012-0418,DFN-CERT-2012-0354,DFN-CERT-2012-0234,DFN-CERT-2012-0221,DFN-CERT-2012-0177,DFN-CERT-2012-0170,DFN-CERT-2012-0146,DFN-CERT-2012-0142,DFN-CERT-2012-0126,DFN-CERT-2012-0123,DFN-CERT-2012-0095,DFN-CERT-2012-0051,DFN-CERT-2012-0047,DFN-CERT-2012-0021,DFN-CERT-2011-1953,DFN-CERT-2011-1946,DFN-CERT-2011-1844,DFN-CERT-2011-1826,DFN-CERT-2011-1774,DFN-CERT-2011-1743,DFN-CERT-2011-1738,DFN-CERT-2011-1706,DFN-CERT-2011-1628,DFN-CERT-2011-1627,DFN-CERT-2011-1619,DFN-CERT-2011-1482,CB-K18/0799,CB-K16/1289,CB-K16/1096,CB-K15/1751,CB-K15/1266,CB-K15/0850,CB-K15/0764,CB-K15/0720,CB-K15/0548,CB-K15/0526,CB-K15/0509,CB-K15/0493,CB-K15/0384,CB-K15/0365,CB-K15/0364,CB-K15/0302,CB-K15/0192,CB-K15/0079,CB-K15/0016,CB-K14/1342,CB-K14/0231,CB-K13/0845,CB-K13/0796,CB-K13/0790",""
+172.28.137.112,,1129,tcp,4.3,Medium,"Mitigation","SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection","It was possible to detect the usage of the deprecated TLSv1.0
+  and/or TLSv1.1 protocol on this system.","In addition to TLSv1.2+ the service is also providing the deprecated TLSv1.0 and TLSv1.1 protocols and supports one or more ciphers. Those supported ciphers can be found in the 'SSL/TLS: Report Supported Cipher Suites' (OID: 1.3.6.1.4.1.25623.1.0.802067) VT.
+",1.3.6.1.4.1.25623.1.0.117274,"CVE-2011-3389,CVE-2015-0204",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,02259cba-a339-451d-9b0b-ff7bb1d0b9f7,"An attacker might be able to use the known cryptographic flaws
+  to eavesdrop the connection between clients and the service to get access to sensitive data
+  transferred within the secured connection.
+
+  Furthermore newly uncovered vulnerabilities in this protocols won't receive security updates
+  anymore.","It is recommended to disable the deprecated TLSv1.0 and/or
+  TLSv1.1 protocols in favor of the TLSv1.2+ protocols. Please see the references for more
+  information.","All services providing an encrypted communication using the
+  TLSv1.0 and/or TLSv1.1 protocols.","The TLSv1.0 and TLSv1.1 protocols contain known cryptographic
+  flaws like:
+
+  - CVE-2011-3389: Browser Exploit Against SSL/TLS (BEAST)
+
+  - CVE-2015-0204: Factoring Attack on RSA-EXPORT Keys Padding Oracle On Downgraded Legacy
+  Encryption (FREAK)","Check the used TLS protocols of the services provided by this
+  system.
+Details:
+SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection
+(OID: 1.3.6.1.4.1.25623.1.0.117274)
+Version used: 2021-07-19T08:11:48Z
+","","","DFN-CERT-2020-0177,DFN-CERT-2020-0111,DFN-CERT-2019-0068,DFN-CERT-2018-1441,DFN-CERT-2018-1408,DFN-CERT-2016-1372,DFN-CERT-2016-1164,DFN-CERT-2016-0388,DFN-CERT-2015-1853,DFN-CERT-2015-1332,DFN-CERT-2015-0884,DFN-CERT-2015-0800,DFN-CERT-2015-0758,DFN-CERT-2015-0567,DFN-CERT-2015-0544,DFN-CERT-2015-0530,DFN-CERT-2015-0396,DFN-CERT-2015-0375,DFN-CERT-2015-0374,DFN-CERT-2015-0305,DFN-CERT-2015-0199,DFN-CERT-2015-0079,DFN-CERT-2015-0021,DFN-CERT-2014-1414,DFN-CERT-2013-1847,DFN-CERT-2013-1792,DFN-CERT-2012-1979,DFN-CERT-2012-1829,DFN-CERT-2012-1530,DFN-CERT-2012-1380,DFN-CERT-2012-1377,DFN-CERT-2012-1292,DFN-CERT-2012-1214,DFN-CERT-2012-1213,DFN-CERT-2012-1180,DFN-CERT-2012-1156,DFN-CERT-2012-1155,DFN-CERT-2012-1039,DFN-CERT-2012-0956,DFN-CERT-2012-0908,DFN-CERT-2012-0868,DFN-CERT-2012-0867,DFN-CERT-2012-0848,DFN-CERT-2012-0838,DFN-CERT-2012-0776,DFN-CERT-2012-0722,DFN-CERT-2012-0638,DFN-CERT-2012-0627,DFN-CERT-2012-0451,DFN-CERT-2012-0418,DFN-CERT-2012-0354,DFN-CERT-2012-0234,DFN-CERT-2012-0221,DFN-CERT-2012-0177,DFN-CERT-2012-0170,DFN-CERT-2012-0146,DFN-CERT-2012-0142,DFN-CERT-2012-0126,DFN-CERT-2012-0123,DFN-CERT-2012-0095,DFN-CERT-2012-0051,DFN-CERT-2012-0047,DFN-CERT-2012-0021,DFN-CERT-2011-1953,DFN-CERT-2011-1946,DFN-CERT-2011-1844,DFN-CERT-2011-1826,DFN-CERT-2011-1774,DFN-CERT-2011-1743,DFN-CERT-2011-1738,DFN-CERT-2011-1706,DFN-CERT-2011-1628,DFN-CERT-2011-1627,DFN-CERT-2011-1619,DFN-CERT-2011-1482,CB-K18/0799,CB-K16/1289,CB-K16/1096,CB-K15/1751,CB-K15/1266,CB-K15/0850,CB-K15/0764,CB-K15/0720,CB-K15/0548,CB-K15/0526,CB-K15/0509,CB-K15/0493,CB-K15/0384,CB-K15/0365,CB-K15/0364,CB-K15/0302,CB-K15/0192,CB-K15/0079,CB-K15/0016,CB-K14/1342,CB-K14/0231,CB-K13/0845,CB-K13/0796,CB-K13/0790",""
+172.28.137.112,,4316,tcp,4.3,Medium,"Mitigation","SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection","It was possible to detect the usage of the deprecated TLSv1.0
+  and/or TLSv1.1 protocol on this system.","In addition to TLSv1.2+ the service is also providing the deprecated TLSv1.0 and TLSv1.1 protocols and supports one or more ciphers. Those supported ciphers can be found in the 'SSL/TLS: Report Supported Cipher Suites' (OID: 1.3.6.1.4.1.25623.1.0.802067) VT.
+",1.3.6.1.4.1.25623.1.0.117274,"CVE-2011-3389,CVE-2015-0204",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,29d39553-87f0-4849-95b3-5424c89b7acb,"An attacker might be able to use the known cryptographic flaws
+  to eavesdrop the connection between clients and the service to get access to sensitive data
+  transferred within the secured connection.
+
+  Furthermore newly uncovered vulnerabilities in this protocols won't receive security updates
+  anymore.","It is recommended to disable the deprecated TLSv1.0 and/or
+  TLSv1.1 protocols in favor of the TLSv1.2+ protocols. Please see the references for more
+  information.","All services providing an encrypted communication using the
+  TLSv1.0 and/or TLSv1.1 protocols.","The TLSv1.0 and TLSv1.1 protocols contain known cryptographic
+  flaws like:
+
+  - CVE-2011-3389: Browser Exploit Against SSL/TLS (BEAST)
+
+  - CVE-2015-0204: Factoring Attack on RSA-EXPORT Keys Padding Oracle On Downgraded Legacy
+  Encryption (FREAK)","Check the used TLS protocols of the services provided by this
+  system.
+Details:
+SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection
+(OID: 1.3.6.1.4.1.25623.1.0.117274)
+Version used: 2021-07-19T08:11:48Z
+","","","DFN-CERT-2020-0177,DFN-CERT-2020-0111,DFN-CERT-2019-0068,DFN-CERT-2018-1441,DFN-CERT-2018-1408,DFN-CERT-2016-1372,DFN-CERT-2016-1164,DFN-CERT-2016-0388,DFN-CERT-2015-1853,DFN-CERT-2015-1332,DFN-CERT-2015-0884,DFN-CERT-2015-0800,DFN-CERT-2015-0758,DFN-CERT-2015-0567,DFN-CERT-2015-0544,DFN-CERT-2015-0530,DFN-CERT-2015-0396,DFN-CERT-2015-0375,DFN-CERT-2015-0374,DFN-CERT-2015-0305,DFN-CERT-2015-0199,DFN-CERT-2015-0079,DFN-CERT-2015-0021,DFN-CERT-2014-1414,DFN-CERT-2013-1847,DFN-CERT-2013-1792,DFN-CERT-2012-1979,DFN-CERT-2012-1829,DFN-CERT-2012-1530,DFN-CERT-2012-1380,DFN-CERT-2012-1377,DFN-CERT-2012-1292,DFN-CERT-2012-1214,DFN-CERT-2012-1213,DFN-CERT-2012-1180,DFN-CERT-2012-1156,DFN-CERT-2012-1155,DFN-CERT-2012-1039,DFN-CERT-2012-0956,DFN-CERT-2012-0908,DFN-CERT-2012-0868,DFN-CERT-2012-0867,DFN-CERT-2012-0848,DFN-CERT-2012-0838,DFN-CERT-2012-0776,DFN-CERT-2012-0722,DFN-CERT-2012-0638,DFN-CERT-2012-0627,DFN-CERT-2012-0451,DFN-CERT-2012-0418,DFN-CERT-2012-0354,DFN-CERT-2012-0234,DFN-CERT-2012-0221,DFN-CERT-2012-0177,DFN-CERT-2012-0170,DFN-CERT-2012-0146,DFN-CERT-2012-0142,DFN-CERT-2012-0126,DFN-CERT-2012-0123,DFN-CERT-2012-0095,DFN-CERT-2012-0051,DFN-CERT-2012-0047,DFN-CERT-2012-0021,DFN-CERT-2011-1953,DFN-CERT-2011-1946,DFN-CERT-2011-1844,DFN-CERT-2011-1826,DFN-CERT-2011-1774,DFN-CERT-2011-1743,DFN-CERT-2011-1738,DFN-CERT-2011-1706,DFN-CERT-2011-1628,DFN-CERT-2011-1627,DFN-CERT-2011-1619,DFN-CERT-2011-1482,CB-K18/0799,CB-K16/1289,CB-K16/1096,CB-K15/1751,CB-K15/1266,CB-K15/0850,CB-K15/0764,CB-K15/0720,CB-K15/0548,CB-K15/0526,CB-K15/0509,CB-K15/0493,CB-K15/0384,CB-K15/0365,CB-K15/0364,CB-K15/0302,CB-K15/0192,CB-K15/0079,CB-K15/0016,CB-K14/1342,CB-K14/0231,CB-K13/0845,CB-K13/0796,CB-K13/0790",""
+172.28.136.111,,3389,tcp,4.3,Medium,"Mitigation","SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection","It was possible to detect the usage of the deprecated TLSv1.0
+  and/or TLSv1.1 protocol on this system.","In addition to TLSv1.2+ the service is also providing the deprecated TLSv1.0 and TLSv1.1 protocols and supports one or more ciphers. Those supported ciphers can be found in the 'SSL/TLS: Report Supported Cipher Suites' (OID: 1.3.6.1.4.1.25623.1.0.802067) VT.
+",1.3.6.1.4.1.25623.1.0.117274,"CVE-2011-3389,CVE-2015-0204",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,a1d603a1-7c53-4bb5-afb2-45aa00bd8ac6,"An attacker might be able to use the known cryptographic flaws
+  to eavesdrop the connection between clients and the service to get access to sensitive data
+  transferred within the secured connection.
+
+  Furthermore newly uncovered vulnerabilities in this protocols won't receive security updates
+  anymore.","It is recommended to disable the deprecated TLSv1.0 and/or
+  TLSv1.1 protocols in favor of the TLSv1.2+ protocols. Please see the references for more
+  information.","All services providing an encrypted communication using the
+  TLSv1.0 and/or TLSv1.1 protocols.","The TLSv1.0 and TLSv1.1 protocols contain known cryptographic
+  flaws like:
+
+  - CVE-2011-3389: Browser Exploit Against SSL/TLS (BEAST)
+
+  - CVE-2015-0204: Factoring Attack on RSA-EXPORT Keys Padding Oracle On Downgraded Legacy
+  Encryption (FREAK)","Check the used TLS protocols of the services provided by this
+  system.
+Details:
+SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection
+(OID: 1.3.6.1.4.1.25623.1.0.117274)
+Version used: 2021-07-19T08:11:48Z
+","","","DFN-CERT-2020-0177,DFN-CERT-2020-0111,DFN-CERT-2019-0068,DFN-CERT-2018-1441,DFN-CERT-2018-1408,DFN-CERT-2016-1372,DFN-CERT-2016-1164,DFN-CERT-2016-0388,DFN-CERT-2015-1853,DFN-CERT-2015-1332,DFN-CERT-2015-0884,DFN-CERT-2015-0800,DFN-CERT-2015-0758,DFN-CERT-2015-0567,DFN-CERT-2015-0544,DFN-CERT-2015-0530,DFN-CERT-2015-0396,DFN-CERT-2015-0375,DFN-CERT-2015-0374,DFN-CERT-2015-0305,DFN-CERT-2015-0199,DFN-CERT-2015-0079,DFN-CERT-2015-0021,DFN-CERT-2014-1414,DFN-CERT-2013-1847,DFN-CERT-2013-1792,DFN-CERT-2012-1979,DFN-CERT-2012-1829,DFN-CERT-2012-1530,DFN-CERT-2012-1380,DFN-CERT-2012-1377,DFN-CERT-2012-1292,DFN-CERT-2012-1214,DFN-CERT-2012-1213,DFN-CERT-2012-1180,DFN-CERT-2012-1156,DFN-CERT-2012-1155,DFN-CERT-2012-1039,DFN-CERT-2012-0956,DFN-CERT-2012-0908,DFN-CERT-2012-0868,DFN-CERT-2012-0867,DFN-CERT-2012-0848,DFN-CERT-2012-0838,DFN-CERT-2012-0776,DFN-CERT-2012-0722,DFN-CERT-2012-0638,DFN-CERT-2012-0627,DFN-CERT-2012-0451,DFN-CERT-2012-0418,DFN-CERT-2012-0354,DFN-CERT-2012-0234,DFN-CERT-2012-0221,DFN-CERT-2012-0177,DFN-CERT-2012-0170,DFN-CERT-2012-0146,DFN-CERT-2012-0142,DFN-CERT-2012-0126,DFN-CERT-2012-0123,DFN-CERT-2012-0095,DFN-CERT-2012-0051,DFN-CERT-2012-0047,DFN-CERT-2012-0021,DFN-CERT-2011-1953,DFN-CERT-2011-1946,DFN-CERT-2011-1844,DFN-CERT-2011-1826,DFN-CERT-2011-1774,DFN-CERT-2011-1743,DFN-CERT-2011-1738,DFN-CERT-2011-1706,DFN-CERT-2011-1628,DFN-CERT-2011-1627,DFN-CERT-2011-1619,DFN-CERT-2011-1482,CB-K18/0799,CB-K16/1289,CB-K16/1096,CB-K15/1751,CB-K15/1266,CB-K15/0850,CB-K15/0764,CB-K15/0720,CB-K15/0548,CB-K15/0526,CB-K15/0509,CB-K15/0493,CB-K15/0384,CB-K15/0365,CB-K15/0364,CB-K15/0302,CB-K15/0192,CB-K15/0079,CB-K15/0016,CB-K14/1342,CB-K14/0231,CB-K13/0845,CB-K13/0796,CB-K13/0790",""
+172.28.137.112,,7630,tcp,4.3,Medium,"Mitigation","SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection","It was possible to detect the usage of the deprecated TLSv1.0
+  and/or TLSv1.1 protocol on this system.","In addition to TLSv1.2+ the service is also providing the deprecated TLSv1.0 and TLSv1.1 protocols and supports one or more ciphers. Those supported ciphers can be found in the 'SSL/TLS: Report Supported Cipher Suites' (OID: 1.3.6.1.4.1.25623.1.0.802067) VT.
+",1.3.6.1.4.1.25623.1.0.117274,"CVE-2011-3389,CVE-2015-0204",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,e6425f2f-dd19-4aba-9294-43d45e0069f5,"An attacker might be able to use the known cryptographic flaws
+  to eavesdrop the connection between clients and the service to get access to sensitive data
+  transferred within the secured connection.
+
+  Furthermore newly uncovered vulnerabilities in this protocols won't receive security updates
+  anymore.","It is recommended to disable the deprecated TLSv1.0 and/or
+  TLSv1.1 protocols in favor of the TLSv1.2+ protocols. Please see the references for more
+  information.","All services providing an encrypted communication using the
+  TLSv1.0 and/or TLSv1.1 protocols.","The TLSv1.0 and TLSv1.1 protocols contain known cryptographic
+  flaws like:
+
+  - CVE-2011-3389: Browser Exploit Against SSL/TLS (BEAST)
+
+  - CVE-2015-0204: Factoring Attack on RSA-EXPORT Keys Padding Oracle On Downgraded Legacy
+  Encryption (FREAK)","Check the used TLS protocols of the services provided by this
+  system.
+Details:
+SSL/TLS: Deprecated TLSv1.0 and TLSv1.1 Protocol Detection
+(OID: 1.3.6.1.4.1.25623.1.0.117274)
+Version used: 2021-07-19T08:11:48Z
+","","","DFN-CERT-2020-0177,DFN-CERT-2020-0111,DFN-CERT-2019-0068,DFN-CERT-2018-1441,DFN-CERT-2018-1408,DFN-CERT-2016-1372,DFN-CERT-2016-1164,DFN-CERT-2016-0388,DFN-CERT-2015-1853,DFN-CERT-2015-1332,DFN-CERT-2015-0884,DFN-CERT-2015-0800,DFN-CERT-2015-0758,DFN-CERT-2015-0567,DFN-CERT-2015-0544,DFN-CERT-2015-0530,DFN-CERT-2015-0396,DFN-CERT-2015-0375,DFN-CERT-2015-0374,DFN-CERT-2015-0305,DFN-CERT-2015-0199,DFN-CERT-2015-0079,DFN-CERT-2015-0021,DFN-CERT-2014-1414,DFN-CERT-2013-1847,DFN-CERT-2013-1792,DFN-CERT-2012-1979,DFN-CERT-2012-1829,DFN-CERT-2012-1530,DFN-CERT-2012-1380,DFN-CERT-2012-1377,DFN-CERT-2012-1292,DFN-CERT-2012-1214,DFN-CERT-2012-1213,DFN-CERT-2012-1180,DFN-CERT-2012-1156,DFN-CERT-2012-1155,DFN-CERT-2012-1039,DFN-CERT-2012-0956,DFN-CERT-2012-0908,DFN-CERT-2012-0868,DFN-CERT-2012-0867,DFN-CERT-2012-0848,DFN-CERT-2012-0838,DFN-CERT-2012-0776,DFN-CERT-2012-0722,DFN-CERT-2012-0638,DFN-CERT-2012-0627,DFN-CERT-2012-0451,DFN-CERT-2012-0418,DFN-CERT-2012-0354,DFN-CERT-2012-0234,DFN-CERT-2012-0221,DFN-CERT-2012-0177,DFN-CERT-2012-0170,DFN-CERT-2012-0146,DFN-CERT-2012-0142,DFN-CERT-2012-0126,DFN-CERT-2012-0123,DFN-CERT-2012-0095,DFN-CERT-2012-0051,DFN-CERT-2012-0047,DFN-CERT-2012-0021,DFN-CERT-2011-1953,DFN-CERT-2011-1946,DFN-CERT-2011-1844,DFN-CERT-2011-1826,DFN-CERT-2011-1774,DFN-CERT-2011-1743,DFN-CERT-2011-1738,DFN-CERT-2011-1706,DFN-CERT-2011-1628,DFN-CERT-2011-1627,DFN-CERT-2011-1619,DFN-CERT-2011-1482,CB-K18/0799,CB-K16/1289,CB-K16/1096,CB-K15/1751,CB-K15/1266,CB-K15/0850,CB-K15/0764,CB-K15/0720,CB-K15/0548,CB-K15/0526,CB-K15/0509,CB-K15/0493,CB-K15/0384,CB-K15/0365,CB-K15/0364,CB-K15/0302,CB-K15/0192,CB-K15/0079,CB-K15/0016,CB-K14/1342,CB-K14/0231,CB-K13/0845,CB-K13/0796,CB-K13/0790",""
+172.28.136.111,,3389,tcp,4.0,Medium,"Workaround","SSL/TLS: Diffie-Hellman Key Exchange Insufficient DH Group Strength Vulnerability","The SSL/TLS service uses Diffie-Hellman groups with insufficient strength
+  (key size < 2048).","Server Temporary Key Size: 1024 bits
+
+",1.3.6.1.4.1.25623.1.0.106223,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,6ee26214-0e33-4d9b-aeb7-9a398bb4fe2a,"An attacker might be able to decrypt the SSL/TLS communication offline.","Deploy (Ephemeral) Elliptic-Curve Diffie-Hellman (ECDHE) or use
+  a 2048-bit or stronger Diffie-Hellman group (see the references).
+
+  For Apache Web Servers:
+  Beginning with version 2.4.7, mod_ssl will use DH parameters which include primes with lengths of more than 1024 bits.","","The Diffie-Hellman group are some big numbers that are used as base for
+  the DH computations. They can be, and often are, fixed. The security of the final secret depends on the size
+  of these parameters. It was found that 512 and 768 bits to be weak, 1024 bits to be breakable by really
+  powerful attackers like governments.","Checks the DHE temporary public key size.
+Details:
+SSL/TLS: Diffie-Hellman Key Exchange Insufficient DH Group Strength Vulnerab...
+(OID: 1.3.6.1.4.1.25623.1.0.106223)
+Version used: 2021-02-12T06:42:15Z
+","","","",""
+172.28.137.112,,7630,tcp,4.0,Medium,"Workaround","SSL/TLS: Diffie-Hellman Key Exchange Insufficient DH Group Strength Vulnerability","The SSL/TLS service uses Diffie-Hellman groups with insufficient strength
+  (key size < 2048).","Server Temporary Key Size: 1024 bits
+
+",1.3.6.1.4.1.25623.1.0.106223,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,1af55186-3633-4585-a559-625f17ca2f9a,"An attacker might be able to decrypt the SSL/TLS communication offline.","Deploy (Ephemeral) Elliptic-Curve Diffie-Hellman (ECDHE) or use
+  a 2048-bit or stronger Diffie-Hellman group (see the references).
+
+  For Apache Web Servers:
+  Beginning with version 2.4.7, mod_ssl will use DH parameters which include primes with lengths of more than 1024 bits.","","The Diffie-Hellman group are some big numbers that are used as base for
+  the DH computations. They can be, and often are, fixed. The security of the final secret depends on the size
+  of these parameters. It was found that 512 and 768 bits to be weak, 1024 bits to be breakable by really
+  powerful attackers like governments.","Checks the DHE temporary public key size.
+Details:
+SSL/TLS: Diffie-Hellman Key Exchange Insufficient DH Group Strength Vulnerab...
+(OID: 1.3.6.1.4.1.25623.1.0.106223)
+Version used: 2021-02-12T06:42:15Z
+","","","",""
+172.28.137.112,,,,2.6,Low,"Mitigation","TCP timestamps","The remote host implements TCP timestamps and therefore allows to compute
+  the uptime.","It was detected that the host implements RFC1323/RFC7323.
+
+The following timestamps were retrieved with a delay of 1 seconds in-between:
+Packet 1: 691152625
+Packet 2: 691152899
+",1.3.6.1.4.1.25623.1.0.80091,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,315b40a6-5cd1-4fe8-9207-cb92c245b9e8,"A side effect of this feature is that the uptime of the remote
+  host can sometimes be computed.","To disable TCP timestamps on linux add the line 'net.ipv4.tcp_timestamps = 0' to
+  /etc/sysctl.conf. Execute 'sysctl -p' to apply the settings at runtime.
+
+  To disable TCP timestamps on Windows execute 'netsh int tcp set global timestamps=disabled'
+
+  Starting with Windows Server 2008 and Vista, the timestamp can not be completely disabled.
+
+  The default behavior of the TCP/IP stack on this Systems is to not use the
+  Timestamp options when initiating TCP connections, but use them if the TCP peer
+  that is initiating communication includes them in their synchronize (SYN) segment.
+
+  See the references for more information.","TCP implementations that implement RFC1323/RFC7323.","The remote host implements TCP timestamps, as defined by RFC1323/RFC7323.","Special IP packets are forged and sent with a little delay in between to the
+  target IP. The responses are searched for a timestamps. If found, the timestamps are reported.
+Details:
+TCP timestamps
+(OID: 1.3.6.1.4.1.25623.1.0.80091)
+Version used: 2020-08-24T08:40:10Z
+","","","",""
+172.28.136.111,,,,2.6,Low,"Mitigation","TCP timestamps","The remote host implements TCP timestamps and therefore allows to compute
+  the uptime.","It was detected that the host implements RFC1323/RFC7323.
+
+The following timestamps were retrieved with a delay of 1 seconds in-between:
+Packet 1: 95162007
+Packet 2: 95162116
+",1.3.6.1.4.1.25623.1.0.80091,"",c6314a78-3a2b-4c1f-8c37-ea17a11600e2,"SIPH Phase3 scan",2022-04-04T15:54:14Z,f41e578d-4ac2-44b3-b661-c8dc4559e6c1,"A side effect of this feature is that the uptime of the remote
+  host can sometimes be computed.","To disable TCP timestamps on linux add the line 'net.ipv4.tcp_timestamps = 0' to
+  /etc/sysctl.conf. Execute 'sysctl -p' to apply the settings at runtime.
+
+  To disable TCP timestamps on Windows execute 'netsh int tcp set global timestamps=disabled'
+
+  Starting with Windows Server 2008 and Vista, the timestamp can not be completely disabled.
+
+  The default behavior of the TCP/IP stack on this Systems is to not use the
+  Timestamp options when initiating TCP connections, but use them if the TCP peer
+  that is initiating communication includes them in their synchronize (SYN) segment.
+
+  See the references for more information.","TCP implementations that implement RFC1323/RFC7323.","The remote host implements TCP timestamps, as defined by RFC1323/RFC7323.","Special IP packets are forged and sent with a little delay in between to the
+  target IP. The responses are searched for a timestamps. If found, the timestamps are reported.
+Details:
+TCP timestamps
+(OID: 1.3.6.1.4.1.25623.1.0.80091)
+Version used: 2020-08-24T08:40:10Z
+","","","",""
