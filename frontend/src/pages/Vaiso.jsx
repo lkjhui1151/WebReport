@@ -28,6 +28,20 @@ function Vaiso() {
         setFiles(files.filter(file => file.name !== filename))
     }
 
+    const addFile = (formData, config, file) => {
+        axios.post('http://localhost:8000/web/report/company-add/', formData, config)
+            .then((res) => {
+                console.log(res);
+                file.isUploading = false
+                setFiles([...files, file])
+                getUser()
+            })
+            .catch((err) => {
+                console.log(err);
+                removeFile(file.name)
+            })
+    }
+
     const deleteFile = (id, name) => {
         axios.delete('http://localhost:8000/web/report/report-delete/' + id)
             .then(res => {
@@ -50,7 +64,7 @@ function Vaiso() {
                 <h2>VA SCAN ISO</h2>
             </div>
             <div className="iso-container">
-                <FileUpload files={files} type={"iso"} setFiles={setFiles} removeFile={removeFile} key={uuidv4()} />
+                <FileUpload files={files} type={"iso"} setFiles={setFiles} removeFile={removeFile} key={uuidv4()} addFile={addFile} />
                 <FileList files={files} removeFile={removeFile} key={uuidv4()} />
             </div>
             <Table data={data} deleteFile={deleteFile} key={uuidv4()} />

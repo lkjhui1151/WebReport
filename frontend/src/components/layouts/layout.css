@@ -95,6 +95,7 @@ a {
   display: flex;
   margin: 0;
   align-items: center;
+  list-style-type: none;
 }
 
 .item-list li {

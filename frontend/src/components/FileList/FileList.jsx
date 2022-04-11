@@ -15,14 +15,14 @@ const FileList = ({ files, removeFile }) => {
 
     return (
         <div className="file-card-container">
-            <div className='file-card-list'>
-                <ul className='file-list-upload'>
-                    {
-                        files &&
-                        files.map(f => <FileItem key={uuidv4()} file={f} deleteFile={deleteFileHandler} />)
-                    }
-                </ul>
-            </div>
+
+            <ul className='file-list'>
+                {
+                    files &&
+                    files.map(f => <FileItem key={uuidv4()} file={f} deleteFile={deleteFileHandler} />)
+                }
+            </ul>
+
         </div>
     )
 }

@@ -24,7 +24,12 @@ date = datetime.datetime(year, int(month), int(day))
 
 
 def report_iso(name):
-    doc = DocxTemplate("backend/api/sources/templates/templateISO.docx")
+    doc = DocxTemplate(
+        "../backend/api/sources/templates/templateISO.docx")
+    filename = name
+    csvFilePath = r'../backend/media/file/{}'.format(
+        filename)
+    jsonFilePath = r'../backend/api/sources/dataFile.json'
 
     def makeJson(csvFilePath, jsonFilePath):
         data = {}
@@ -50,9 +55,6 @@ def report_iso(name):
                     key_id += 1
             with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
                 jsonf.write(json.dumps(data, indent=4))
-
-    csvFilePath = r'backend/uploads/file/'+str(name)
-    jsonFilePath = r'backend/api/sources/dataFile.json'
 
     makeJson(csvFilePath, jsonFilePath)
 
@@ -386,12 +388,13 @@ def report_iso(name):
                    fancybox=True, shadow=True, ncol=4, handles=[Critical, High, Medium, Low])
         # plt.show()
         plt.tight_layout()
-        plt.savefig("backend/api/sources/image/Overview_Graph.png")
-        doc.replace_media("backend/api/sources/image/1.png",
-                          "backend/api/sources/image/Overview_Graph.png")
+        plt.savefig(
+            "../backend/api/sources/image/Overview_Graph.png")
+        doc.replace_media("../backend/api/sources/image/1.png",
+                          "../backend/api/sources/image/Overview_Graph.png")
     else:
-        doc.replace_media("backend/api/sources/image/1.png",
-                          "backend/api/sources/image/noGraph.jpg")
+        doc.replace_media("../backend/api/sources/image/1.png",
+                          "../backend/api/sources/image/noGraph.jpg")
     ################################################################################################
 
     def myFunc(e):
@@ -423,6 +426,6 @@ def report_iso(name):
     # print(name[0])
 
     doc.render(Content)
-    doc.save("backend/uploads/"+name[0]+".docx")
+    doc.save("../backend/media/"+name[0]+".docx")
     # os.system("backend/api/sources/"+name[0]+".docx")
     return True

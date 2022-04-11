@@ -4,6 +4,12 @@ from django.core.validators import MinLengthValidator
 import os
 # Create your models here.
 
+def file_path(instance, filename):
+    path = ""
+    format = filename
+    return os.path.join(path, format)
+
+
 
 class company_list(models.Model):
     name_en = models.CharField(max_length=100, null=True, blank=True)
@@ -134,7 +140,7 @@ class capadailylog(models.Model):
 
 class file_report(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
-    file = models.FileField(upload_to='report')
+    file = models.FileField(upload_to="report")
     date = models.DateTimeField(auto_now_add=True)
     type = models.CharField(max_length=50, null=True, blank=True)
 
@@ -150,7 +156,7 @@ class file_report(models.Model):
 
 class file_csv(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
-    file = models.FileField(upload_to='file')
+    file = models.FileField(upload_to="file")
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

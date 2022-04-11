@@ -1,6 +1,7 @@
 from .models import *
 from .serializers import *
 from rest_framework.response import Response
+from django.db import connection
 from rest_framework.decorators import api_view
 from rest_framework import status
 import time
@@ -41,23 +42,30 @@ def CompanyAdd(request):
         data = report_iso(file)
         name = name.split(".csv")
         if data == True:
-            print("oK")
-            # company = company_csv.objects.values('id', 'name').order_by('-id')[:1]
-            # docx = name[0]+".docx"
-            # with connection.cursor() as cursor:
-            #     cursor.execute(
-            #         "INSERT INTO company (name,file,csv_id) VALUES (%s,%s,%s)", [name[0], docx, company[0]["id"]])
+            docx = name[0]+".docx"
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "INSERT INTO file_report (name,file,type) VALUES (%s,%s,%s)", [name[0], docx, "iso"])
             # print("Name : ", name)
             # print("File : ", file)
             return Response(status.HTTP_200_OK)
         else:
             return Response("Error")
-    if file_type == 'nessus':
-        pass
-    if file_type == 'nessus infra':
-        pass
-    if file_type == 'nessus web':
-        pass
+    directory = "../backend/media/file"
+    files_in_directory = os.listdir(directory)
+    filtered_files = [
+        file for file in files_in_directory if file.endswith(".csv")]
+    for file in filtered_files:
+        path_to_file = os.path.join(directory, file)
+        os.remove(path_to_file)
+    directoryJson = "../backend/api/sources"
+
+    files_in_directory = os.listdir(directoryJson)
+    filtered_files = [
+        file for file in files_in_directory if file.endswith(".json")]
+    for file in filtered_files:
+        path_to_file = os.path.join(directoryJson, file)
+        os.remove(path_to_file)
 
 
 @api_view(['DELETE'])

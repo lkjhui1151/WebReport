@@ -9,7 +9,7 @@ import Button from '../Button/Button';
 const FileList = []
 let state = false
 
-const FileUpload = ({ files, type, setFiles, removeFile }) => {
+const FileUpload = ({ files, type, setFiles, removeFile, addFile }) => {
     const [showModal, setShowModal] = useState(false)
     // console.log(type);
     const uploadHandler = (event) => {
@@ -55,16 +55,7 @@ const FileUpload = ({ files, type, setFiles, removeFile }) => {
                         'content-type': 'multipart/form-data',
                     },
                 };
-                axios.post('http://localhost:8000/web/report/company-add/', formData, config)
-                    .then((res) => {
-                        // console.log(res);
-                        file.isUploading = false
-                        setFiles([...files, file])
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        removeFile(file.name)
-                    })
+                addFile(formData, config, file)
             }
         }
     }
