@@ -54,9 +54,8 @@ def makeJson(csvFilePath, jsonFilePath):
         with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
             jsonf.write(json.dumps(data, indent=4))
 
-
 # <--Nessus-->
-CSVNessus = r'D:/INET-MS/Auto report/GitHub/WebReport/code_krit/greenbrone/SIPH greenbone/SIPH phase 1 greenbone.csv'
+CSVNessus = r'D:/INET-MS/Auto report/GitHub/WebReport/code_krit/greenbrone/SIPH greenbone/merge-greenbone.csv'
 jsonNessus = r'D:/INET-MS/Auto report/GitHub/WebReport/code_krit/greenbrone/datagreenbone.json'
 
 # <--Nmap-->
@@ -117,6 +116,7 @@ for row in DataJSON:
     GroupName1["Remark"] = DataJSON[row]["Other References"]
     GroupName1["ID"] = DataJSON[row]["Result ID"]
     GroupName1["CVE"] = DataJSON[row]["CVEs"]
+    GroupName1["CVSS"] = DataJSON[row]["CVSS"]
     GroupName1["Cert"] = DataJSON[row]["CERTs"]
 
     GroupName2.append(GroupName1)
@@ -494,4 +494,4 @@ contents['table1'] = l2  # use
 contents["fileName"] = name[0]  # use
 contents['Date'] = dateNow  # use
 doc.render(contents)
-doc.save(name[0]+" Nessus Infra"+".docx")
+doc.save(name[0]+" Infra"+".docx")
