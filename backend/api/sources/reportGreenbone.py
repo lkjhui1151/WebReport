@@ -55,11 +55,11 @@ def makeJson(csvFilePath, jsonFilePath):
             jsonf.write(json.dumps(data, indent=4))
 
 # <--Nessus-->
-CSVNessus = r'backend/api/sources/iso/greenbone.csv' #change to use
+CSVNessus = r'backend/api/sources/iso/SIPH-greenbone.csv' #change to use
 jsonNessus = r'backend/api/sources/dataNessus.json'
 
 # <--Nmap-->
-CSVNMAP = r'backend/api/sources/iso/NMAP.csv' #change to use
+CSVNMAP = r'backend/api/sources/iso/SIPH-nmap.csv' #change to use
 jsonNMAP = r'backend/api/sources/dataNmap.json'
 
 makeJson(CSVNessus, jsonNessus)
@@ -244,10 +244,10 @@ if genGraph != 0:
                fancybox=True, shadow=True, ncol=4, handles=[Critical, High, Medium, Low])
     # plt.show()
     fig1.savefig("backend/api/sources/image/Overview_Graph.png")
-    doc.replace_media("backend/api/sources/image/1.png",
+    doc.replace_media("backend/api/sources/image/2.png",
                       "backend/api/sources/image/Overview_Graph.png")
 else:
-    doc.replace_media("backend/api/sources/image/1.png",
+    doc.replace_media("backend/api/sources/image/2.png",
                       "backend/api/sources/image/noGraph.jpg")
 
 # =================================     Krit NAMP   ===================================================
@@ -260,11 +260,11 @@ dict_port_prot_serv = {}
 for i in DataNmap:
     if DataNmap[i]['host__address__addr'] != "":
         dict_IP_port[temp_IP] = list_port
-        if DataNmap[i]['Host'] == "nessus":
-            temp_IP = DataNmap[i]['Host']+"," + \
+        if DataNmap[i]['group'] == "nessus":
+            temp_IP = DataNmap[i]['group']+"," + \
                 DataNmap[i]['host__address__addr']
-        if DataNmap[i]['Host'] == "burp":
-            temp_IP = DataNmap[i]['Host']+"," + \
+        if DataNmap[i]['group'] == "burp":
+            temp_IP = DataNmap[i]['group']+"," + \
                 DataNmap[i]['host__hostnames__hostname__name']
         list_port = []
     list_port.append(DataNmap[i]['host__ports__port__protocol'] +
@@ -281,12 +281,14 @@ dict_IP_port[temp_IP] = list_port
 del dict_IP_port['a']
 
 
-ip = [DataNmap[i]['host__address__addr']
-      for i in DataNmap if DataNmap[i]['host__hostnames__hostname__name'] == ""]
+ip = [DataNmap[i]['host__address__addr'] for i in DataNmap]
 ip = list(dict.fromkeys(ip))
-ip.remove("")
+# ip.remove("")
 ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
 
+list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
+list_port_prot_serv = (
+    sorted(list_port_prot_serv, key=lambda x: int(x['port'])))
 # --------------------------------------make data ip port------------------------------------------------------------
 
 dict_ip_portopen = {i: {'TCP': [], 'UDP': []} for i in ip}
@@ -309,7 +311,7 @@ for i in DataNmap:
             dict_ip_portopen[DataNmap[i]
                              ["host__address__addr"]]['TCP'] = clearIP
 
-print(dict_ip_portopen)
+# print(dict_ip_portopen)
 
 for key, value in dict_ip_portopen.items():
     temp = ""
