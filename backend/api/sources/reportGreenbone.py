@@ -54,20 +54,19 @@ def makeJson(csvFilePath, jsonFilePath):
         with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
             jsonf.write(json.dumps(data, indent=4))
 
-# <--Nessus-->
-CSVNessus = r'backend/api/sources/iso/SIPH-greenbone.csv' #change to use
-jsonNessus = r'backend/api/sources/dataNessus.json'
+# <--Grenbone-->
+CSVGrenbone = r'backend/api/sources/iso/SIPH-greenbone.csv' #change to use
+jsonGrenbone = r'backend/api/sources/dataGreenbone.json'
 
 # <--Nmap-->
 CSVNMAP = r'backend/api/sources/iso/SIPH-nmap.csv' #change to use
 jsonNMAP = r'backend/api/sources/dataNmap.json'
 
-makeJson(CSVNessus, jsonNessus)
+makeJson(CSVGrenbone, jsonGrenbone)
 makeJson(CSVNMAP, jsonNMAP)
 
-DataJSON = pandas.read_json(jsonNessus)
+DataJSON = pandas.read_json(jsonGrenbone)
 DataNmap = pandas.read_json(jsonNMAP)
-
 
 def delete_dict_duplicate(dict_dup):
     seen = set()
@@ -79,10 +78,8 @@ def delete_dict_duplicate(dict_dup):
             new_l.append(d)
     return new_l
 
-
 def runIndex(e):
     return e['risk']
-
 
 def make_autopct(values):
     def my_autopct(pct):
@@ -117,7 +114,7 @@ for row in DataJSON:
     GroupName1["ID"] = DataJSON[row]["Result ID"]
     GroupName1["CVE"] = DataJSON[row]["CVEs"]
     GroupName1["CVSS"] = DataJSON[row]["CVSS"]
-    GroupName1["Cert"] = DataJSON[row]["CERTs"]
+    # GroupName1["Cert"] = DataJSON[row]["CERTs"]
 
     GroupName2.append(GroupName1)
     GroupName1 = {}
@@ -260,7 +257,7 @@ dict_port_prot_serv = {}
 for i in DataNmap:
     if DataNmap[i]['host__address__addr'] != "":
         dict_IP_port[temp_IP] = list_port
-        if DataNmap[i]['group'] == "nessus":
+        if DataNmap[i]['group'] == "Grenbone":
             temp_IP = DataNmap[i]['group']+"," + \
                 DataNmap[i]['host__address__addr']
         if DataNmap[i]['group'] == "burp":
@@ -420,7 +417,6 @@ for j in Name_vulnerability:
                             ip = ip + ', ' + value[index]
                     ip = ip + ')'
                 cve = i['CVE'].split(',')
-                cert = i['Cert'].split(',')
                 remark = i['Remark'].split(',')
                 ref = ""
                 if len(remark) != 1 or remark[0] != '':
@@ -435,19 +431,14 @@ for j in Name_vulnerability:
                             ref = "CVE: "+a
                         else:
                             ref = ref+"\nCVE: "+a  
-                if len(cert) != 1 or cert[0] != '':
-                    for a in cert:
-                        if ref == "":
-                            ref = "CERT: "+a
-                        else:
-                            ref = ref+"\nCERT: "+a  
-
 
                 subContent["host"] = ip
                 subContent["port"] = port
                 subContent["name"] = i['Name_vulnerability']
                 subContent["description"] = i['Description']
                 subContent["solution"] = i['Solution']
+                subContent["cvss"] = i['CVSS']
+
                 subContent["remark"] = ref
                 if i['Risk'] == "Critical":
                     subContent["color"] = "#7030A0"
@@ -481,7 +472,7 @@ for i in range(len(vulnerability)):
 
 # # ==========================================================================================================
 contents = {}
-name = CSVNessus.split("/")
+name = CSVGrenbone.split("/")
 name = name[-1].split(".csv")
 
 contents['contents_ip'] = list_all_ip_port  # use
