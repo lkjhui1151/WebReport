@@ -2,6 +2,7 @@ from ast import Global
 from logging import critical
 from statistics import median
 from turtle import circle
+from executing import Source
 import mysql.connector
 from docxtpl import *
 
@@ -63,8 +64,8 @@ sql = "select AVG(value) from capa_daily_log join company_list ON company_list.i
     start_date+"\" and \""+end_date+"\""
 mycursor.execute(sql)
 capa_DB = dictfetchall(mycursor)
-
-sql = "select  category,type,action,des_address,port,protocol,src_address,des_geolocation,last_datetime,priority,des_geolocation,solution_th,file_path,src_user,src_geolocation,des_user,file_name,malware_name from trend join vulnerability on vulnerability.name_en = trend.type join company_list ON company_list.id =trend.company_id where company_list.initials = \""+cus_name+"\"and trend.last_datetime between \"" + \
+# category,type,action,des_address,port,protocol,src_address,des_geolocation,last_datetime,priority,des_geolocation,solution_th,file_path,src_user,src_geolocation,des_user,file_name,malware_name
+sql = "select * from trend join vulnerability on vulnerability.name_en = trend.type join company_list ON company_list.id =trend.company_id where company_list.initials = \""+cus_name+"\"and trend.last_datetime between \"" + \
     start_date+"\" and \""+end_date+"\""
 mycursor.execute(sql)
 trend_DB = dictfetchall(mycursor)
@@ -81,25 +82,29 @@ vulnerability = []
 create_index(device, device_DB)
 create_index(vulnerability, vulnerability_DB)
 
-head_tbl_vul = {'Inbound Communication With Blacklist IP Address': ['src_address', 'des_geolocation', 'des_address', 'port', 'action', 'last_datetime'],
+head_tbl_vul_map = {'src_address': 'Source IP', 'des_address': 'Destination IP', 'src_geolocation': 'Source Geolocation', 'des_geolocation': 'Destination Geolocation', 'src_user': 'Source User', 'des_user': 'Destination User',
+                    'port': 'Port', 'action': 'Event Subtype', 'last_datetime': 'Time', 'protocol': 'Protocol', 'url': 'URL', 'file_name': 'File Name', 'file_path': 'File Path', 'malware_name': 'Malware Name'}
+
+
+head_tbl_vul = {'Inbound Communication With Blacklist IP Address': ['src_address', 'src_geolocation', 'des_address', 'port', 'action', 'last_datetime'],
                 'Brute Force Login Attack Failed': [
-                    'src_address', 'des_geolocation', 'src_user', 'des_address', 'last_datetime'],
+                    'src_address', 'src_geolocation', 'src_user', 'des_address', 'last_datetime'],
                 'Brute Force Login Attack Success': [
-                    'src_address', 'des_geolocation', 'src_user', 'des_address', 'last_datetime'],
+                    'src_address', 'src_geolocation', 'src_user', 'des_address', 'last_datetime'],
                 'Outbound Communication with Blacklist IP Address Block': [
                     'src_address', 'des_address', 'des_geolocation', 'port', 'action', 'last_datetime'],
                 'Outbound Communication with Blacklist IP Address Pass': [
                     'src_address', 'des_address', 'des_geolocation', 'port', 'action', 'last_datetime'],
                 'SSH Access from Suspicious IP': [
-                    'src_address', 'des_geolocation', 'des_address', 'action', 'last_datetime'],
+                    'src_address', 'src_geolocation', 'des_address', 'action', 'last_datetime'],
                 'RDP Access from Suspicious IP': [
-                    'src_address', 'des_geolocation', 'des_address', 'action', 'last_datetime'],
+                    'src_address', 'src_geolocation', 'des_address', 'action', 'last_datetime'],
                 'Delegate Authentication Request': [
-                    'src_user', 'src_address', 'des_user', 'action', 'file_name', 'last_datetime'],
+                    'src_address', 'src_user', 'des_address', 'des_user', 'action',  'last_datetime'],
                 'SQL Injection (System Detect) Pass': [
-                    'src_address', 'des_geolocation', 'des_address', 'action', 'last_datetime'],
+                    'src_address', 'src_geolocation', 'des_address', 'action', 'last_datetime'],
                 'Cross-Site Scripting (Custom Detected)': [
-                    'src_address', 'des_geolocation', 'des_address', 'action', 'last_datetime'],
+                    'src_address', 'src_geolocation', 'des_address', 'action', 'last_datetime'],
                 'Virus or Spyware Detected': [
                     'src_address', 'des_address', 'des_geolocation', 'file_path', 'last_datetime'],
                 'Virus or Spyware Detected But Failed to Clean': [
@@ -147,6 +152,8 @@ for i in list_group_category:
     count += i['count']
 
 all_event_list = []
+head_tbl_vul_new = []
+
 for x in dict_group_event:
     one_event_dict = {}
     one_event_list = []
@@ -154,7 +161,6 @@ for x in dict_group_event:
     for i in trend_DB:
         event = []
         event_dict = {}
-
         if x == i['type']:
             for j in head_tbl_vul[x]:
                 event.append(i[j])
@@ -162,10 +168,12 @@ for x in dict_group_event:
             one_event_list.append(event_dict)
             one_event_dict['cols'] = one_event_list
             one_event_dict['detail'] = i['solution_th']
+            one_event_dict['vul'] = i['intro_th']
 
-    one_event_dict['vul'] = x
-    one_event_dict['col_label'] = head_tbl_vul[x]
-    
+    head_tbl_vul_new = []
+    for j in head_tbl_vul[x]:
+        head_tbl_vul_new.append(head_tbl_vul_map[j])
+    one_event_dict['col_label'] = head_tbl_vul_new
     all_event_list.append(one_event_dict)
 
 contents = {}
