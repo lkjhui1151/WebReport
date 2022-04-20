@@ -18,7 +18,7 @@ function Layout() {
                     <div className="topbar">
                         <div className="navbar">
                             <ul className='item-list'>
-                                <li><Link to="/">Dashboard</Link></li>
+                                <li><Link to="/">Monthly Report</Link></li>
                                 <div className="dropdown">
                                     <button className="dropbtn">VA SCAN
                                         <i className="fa-solid fa-circle-chevron-down"></i>

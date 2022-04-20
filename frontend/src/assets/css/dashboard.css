@@ -45,3 +45,27 @@ h2 {
   width: 25px;
   height: 25px;
 }
+
+.upload-file {
+  margin-left: 15px;
+  background: var(--blue);
+  border: none;
+  max-height: 200px;
+  min-height: 200px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: medium;
+  color: var(--white);
+}
+
+.upload-file:hover {
+  margin-left: 15px;
+  background: var(--green);
+  border: none;
+  max-height: 200px;
+  min-height: 200px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: medium;
+  color: var(--white);
+}

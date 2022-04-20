@@ -4,11 +4,11 @@ from django.core.validators import MinLengthValidator
 import os
 # Create your models here.
 
+
 def file_path(instance, filename):
     path = ""
     format = filename
     return os.path.join(path, format)
-
 
 
 class company_list(models.Model):
@@ -118,7 +118,7 @@ class vulnerability(models.Model):
     solution_en = models.TextField(null=True, blank=True)
     solution_th = models.TextField(null=True, blank=True)
     priority = models.CharField(max_length=100, null=True, blank=True)
-    remark = models.CharField(max_length=100, null=True, blank=True)
+    remark = models.TextField(null=True, blank=True)
 
     class Meta:
         db_table = 'vulnerability'
@@ -140,7 +140,7 @@ class capadailylog(models.Model):
 
 class file_report(models.Model):
     name = models.CharField(max_length=50, null=True, blank=True)
-    file = models.FileField(upload_to="report")
+    file = models.FileField(upload_to="")
     date = models.DateTimeField(auto_now_add=True)
     type = models.CharField(max_length=50, null=True, blank=True)
 

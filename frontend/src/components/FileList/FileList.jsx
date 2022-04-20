@@ -4,8 +4,7 @@ import FileItem from '../FileItem/FileItem'
 
 import { v4 as uuidv4 } from 'uuid'
 
-const FileList = ({ files, removeFile }) => {
-
+const FileList = ({ files, removeFile, type }) => {
     const deleteFileHandler = (_name) => {
         removeFile(_name)
         // axios.post("http://localhost:8000/ReportVA/company-add/", _name)
@@ -18,8 +17,41 @@ const FileList = ({ files, removeFile }) => {
 
             <ul className='file-list'>
                 {
-                    files &&
+                    type == 'iso' &&
                     files.map(f => <FileItem key={uuidv4()} file={f} deleteFile={deleteFileHandler} />)
+                }
+                {
+                    type == 'nessus' &&
+                    files.map(f => {
+                        if (f.file) {
+                            return <FileItem key={uuidv4()} file={f.file} deleteFile={deleteFileHandler} />
+                        }
+                        else {
+                            return <FileItem key={uuidv4()} file={f} deleteFile={deleteFileHandler} />
+                        }
+                    })
+                }
+                {
+                    type == 'web' &&
+                    files.map(f => {
+                        if (f.file) {
+                            return <FileItem key={uuidv4()} file={f.file} deleteFile={deleteFileHandler} />
+                        }
+                        else {
+                            return <FileItem key={uuidv4()} file={f} deleteFile={deleteFileHandler} />
+                        }
+                    })
+                }
+                {
+                    type == 'infra' &&
+                    files.map(f => {
+                        if (f.file) {
+                            return <FileItem key={uuidv4()} file={f.file} deleteFile={deleteFileHandler} />
+                        }
+                        else {
+                            return <FileItem key={uuidv4()} file={f} deleteFile={deleteFileHandler} />
+                        }
+                    })
                 }
             </ul>
 

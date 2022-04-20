@@ -11,7 +11,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('company-list/', views.CompanyList, name="get-company"),
     path('company-detail/<int:pk>', views.CompanyDetail, name="detail-company"),
-    path('company-add/', views.CompanyAdd, name="add-company"),
+    path('reportiso-add/', views.ReportAddISO, name="add-report-iso"),
+    path('reportnessus-add/', views.ReportAddNessus, name="add-report-nessus"),
+    path('reportweb-add/', views.ReportAddWeb, name="add-report-web"),
+    path('reportinfra-add/', views.ReportAddInfra, name="add-report-infra"),
     path('report-delete/<int:pk>', views.ReportDelete, name="delete-report"),
     path('report-detail/<str:type>', views.ReportDetail, name="detail-report"),
 ]

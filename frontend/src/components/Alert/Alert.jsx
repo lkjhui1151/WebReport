@@ -18,11 +18,11 @@ const Alert = props => {
 
     return <div ref={modalRef} className={`modal ${props.show ? 'active' : ''}`}>
         <div className="modal__content">
-            {
+            {/* {
                 !props.hideCloseButton && <span onClick={() => props.setShow(false)} className="modal__close">
                     &times;
                 </span>
-            }
+            } */}
             {props.children}
         </div>
     </div>;

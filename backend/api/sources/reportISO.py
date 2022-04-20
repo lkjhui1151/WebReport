@@ -426,6 +426,6 @@ def report_iso(name):
     # print(name[0])
 
     doc.render(Content)
-    doc.save("../backend/media/"+name[0]+".docx")
+    doc.save("../backend/media/report/"+name[0]+".docx")
     # os.system("backend/api/sources/"+name[0]+".docx")
     return True

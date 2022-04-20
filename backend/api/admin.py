@@ -61,6 +61,7 @@ admin.site.register(trend, Trend)
 
 
 class Vulnerability(admin.ModelAdmin):
+    ordering = ['-id']
     list_display = ["id", "name_en", "priority"]
     list_per_page = 10
     list_filter = ["priority"]
@@ -71,6 +72,7 @@ admin.site.register(vulnerability, Vulnerability)
 
 
 class CapaDaily(admin.ModelAdmin):
+    ordering = ['-id']
     list_display = ["id", "company", "date", "value"]
     list_per_page = 10
     list_filter = ["company"]
@@ -80,6 +82,7 @@ admin.site.register(capadailylog, CapaDaily)
 
 
 class FileReport(admin.ModelAdmin):
+    ordering = ['-id']
     list_display = ["id", "name", "file", "date"]
     list_per_page = 10
     list_filter = ["date"]
@@ -89,6 +92,7 @@ admin.site.register(file_report, FileReport)
 
 
 class FileCSV(admin.ModelAdmin):
+    ordering = ['-id']
     list_display = ["id", "name", "file", "date"]
     list_per_page = 10
     list_filter = ["date"]
