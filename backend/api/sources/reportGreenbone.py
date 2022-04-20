@@ -112,6 +112,8 @@ for row in DataJSON:
     GroupName1["Solution"] = DataJSON[row]["Solution"]
     GroupName1["Remark"] = DataJSON[row]["Other References"]
     GroupName1["ID"] = DataJSON[row]["Result ID"]
+    GroupName1["NVT_OID"] = DataJSON[row]["NVT OID"]
+
     GroupName1["CVE"] = DataJSON[row]["CVEs"]
     GroupName1["CVSS"] = DataJSON[row]["CVSS"]
     # GroupName1["Cert"] = DataJSON[row]["CERTs"]
@@ -344,25 +346,25 @@ for key, value in dict_ip_portopen.items():
 
 # # # ==============================================-make data detail==============================================================
 
-Name_vulnerability = [i["Name_vulnerability"]for i in newlist]
-Name_vulnerability = list(dict.fromkeys(Name_vulnerability))
+NVT_OID = [i["NVT_OID"]for i in newlist]
+NVT_OID = list(dict.fromkeys(NVT_OID))
 vulnerability = []
 subContent = {}
 countCheck = 0
 GroupName = {}
 
 for i in newlist:
-    if i["Name_vulnerability"] in GroupName:
-        GroupName[i["Name_vulnerability"]] += 1
+    if i["NVT_OID"] in GroupName:
+        GroupName[i["NVT_OID"]] += 1
     else:
-        GroupName[i["Name_vulnerability"]] = 1
+        GroupName[i["NVT_OID"]] = 1
 
-for j in Name_vulnerability:
+for j in NVT_OID:
     dict_port_ip = {}
     port_udp = []
     port_tcp = []
     for i in newlist:
-        if i['Name_vulnerability'] == j:
+        if i['NVT_OID'] == j:
             if i['Protocol'] == 'tcp' :
                 port_tcp.append(i['Port'])
             elif i['Protocol'] == 'udp':
@@ -378,7 +380,7 @@ for j in Name_vulnerability:
                 else:
                     dict_port_ip[i['Host']] = [i['Port']]
             countCheck += 1
-            if countCheck == GroupName[i["Name_vulnerability"]]:
+            if countCheck == GroupName[i["NVT_OID"]]:
                 port_tcp = list(dict.fromkeys(port_tcp))
                 port_tcp = sorted(port_tcp, key=lambda x: int(x))
                 port_udp = list(dict.fromkeys(port_udp))
