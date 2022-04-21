@@ -60,21 +60,6 @@ def ReportAddISO(request):
             return Response(status.HTTP_200_OK)
         else:
             return Response(status.HTTP_400_BAD_REQUEST)
-    directory = "../backend/media/file"
-    files_in_directory = os.listdir(directory)
-    filtered_files = [
-        file for file in files_in_directory if file.endswith(".csv")]
-    for file in filtered_files:
-        path_to_file = os.path.join(directory, file)
-        os.remove(path_to_file)
-    directoryJson = "../backend/api/sources"
-
-    files_in_directory = os.listdir(directoryJson)
-    filtered_files = [
-        file for file in files_in_directory if file.endswith(".json")]
-    for file in filtered_files:
-        path_to_file = os.path.join(directoryJson, file)
-        os.remove(path_to_file)
 
 
 @api_view(['POST'])
