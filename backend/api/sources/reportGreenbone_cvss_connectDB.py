@@ -1,16 +1,15 @@
-import math 
-import csv
+import math
 from docxtpl import *
 from matplotlib import pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
-import json
 import pandas as pd
 from collections import OrderedDict
 import re
 import datetime
 import numpy as np
 import mysql.connector
+from xml.etree import ElementTree
 
 mydb = mysql.connector.connect(
     host="10.11.101.32",
@@ -18,7 +17,13 @@ mydb = mysql.connector.connect(
     password="P@ssw0rd@INETMS",
     database="inetms_autoreport"
 )
-doc = DocxTemplate("backend/api/sources/templates/templateGreenbone.docx")
+
+path_nmap = './backend/api/sources/iso/SIPH phase 2.xml'
+pathGreenbone = './backend/api/sources/iso/SIPH-greenbone.csv'
+path_doctemplate = "backend/api/sources/templates/templateGreenbone.docx"
+
+np.seterr(divide='ignore', invalid='ignore')
+doc = DocxTemplate(path_doctemplate)
 
 countCri = 0
 countHigh = 0
@@ -36,46 +41,6 @@ dateNow = date.strftime("%B")+" " + \
     date.strftime("%d")+", "+date.strftime("%Y")
 
 
-def makeJson(csvFilePath, jsonFilePath):
-    data = {}
-    try:
-        with open(csvFilePath, encoding='utf-8') as csvf:
-            csvReader = csv.DictReader(csvf)
-            key_id = 0
-            for rows in csvReader:
-                key = key_id
-                data[key] = rows
-                key_id += 1
-        with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
-            jsonf.write(json.dumps(data, indent=4))
-
-    except NameError as exception:
-        print(exception)
-    except:
-        with open(csvFilePath, encoding='ISO-8859-1') as csvf:
-            csvReader = csv.DictReader(csvf)
-            key_id = 0
-            for rows in csvReader:
-                key = key_id
-                data[key] = rows
-                key_id += 1
-        with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
-            jsonf.write(json.dumps(data, indent=4))
-
-# <--Grenbone-->
-CSVGrenbone = r'backend/api/sources/iso/SIPH-greenbone.csv' #change to use
-jsonGrenbone = r'backend/api/sources/dataGreenbone.json'
-
-# <--Nmap-->
-CSVNMAP = r'backend/api/sources/iso/SIPH_nmapinfra.csv' #change to use
-jsonNMAP = r'backend/api/sources/dataNmap.json'
-
-# makeJson(CSVGrenbone, jsonGrenbone)
-makeJson(CSVNMAP, jsonNMAP)
-
-# DataJSON = pandas.read_json(jsonGrenbone)
-DataNmap = pd.read_json(jsonNMAP)
-
 def delete_dict_duplicate(dict_dup):
     seen = set()
     new_l = []
@@ -86,8 +51,10 @@ def delete_dict_duplicate(dict_dup):
             new_l.append(d)
     return new_l
 
+
 def runIndex(e):
     return e['risk']
+
 
 def make_autopct(values):
     def my_autopct(pct):
@@ -99,20 +66,19 @@ def make_autopct(values):
             return ''
     return my_autopct
 
-
 def cleanCode(x):
     x = re.sub(r'\\n', '\n', x)
     x = re.sub(r'</?[a-z]*>', "", x)
     return (x)
 
+# ===============================================DATA NUESSUS======================================================================
 
 GroupName1 = {}
 GroupName2 = []
-
 # Create New Data Source
 mycursor = mydb.cursor()
 
-with open("D:/INET-MS/Auto report/GitHub/WebReport/backend/api/sources/iso/SIPH-greenbone.csv", mode="r", encoding='utf-8') as f:
+with open(pathGreenbone, mode="r", encoding='utf-8') as f:
     df = pd.read_csv(f)
     data = pd.DataFrame(df)
     for i, dataset in data.iterrows():
@@ -153,7 +119,6 @@ with open("D:/INET-MS/Auto report/GitHub/WebReport/backend/api/sources/iso/SIPH-
 
             GroupName1["CVE"] = dataset["CVEs"]
             GroupName1["CVSS"] = dataset["CVSS"]
-            # GroupName1["Cert"] = DataJSON[row]["CERTs"]
 
             GroupName2.append(GroupName1)
             GroupName1 = {}
@@ -164,6 +129,45 @@ results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
 newlist = sorted(results, key=lambda d: (
     tuple(map(int, d['Host'].split('.')))))
 
+# ===============================================DATA NMAP======================================================================
+tree = ElementTree.parse(path_nmap)
+root = tree.getroot()
+header1 = ['IP', 'domain', 'Protocol', 'Port',
+           'Status', 'Service']
+list_nmap_data = []
+for item in root.findall('./host'):
+    port = []
+    protocol = []
+    status = []
+    service = []
+    loopLen = 0
+    ip = item.find('address').get('addr')
+    domain = item.find('hostnames').find('hostname').get(
+        'name') if item.find('hostnames').find('hostname') != None else None
+    loopLen = len(item.find('ports')) - 1
+    for item2 in item.find('ports'):
+        keys = item2.keys()
+        if 'count' not in keys:
+            protocol.append(item2.get('protocol'))
+            port.append(item2.get('portid'))
+            status.append(item2.find('state').get('state'))
+            service.append(item2.find('service').get('name'))
+
+    for item3 in range(loopLen):
+        dict_nmap_data = {'ip': '', 'domain': '', 'protocol': '',
+                          'port': '', 'status': '', 'service': ''}
+        dict_nmap_data['ip'] = ip
+        dict_nmap_data['domain'] = domain
+        dict_nmap_data['protocol'] = protocol[item3]
+        dict_nmap_data['port'] = port[item3]
+        dict_nmap_data['status'] = status[item3]
+        dict_nmap_data['service'] = service[item3]
+        list_nmap_data.append(dict_nmap_data)
+list_nmap_data = delete_dict_duplicate(list_nmap_data)
+
+# ===============================================start analys=========================================================================
+for i in newlist:
+    print(i['Name_vulnerability'])
 for row in newlist:
     if row['Host'] not in context:
         context[row['Host']] = {"No": count, "Name": row['Host'], "device": {
@@ -253,17 +257,6 @@ Low = mpatches.Patch(
     color="#FFFF00", label='Low')
 
 
-def make_autopct(values):
-    def my_autopct(pct):
-        total = sum(values)
-        val = int(round(pct*total/100.0))
-        if pct > 0:
-            return '{v:d} ({p:1.0f}%)'.format(p=pct, v=val)
-        else:
-            return ''
-    return my_autopct
-
-
 value = [i["value"] for i in array]
 
 if genGraph != 0:
@@ -282,101 +275,65 @@ else:
     doc.replace_media("backend/api/sources/image/2.png",
                       "backend/api/sources/image/noGraph.jpg")
 
-# # =================================     Krit NAMP   ===================================================
-# dict_IP_port = {}
-# temp_IP = "a"
-# list_port = []
-# list_port_prot_serv = []
-# dict_port_prot_serv = {}
+# ===========================================Table nmap======================================================
+list_port_prot_serv = []
+dict_port_prot_serv = {}
+for i in list_nmap_data:
+    if i['status'] == "open":
+        dict_port_prot_serv["port"] = i['port']
+        dict_port_prot_serv["protocol"] = i['protocol']
+        dict_port_prot_serv["service"] = i['service']
+        list_port_prot_serv.append(dict_port_prot_serv)
+        dict_port_prot_serv = {}
+list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
+list_port_prot_serv = (
+    sorted(list_port_prot_serv, key=lambda x: int(x['port'])))
 
-# for i in DataNmap:
-#     if DataNmap[i]['host__address__addr'] != "":
-#         dict_IP_port[temp_IP] = list_port
-#         if DataNmap[i]['group'] == "Grenbone":
-#             temp_IP = DataNmap[i]['group']+"," + \
-#                 DataNmap[i]['host__address__addr']
-#         if DataNmap[i]['group'] == "burp":
-#             temp_IP = DataNmap[i]['group']+"," + \
-#                 DataNmap[i]['host__hostnames__hostname__name']
-#         list_port = []
-#     list_port.append(DataNmap[i]['host__ports__port__protocol'] +
-#                      ","+DataNmap[i]['host__ports__port__portid'])
-# # # ===========================================Table nmap======================================================
-#     if DataNmap[i]['host__ports__port__state__state'] == "open":
-#         dict_port_prot_serv["port"] = DataNmap[i]['host__ports__port__portid']
-#         dict_port_prot_serv["protocol"] = DataNmap[i]['host__ports__port__protocol']
-#         dict_port_prot_serv["service"] = DataNmap[i]['host__ports__port__service__name']
-#         list_port_prot_serv.append(dict_port_prot_serv)
-#         dict_port_prot_serv = {}
-# dict_IP_port[temp_IP] = list_port
-
-# del dict_IP_port['a']
+# --------------------------------------make data ip port------------------------------------------------------------
+ip = [i['ip'] for i in list_nmap_data]
+ip = list(dict.fromkeys(ip))
+ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
+dict_ip_portopen = {i: {'TCP': [], 'UDP': []} for i in ip}
 
 
-# ip = [DataNmap[i]['host__address__addr'] for i in DataNmap]
-# ip = list(dict.fromkeys(ip))
-# # ip.remove("")
-# ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
+for i in list_nmap_data:
+    if i["ip"] in dict_ip_portopen.keys():
+        if i["protocol"] == 'tcp':
+            dict_ip_portopen[i["ip"]]['TCP'].append(i["port"])
+            clearIP = list(dict.fromkeys(dict_ip_portopen[i["ip"]]['TCP']))
+            dict_ip_portopen[i["ip"]]['TCP'] = clearIP
 
-# list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
-# list_port_prot_serv = (
-#     sorted(list_port_prot_serv, key=lambda x: int(x['port'])))
-# # --------------------------------------make data ip port------------------------------------------------------------
+        elif i["protocol"] == 'udp':
+            dict_ip_portopen[i["ip"]]['UDP'].append(i["port"])
+            clearIP = list(dict.fromkeys(dict_ip_portopen[i["ip"]]['UDP']))
+            dict_ip_portopen[i["ip"]]['TCP'] = clearIP
 
-# dict_ip_portopen = {i: {'TCP': [], 'UDP': []} for i in ip}
+for key, value in dict_ip_portopen.items():
+    temp = ""
+    for i in value:
+        value[i] = list(dict.fromkeys(value[i]))
+        value[i] = sorted(value[i], key=lambda d: (
+            tuple(map(int, d.split('.')))))
+        if '0' in value[i]:
+            value[i].remove('0')
+        if value[i]:
+            if temp != "":
+                temp = temp+'\n'
+            temp = i+' : '+', '.join(value[i])
 
-# for i in DataNmap:
-#     if DataNmap[i]["host__address__addr"] in dict_ip_portopen.keys():
-#         if DataNmap[i]["host__ports__port__protocol"] == 'tcp':
-#             dict_ip_portopen[DataNmap[i]["host__address__addr"]]['TCP'].append(
-#                 DataNmap[i]["host__ports__port__portid"])
-#             clearIP = list(dict.fromkeys(
-#                 dict_ip_portopen[DataNmap[i]["host__address__addr"]]['TCP']))
-#             dict_ip_portopen[DataNmap[i]
-#                              ["host__address__addr"]]['TCP'] = clearIP
-#             # print(clearIP)
-#         elif DataNmap[i]["host__ports__port__protocol"] == 'udp':
-#             dict_ip_portopen[DataNmap[i]["host__address__addr"]]['UDP'].append(
-#                 DataNmap[i]["host__ports__port__portid"])
-#             clearIP = list(dict.fromkeys(
-#                 dict_ip_portopen[DataNmap[i]["host__address__addr"]]['UDP']))
-#             dict_ip_portopen[DataNmap[i]
-#                              ["host__address__addr"]]['TCP'] = clearIP
+    dict_ip_portopen[key]['port'] = temp
 
-# # print(dict_ip_portopen)
+list_all_ip_port = []
+index = 1
+for key, value in dict_ip_portopen.items():
+    ip_port_ = {}
+    ip_port_['no'] = index
+    ip_port_['host'] = key
+    ip_port_['port'] = value['port']
+    list_all_ip_port.append(ip_port_)
+    index += 1
 
-# for key, value in dict_ip_portopen.items():
-#     temp = ""
-#     for i in value:
-#         value[i] = list(dict.fromkeys(value[i]))
-#         value[i] = sorted(value[i], key=lambda d: (
-#             tuple(map(int, d.split('.')))))
-#         if '0' in value[i]:
-#             value[i].remove('0')
-
-#         for index in range(len(value[i])):
-#             if index == 0:
-#                 if i == 'UDP':
-#                     if temp != "":
-#                         temp = temp+'\n'+i+' : '+value[i][index]
-#                     else:
-#                         temp = i+': '+value[i][index]
-#                 else:
-#                     temp = i+': '+value[i][index]
-#             else:
-#                 temp = temp+', '+value[i][index]
-#     dict_ip_portopen[key]['port'] = temp
-
-# list_all_ip_port = []
-# index = 1
-# for key, value in dict_ip_portopen.items():
-#     ip_port_ = {}
-#     ip_port_['no'] = index
-#     ip_port_['host'] = key
-#     ip_port_['port'] = value['port']
-#     list_all_ip_port.append(ip_port_)
-#     index += 1
-
+print('====================================================================================')
 # # # # ==============================================-make data detail==============================================================
 
 NVT_OID = [i["NVT_OID"]for i in newlist]
@@ -398,7 +355,7 @@ for j in NVT_OID:
     port_tcp = []
     for i in newlist:
         if i['NVT_OID'] == j:
-            if i['Protocol'] == 'tcp' :
+            if i['Protocol'] == 'tcp':
                 port_tcp.append(str(int(i['Port'])))
             elif i['Protocol'] == 'udp':
                 port_udp.append(str(int(i['Port'])))
@@ -408,7 +365,7 @@ for j in NVT_OID:
                 dict_port_ip[i['Host']].append(str(int(i['Port'])))
             else:
                 if math.isnan(i['Port']):
-                    dict_port_ip[i['Host']] =['0']
+                    dict_port_ip[i['Host']] = ['0']
                 else:
                     dict_port_ip[i['Host']] = [str(int(i['Port']))]
             countCheck += 1
@@ -417,7 +374,7 @@ for j in NVT_OID:
                 port_tcp = sorted(port_tcp, key=lambda x: int(x))
                 port_udp = list(dict.fromkeys(port_udp))
                 port_udp = sorted(port_udp, key=lambda x: int(x))
-                
+
                 port = ""
                 if port_tcp:
                     port = 'TCP: '+", ".join(port_tcp)
@@ -425,8 +382,7 @@ for j in NVT_OID:
                     if port != "":
                         port = 'UDP: '+", ".join(port_tcp)
                     eles: port = port+'\nUDP: '+",".join(port_tcp)
-                
-                
+
                 ip = ""
                 list_ip = sorted(dict_port_ip, key=lambda d: (
                     tuple(map(int, d.split('.')))))
@@ -436,31 +392,32 @@ for j in NVT_OID:
                     value = list(dict.fromkeys(value))
                     value = sorted(value, key=lambda d: int(d))
                     if ip == "":
-                            pass
+                        pass
                     else:
                         ip = ip + ', '
                     ip = ip + key + '('+", ".join(value) + ')'
                 ref = ""
-                if i['CVE'] is not None and isinstance(i['CVE'], str) == True :
+                if i['CVE'] is not None and isinstance(i['CVE'], str) == True:
                     cve = i['CVE'].split(',')
                     if len(cve) != 1 or cve[0] != '':
                         for a in cve:
                             if ref == "":
                                 ref = "CVE: "+a
                             else:
-                                ref = ref+"\nCVE: "+a 
-                if i['Remark'] is not None and  isinstance(i['Remark'], str) == True : 
+                                ref = ref+"\nCVE: "+a
+                if i['Remark'] is not None and isinstance(i['Remark'], str) == True:
                     remark = i['Remark'].split(',')
                     if len(remark) != 1 or remark[0] != '':
                         for a in remark:
                             if ref == "":
                                 ref = "remark: "+a
                             else:
-                                ref = ref+"\nremark: "+a 
-                 
+                                ref = ref+"\nremark: "+a
+
                 subContent["host"] = ip
                 subContent["port"] = port
                 subContent["name"] = i['Name_vulnerability']
+                print(i['Name_vulnerability'])
                 subContent["description"] = i['Description']
                 subContent["solution"] = i['Solution']
                 subContent["cvss"] = i['CVSS']
@@ -496,16 +453,16 @@ for i in range(len(vulnerability)):
     if vulnerability[i]['risk'] == 4:
         vulnerability[i]['risk'] = "Low"
 
-# # # ==========================================================================================================
-# contents = {}
-# name = CSVGrenbone.split("/")
-# name = name[-1].split(".csv")
+# # ==========================================================================================================
+contents = {}
+name = pathGreenbone.split("/")
+name = name[-1].split(".csv")
 
-# contents['contents_ip'] = list_all_ip_port  # use
-# contents['vulnerability'] = vulnerability   # use
-# contents['table1'] = l2  # use
-# contents["fileName"] = name[0]  # use
-# contents['Date'] = dateNow  # use
-# contents['nmap_port'] = list_port_prot_serv  # use
-# doc.render(contents)
-# doc.save("backend/api/sources/results/"+name[0]+" Greenbone.docx")
+contents['contents_ip'] = list_all_ip_port  # use
+contents['vulnerability'] = vulnerability   # use
+contents['table1'] = l2  # use
+contents["fileName"] = name[0]  # use
+contents['Date'] = dateNow  # use
+contents['nmap_port'] = list_port_prot_serv  # use
+doc.render(contents)
+doc.save("backend/api/sources/results/"+name[0]+" Greenbone.docx")

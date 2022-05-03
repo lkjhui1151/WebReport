@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<!DOCTYPE issues [
+<!ELEMENT issues (issue*)>
+<!ATTLIST issues burpVersion CDATA "">
+<!ATTLIST issues exportTime CDATA "">
+<!ELEMENT issue (serialNumber, type, name, host, path, location, severity, confidence, issueBackground?, remediationBackground?, references?, vulnerabilityClassifications?, issueDetail?, issueDetailItems?, remediationDetail?, requestresponse*, collaboratorEvent*, infiltratorEvent*, staticAnalysis*, dynamicAnalysis*)>
+<!ELEMENT serialNumber (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT host (#PCDATA)>
+<!ATTLIST host ip CDATA "">
+<!ELEMENT path (#PCDATA)>
+<!ELEMENT location (#PCDATA)>
+<!ELEMENT severity (#PCDATA)>
+<!ELEMENT confidence (#PCDATA)>
+<!ELEMENT issueBackground (#PCDATA)>
+<!ELEMENT remediationBackground (#PCDATA)>
+<!ELEMENT references (#PCDATA)>
+<!ELEMENT vulnerabilityClassifications (#PCDATA)>
+<!ELEMENT issueDetail (#PCDATA)>
+<!ELEMENT issueDetailItems (issueDetailItem*)>
+<!ELEMENT issueDetailItem (#PCDATA)>
+<!ELEMENT remediationDetail (#PCDATA)>
+<!ELEMENT requestresponse (request?, response?, responseRedirected?)>
+<!ELEMENT request (#PCDATA)>
+<!ATTLIST request method CDATA "">
+<!ATTLIST request base64 (true|false) "false">
+<!ELEMENT response (#PCDATA)>
+<!ATTLIST response base64 (true|false) "false">
+<!ELEMENT responseRedirected (#PCDATA)>
+<!ELEMENT sender (#PCDATA)>
+<!ELEMENT message (#PCDATA)>
+<!ELEMENT conversation (#PCDATA)>
+<!ELEMENT recipient (#PCDATA)>
+<!ELEMENT recipients (recipient*)>
+<!ELEMENT smtp (sender, recipients, message, conversation)>
+<!ELEMENT collaboratorEvent (interactionType, originIp, time, lookupType?, lookupHost?, requestresponse?, smtp?)>
+<!ELEMENT interactionType (#PCDATA)>
+<!ELEMENT originIp (#PCDATA)>
+<!ELEMENT time (#PCDATA)>
+<!ELEMENT lookupType (#PCDATA)>
+<!ELEMENT lookupHost (#PCDATA)>
+<!ELEMENT infiltratorEvent (parameterName, platform, signature, stackTrace?, parameterValue?, collaboratorEvent)>
+<!ELEMENT parameterName (#PCDATA)>
+<!ELEMENT platform (#PCDATA)>
+<!ELEMENT signature (#PCDATA)>
+<!ELEMENT stackTrace (#PCDATA)>
+<!ELEMENT parameterValue (#PCDATA)>
+<!ELEMENT dynamicAnalysis (source, sink, sourceStackTrace, sinkStackTrace, eventListenerStackTrace, sourceValue, sinkValue, eventHandlerData, eventHandlerDataType, eventHandlerManipulatedData, poc, origin, isOriginChecked, sourceElementId, sourceElementName, eventFiredEventName, eventFiredElementId, eventFiredElementName, eventFiredOuterHtml)>
+<!ELEMENT staticAnalysis (source, sink, codeSnippets)>
+<!ELEMENT source (#PCDATA)>
+<!ELEMENT sink (#PCDATA)>
+<!ELEMENT sourceStackTrace (#PCDATA)>
+<!ELEMENT sinkStackTrace (#PCDATA)>
+<!ELEMENT eventListenerStackTrace (#PCDATA)>
+<!ELEMENT sourceValue (#PCDATA)>
+<!ELEMENT sinkValue (#PCDATA)>
+<!ELEMENT eventHandlerData (#PCDATA)>
+<!ELEMENT eventHandlerDataType (#PCDATA)>
+<!ELEMENT sourceElementId (#PCDATA)>
+<!ELEMENT sourceElementName (#PCDATA)>
+<!ELEMENT eventFiredEventName (#PCDATA)>
+<!ELEMENT eventFiredElementId (#PCDATA)>
+<!ELEMENT eventFiredElementName (#PCDATA)>
+<!ELEMENT eventFiredOuterHtml (#PCDATA)>
+<!ELEMENT eventHandlerManipulatedData (#PCDATA)>
+<!ELEMENT poc (#PCDATA)>
+<!ELEMENT origin (#PCDATA)>
+<!ELEMENT isOriginChecked (#PCDATA)>
+<!ELEMENT codeSnippets (codeSnippet*)>
+<!ELEMENT codeSnippet (#PCDATA)>
+]>
+<issues burpVersion="2022.2.5" exportTime="Wed Apr 27 21:55:56 ICT 2022">
+  <issue>
+    <serialNumber>3275106880514712576</serialNumber>
+    <type>3146240</type>
+    <name><![CDATA[External service interaction (DNS)]]></name>
+    <host ip="172.31.34.115">http://testpaygate.ktc.co.th</host>
+    <path><![CDATA[/]]></path>
+    <location><![CDATA[/]]></location>
+    <severity>High</severity>
+    <confidence>Certain</confidence>
+    <issueBackground><![CDATA[<p>External service interaction arises when it is possible to induce an application to interact with an arbitrary external service, such as a web or mail server. The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application.
+However, in many cases, it can indicate a vulnerability with serious consequences.</p>
+<p>In cases where DNS-based interactions can be triggered, it is normally possible to trigger interactions using other service types, and these are reported as separate issues. 
+  If a payload that specifies a particular service type (e.g. a URL) triggers only a DNS-based interaction, 
+  then this strongly indicates that the application attempted to connect using that other service, 
+  but was prevented from doing so by egress filters in place at the network layer. The ability to send requests to other systems can allow the vulnerable server to be used as an attack proxy.
+  By submitting suitable payloads, an attacker can cause the application server to attack other systems that it can interact with. 
+  This may include public third-party systems, internal systems within the same organization, or services available on the local loopback adapter of the application server itself. 
+  Depending on the network architecture, this may expose highly vulnerable internal services that are not otherwise accessible to external attackers. </p>]]></issueBackground>
+    <remediationBackground><![CDATA[<p>You should review the purpose and intended use of the relevant application functionality, 
+  and determine whether the ability to trigger arbitrary external service interactions is intended behavior. 
+  If so, you should be aware of the types of attacks that can be performed via this behavior and take appropriate measures. 
+  These measures might include blocking network access from the application server to other internal systems, and hardening the application server itself to remove any services available on the local loopback adapter.</p>
+<p>If the ability to trigger arbitrary external service interactions is not intended behavior, then you should implement a whitelist of permitted services and hosts, and block any interactions that do not appear on this whitelist.</p>
+
+<p>Out-of-Band Application Security Testing (OAST) is highly effective at uncovering high-risk features, to the point where finding the root cause of an interaction can be quite challenging. To find the source of an external service interaction, try to identify whether it is triggered by specific application functionality, or occurs indiscriminately on all requests. If it occurs on all endpoints, a front-end CDN or application firewall may be responsible, or a back-end analytics system parsing server logs. In some cases, interactions may originate from third-party systems; for example, a HTTP request may trigger a poisoned email which passes through a link-scanner on its way to the recipient.</p>]]></remediationBackground>
+    <references><![CDATA[<ul>
+  <li><a href="https://portswigger.net/blog/introducing-burp-collaborator">Burp Collaborator</a></li>
+ <li><a href="https://portswigger.net/burp/application-security-testing/oast">Out-of-band application security testing (OAST)</a></li>
+  <li><a href="https://portswigger.net/research/cracking-the-lens-targeting-https-hidden-attack-surface">PortSwigger Research: Cracking the Lens</a></li>
+</ul>]]></references>
+    <vulnerabilityClassifications><![CDATA[<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/918.html">CWE-918: Server-Side Request Forgery (SSRF)</a></li>
+<li><a href="https://cwe.mitre.org/data/definitions/406.html">CWE-406: Insufficient Control of Network Message Volume (Network Amplification)</a></li>
+</ul>]]></vulnerabilityClassifications>
+    <issueDetail><![CDATA[It is possible to induce the application to perform server-side DNS lookups of arbitrary domain names.<br><br>The payload <b>http://zsvqcv67ektwe73mpy2cf1wjoau3iu6maa0xqlf.burpcollaborator.net/</b> was submitted in the HTTP Request-Line.<br><br>The application performed a DNS lookup of the specified domain.]]></issueDetail>
+    <collaboratorEvent>
+      <interactionType>DNS</interactionType>
+      <originIp>54.179.114.1</originIp>
+      <time>2565-Apr-22 04:00:27 UTC</time>
+      <lookupType>A</lookupType>
+      <lookupHost>zsvqcv67ektwe73mpy2cf1wjoau3iu6maa0xqlf.burpcollaborator.net</lookupHost>
+    </collaboratorEvent>
+  </issue>
+  <issue>
+    <serialNumber>3304914031258321920</serialNumber>
+    <type>3146240</type>
+    <name><![CDATA[External service interaction (DNS)]]></name>
+    <host ip="172.31.34.115">http://testpaygate.ktc.co.th</host>
+    <path><![CDATA[/]]></path>
+    <location><![CDATA[/]]></location>
+    <severity>High</severity>
+    <confidence>Certain</confidence>
+    <issueBackground><![CDATA[<p>External service interaction arises when it is possible to induce an application to interact with an arbitrary external service, such as a web or mail server. The ability to trigger arbitrary external service interactions does not constitute a vulnerability in its own right, and in some cases might even be the intended behavior of the application.
+However, in many cases, it can indicate a vulnerability with serious consequences.</p>
+<p>In cases where DNS-based interactions can be triggered, it is normally possible to trigger interactions using other service types, and these are reported as separate issues. 
+  If a payload that specifies a particular service type (e.g. a URL) triggers only a DNS-based interaction, 
+  then this strongly indicates that the application attempted to connect using that other service, 
+  but was prevented from doing so by egress filters in place at the network layer. The ability to send requests to other systems can allow the vulnerable server to be used as an attack proxy.
+  By submitting suitable payloads, an attacker can cause the application server to attack other systems that it can interact with. 
+  This may include public third-party systems, internal systems within the same organization, or services available on the local loopback adapter of the application server itself. 
+  Depending on the network architecture, this may expose highly vulnerable internal services that are not otherwise accessible to external attackers. </p>]]></issueBackground>
+    <remediationBackground><![CDATA[<p>You should review the purpose and intended use of the relevant application functionality, 
+  and determine whether the ability to trigger arbitrary external service interactions is intended behavior. 
+  If so, you should be aware of the types of attacks that can be performed via this behavior and take appropriate measures. 
+  These measures might include blocking network access from the application server to other internal systems, and hardening the application server itself to remove any services available on the local loopback adapter.</p>
+<p>If the ability to trigger arbitrary external service interactions is not intended behavior, then you should implement a whitelist of permitted services and hosts, and block any interactions that do not appear on this whitelist.</p>
+
+<p>Out-of-Band Application Security Testing (OAST) is highly effective at uncovering high-risk features, to the point where finding the root cause of an interaction can be quite challenging. To find the source of an external service interaction, try to identify whether it is triggered by specific application functionality, or occurs indiscriminately on all requests. If it occurs on all endpoints, a front-end CDN or application firewall may be responsible, or a back-end analytics system parsing server logs. In some cases, interactions may originate from third-party systems; for example, a HTTP request may trigger a poisoned email which passes through a link-scanner on its way to the recipient.</p>]]></remediationBackground>
+    <references><![CDATA[<ul>
+  <li><a href="https://portswigger.net/blog/introducing-burp-collaborator">Burp Collaborator</a></li>
+ <li><a href="https://portswigger.net/burp/application-security-testing/oast">Out-of-band application security testing (OAST)</a></li>
+  <li><a href="https://portswigger.net/research/cracking-the-lens-targeting-https-hidden-attack-surface">PortSwigger Research: Cracking the Lens</a></li>
+</ul>]]></references>
+    <vulnerabilityClassifications><![CDATA[<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/918.html">CWE-918: Server-Side Request Forgery (SSRF)</a></li>
+<li><a href="https://cwe.mitre.org/data/definitions/406.html">CWE-406: Insufficient Control of Network Message Volume (Network Amplification)</a></li>
+</ul>]]></vulnerabilityClassifications>
+    <issueDetail><![CDATA[It is possible to induce the application to perform server-side DNS lookups of arbitrary domain names.<br><br>The payload <b>vrqmbr53dgssd32iou18exvfn6tzhq5kz8pvfj4.burpcollaborator.net</b> was submitted in the HTTP Host header.<br><br>The application performed a DNS lookup of the specified domain.]]></issueDetail>
+    <collaboratorEvent>
+      <interactionType>DNS</interactionType>
+      <originIp>54.179.114.1</originIp>
+      <time>2565-Apr-22 04:00:28 UTC</time>
+      <lookupType>A</lookupType>
+      <lookupHost>vrqmbr53dgssd32iou18exvfn6tzhq5kz8pvfj4.burpcollaborator.net</lookupHost>
+    </collaboratorEvent>
+  </issue>
+  <issue>
+    <serialNumber>8087753821285072896</serialNumber>
+    <type>16777472</type>
+    <name><![CDATA[TLS certificate]]></name>
+    <host ip="172.31.34.115">https://testpaygate.ktc.co.th</host>
+    <path><![CDATA[/]]></path>
+    <location><![CDATA[/]]></location>
+    <severity>Information</severity>
+    <confidence>Certain</confidence>
+    <issueBackground><![CDATA[<p>TLS (or SSL) helps to protect the confidentiality and integrity of information in transit between the browser and server, and to provide authentication of the server's identity. To serve this purpose, the server must present an TLS certificate that is valid for the server's hostname, is issued by a trusted authority and is valid for the current date. If any one of these requirements is not met, TLS connections to the server will not provide the full protection for which TLS is designed.</p>
+<p>It should be noted that various attacks exist against TLS in general, and in the context of HTTPS web connections in particular. It may be possible for a determined and suitably-positioned attacker to compromise TLS connections without user detection even when a valid TLS certificate is used. </p>]]></issueBackground>
+    <references><![CDATA[<ul><li><a href="https://wiki.mozilla.org/Security/Server_Side_TLS">SSL/TLS Configuration Guide</a></li></ul>]]></references>
+    <vulnerabilityClassifications><![CDATA[<ul>
+<li><a href="https://cwe.mitre.org/data/definitions/295.html">CWE-295: Improper Certificate Validation</a></li>
+<li><a href="https://cwe.mitre.org/data/definitions/326.html">CWE-326: Inadequate Encryption Strength</a></li>
+<li><a href="https://cwe.mitre.org/data/definitions/327.html">CWE-327: Use of a Broken or Risky Cryptographic Algorithm</a></li>
+</ul>]]></vulnerabilityClassifications>
+    <issueDetail><![CDATA[The server presented a valid, trusted TLS certificate. This issue is purely informational.<br><br>The server presented the following certificates:<br><br><h4>Server certificate</h4><table><tr><td><b>Issued to:</b>&nbsp;&nbsp;</td><td>testpaygate.ktc.co.th, www.testpaygate.ktc.co.th</td></tr><tr><td><b>Issued by:</b>&nbsp;&nbsp;</td><td>DigiCert TLS RSA SHA256 2020 CA1</td></tr><tr><td><b>Valid from:</b>&nbsp;&nbsp;</td><td>Wed Jul 21 07:00:00 ICT 2021</td></tr><tr><td><b>Valid to:</b>&nbsp;&nbsp;</td><td>Wed Jul 27 06:59:59 ICT 2022</td></tr></table><h4>Certificate chain #1</h4><table><tr><td><b>Issued to:</b>&nbsp;&nbsp;</td><td>DigiCert TLS RSA SHA256 2020 CA1</td></tr><tr><td><b>Issued by:</b>&nbsp;&nbsp;</td><td>DigiCert Global Root CA</td></tr><tr><td><b>Valid from:</b>&nbsp;&nbsp;</td><td>Wed Apr 14 07:00:00 ICT 2021</td></tr><tr><td><b>Valid to:</b>&nbsp;&nbsp;</td><td>Mon Apr 14 06:59:59 ICT 2031</td></tr></table><h4>Certificate chain #2</h4><table><tr><td><b>Issued to:</b>&nbsp;&nbsp;</td><td>DigiCert Global Root CA</td></tr><tr><td><b>Issued by:</b>&nbsp;&nbsp;</td><td>DigiCert Global Root CA</td></tr><tr><td><b>Valid from:</b>&nbsp;&nbsp;</td><td>Fri Nov 10 07:00:00 ICT 2006</td></tr><tr><td><b>Valid to:</b>&nbsp;&nbsp;</td><td>Mon Nov 10 07:00:00 ICT 2031</td></tr></table>]]></issueDetail>
+  </issue>
+</issues>

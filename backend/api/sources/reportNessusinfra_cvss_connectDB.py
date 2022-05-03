@@ -1,15 +1,14 @@
-import csv
 from docxtpl import *
 from matplotlib import pyplot as plt
 import matplotlib.patches as mpatches
 import numpy as np
-import json
 import pandas as pd
 from collections import OrderedDict
 import re
 import datetime
 import numpy as np
 import mysql.connector
+from xml.etree import ElementTree
 
 mydb = mysql.connector.connect(
     host="10.11.101.32",
@@ -17,10 +16,12 @@ mydb = mysql.connector.connect(
     password="P@ssw0rd@INETMS",
     database="inetms_autoreport"
 )
+path_nmapXML = './backend/api/sources/iso/SIPH phase1.xml'
+path_nessusCSV = './backend/api/sources/iso/SIPH_nessus.csv'
+path_doctemplate = "backend/api/sources/templates/templateNessusinfra_cvss.docx"
 
 np.seterr(divide='ignore', invalid='ignore')
-doc = DocxTemplate(
-    "backend/api/sources/templates/templateNessusinfra_cvss.docx")
+doc = DocxTemplate(path_doctemplate)
 
 countCri = 0
 countHigh = 0
@@ -37,60 +38,18 @@ date = datetime.datetime.now()
 dateNow = date.strftime("%B")+" " + \
     date.strftime("%d")+", "+date.strftime("%Y")
 
-
-def makeJson(csvFilePath, jsonFilePath):
-    data = {}
-    try:
-        with open(csvFilePath, encoding='utf-8') as csvf:
-            csvReader = csv.DictReader(csvf)
-            key_id = 0
-            for rows in csvReader:
-                key = key_id
-                data[key] = rows
-                key_id += 1
-        with open(jsonFilePath, 'w', encoding='utf-8') as jsonf:
-            jsonf.write(json.dumps(data, indent=4))
-
-    except NameError as exception:
-        print(exception)
-    except:
-        with open(csvFilePath, encoding='ISO-8859-1') as csvf:
-            csvReader = csv.DictReader(csvf)
-            key_id = 0
-            for rows in csvReader:
-                key = key_id
-                data[key] = rows
-                key_id += 1
-        with open(jsonFilePath, 'w', encoding='ISO-8859-1') as jsonf:
-            jsonf.write(json.dumps(data, indent=4))
-
-
-# <--Nessus-->
-CSVNessus = r'backend/api/sources/iso/SIPH-nessus.csv'
-jsonNessus = r'backend/api/sources/dataNessus.json'
-
-# <--Nmap-->
-CSVNMAP = r'backend/api/sources/iso/SIPH-nmap.csv'
-jsonNMAP = r'backend/api/sources/dataNmap.json'
-
-# makeJson(CSVNMAP, jsonNMAP)
-# DataNmap = pd.read_json(jsonNMAP)
-
-
-def delete_dict_duplicate(dict_dup):
+def delete_dict_duplicate(list_dict_dup):
     seen = set()
     new_l = []
-    for d in dict_dup:
+    for d in list_dict_dup:
         t = tuple(d.items())
         if t not in seen:
             seen.add(t)
             new_l.append(d)
     return new_l
 
-
 def runIndex(e):
     return e['risk']
-
 
 def make_autopct(values):
     def my_autopct(pct):
@@ -102,7 +61,6 @@ def make_autopct(values):
             return ''
     return my_autopct
 
-
 def cleanCode(x):
     x = re.sub(r'\\n', '\n', x)
     x = re.sub(r'</?[a-z]*>', "", x)
@@ -111,10 +69,9 @@ def cleanCode(x):
 
 GroupName1 = {}
 GroupName2 = []
-
+# ===============================================DATA NUESSUS======================================================================
 mycursor = mydb.cursor()
-
-with open("D:/INET-MS/Auto report/GitHub/WebReport/backend/api/sources/iso/SIPH_nessus.csv", mode="r", encoding='utf-8') as f:
+with open(path_nessusCSV, mode="r", encoding='utf-8') as f:
     df = pd.read_csv(f)
     data = pd.DataFrame(df)
     for i, dataset in data.iterrows():
@@ -152,11 +109,48 @@ with open("D:/INET-MS/Auto report/GitHub/WebReport/backend/api/sources/iso/SIPH_
             GroupName2.append(GroupName1)
             GroupName1 = {}
 
-
 # Remove Data is duplicate
 results = [dict(t) for t in {tuple(d.items()) for d in GroupName2}]
 newlist = sorted(results, key=lambda d: (
     tuple(map(int, d['Group'].split('.')))))
+
+# ===============================================DATA NMAP======================================================================
+tree = ElementTree.parse(path_nmapXML)
+root = tree.getroot()
+header1 = ['IP', 'domain', 'Protocol', 'Port',
+           'Status', 'Service']
+list_nmap_data = []
+for item in root.findall('./host'):
+    port = []
+    protocol = []
+    status = []
+    service = []
+    loopLen = 0
+    ip = item.find('address').get('addr')
+    domain = item.find('hostnames').find('hostname').get(
+        'name') if item.find('hostnames').find('hostname') != None else None
+    loopLen = len(item.find('ports')) - 1
+    for item2 in item.find('ports'):
+        keys = item2.keys()
+        if 'count' not in keys:
+            protocol.append(item2.get('protocol'))
+            port.append(item2.get('portid'))
+            status.append(item2.find('state').get('state'))
+            service.append(item2.find('service').get('name'))
+
+    for item3 in range(loopLen):
+        dict_nmap_data = {'ip': '', 'domain': '', 'protocol': '',
+                          'port': '', 'status': '', 'service': ''}
+        dict_nmap_data['ip'] = ip
+        dict_nmap_data['domain'] = domain
+        dict_nmap_data['protocol'] = protocol[item3]
+        dict_nmap_data['port'] = port[item3]
+        dict_nmap_data['status'] = status[item3]
+        dict_nmap_data['service'] = service[item3]
+        list_nmap_data.append(dict_nmap_data)
+list_nmap_data = delete_dict_duplicate(list_nmap_data)
+
+# ===============================================start analys=========================================================================
 for row in newlist:
     if row['Group'] not in context:
         context[row['Group']] = {"No": count, "Name": row['Group'], "device": {
@@ -261,100 +255,63 @@ else:
     doc.replace_media("backend/api/sources/image/2.png",
                       "backend/api/sources/image/noGraph.jpg")
 
-# # =================================     Krit NAMP   ===================================================
-# dict_IP_port = {}
-# temp_IP = "a"
-# list_port = []
-# list_port_prot_serv = []
-# dict_port_prot_serv = {}
 
-# for i in DataNmap:
-#     if DataNmap[i]['host__address__addr'] != "":
-#         dict_IP_port[temp_IP] = list_port
-#         if DataNmap[i]['group'] == "nessus":
-#             temp_IP = DataNmap[i]['group']+"," + \
-#                 DataNmap[i]['host__address__addr']
-#         if DataNmap[i]['group'] == "burp":
-#             temp_IP = DataNmap[i]['group']+"," + \
-#                 DataNmap[i]['host__hostnames__hostname__name']
-#         list_port = []
-#     list_port.append(DataNmap[i]['host__ports__port__protocol'] +
-#                      ","+DataNmap[i]['host__ports__port__portid'])
-# # ===========================================Table nmap======================================================
-#     if DataNmap[i]['host__ports__port__state__state'] == "open":
-#         dict_port_prot_serv["port"] = DataNmap[i]['host__ports__port__portid']
-#         dict_port_prot_serv["protocol"] = DataNmap[i]['host__ports__port__protocol']
-#         dict_port_prot_serv["service"] = DataNmap[i]['host__ports__port__service__name']
-#         list_port_prot_serv.append(dict_port_prot_serv)
-#         dict_port_prot_serv = {}
-# dict_IP_port[temp_IP] = list_port
+# ===========================================Table nmap======================================================
+list_port_prot_serv = []
+dict_port_prot_serv = {}
+for i in list_nmap_data:
+    if i['status'] == "open":
+        dict_port_prot_serv["port"] = i['port']
+        dict_port_prot_serv["protocol"] = i['protocol']
+        dict_port_prot_serv["service"] = i['service']
+        list_port_prot_serv.append(dict_port_prot_serv)
+        dict_port_prot_serv = {}
+list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
+list_port_prot_serv = (sorted(list_port_prot_serv, key=lambda x: int(x['port'])))
 
-# del dict_IP_port['a']
+# --------------------------------------make data ip port------------------------------------------------------------
+ip = [i['ip'] for i in list_nmap_data]
+ip = list(dict.fromkeys(ip))
+ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
+dict_ip_portopen = {i: {'TCP': [], 'UDP': []} for i in ip}
 
 
-# ip = [DataNmap[i]['host__address__addr'] for i in DataNmap]
-# ip = list(dict.fromkeys(ip))
-# # ip.remove("")
-# ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
+for i in list_nmap_data:
+    if i["ip"] in dict_ip_portopen.keys():
+        if i["protocol"] == 'tcp':
+            dict_ip_portopen[i["ip"]]['TCP'].append(i["port"])
+            clearIP = list(dict.fromkeys(dict_ip_portopen[i["ip"]]['TCP']))
+            dict_ip_portopen[i["ip"]]['TCP'] = clearIP
 
-# list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
-# list_port_prot_serv = (
-#     sorted(list_port_prot_serv, key=lambda x: int(x['port'])))
-# # --------------------------------------make data ip port------------------------------------------------------------
+        elif i["protocol"] == 'udp':
+            dict_ip_portopen[i["ip"]]['UDP'].append(i["port"])
+            clearIP = list(dict.fromkeys(dict_ip_portopen[i["ip"]]['UDP']))
+            dict_ip_portopen[i["ip"]]['TCP'] = clearIP
 
-# dict_ip_portopen = {i: {'TCP': [], 'UDP': []} for i in ip}
+for key, value in dict_ip_portopen.items():
+    temp = ""
+    for i in value:
+        value[i] = list(dict.fromkeys(value[i]))
+        value[i] = sorted(value[i], key=lambda d: (
+            tuple(map(int, d.split('.')))))
+        if '0' in value[i]:
+            value[i].remove('0')
+        if value[i]:
+            if temp != "":
+                temp = temp+'\n'
+            temp = i+' : '+', '.join(value[i])
 
-# for i in DataNmap:
-#     if DataNmap[i]["host__address__addr"] in dict_ip_portopen.keys():
-#         if DataNmap[i]["host__ports__port__protocol"] == 'tcp':
-#             dict_ip_portopen[DataNmap[i]["host__address__addr"]]['TCP'].append(
-#                 DataNmap[i]["host__ports__port__portid"])
-#             clearIP = list(dict.fromkeys(
-#                 dict_ip_portopen[DataNmap[i]["host__address__addr"]]['TCP']))
-#             dict_ip_portopen[DataNmap[i]
-#                              ["host__address__addr"]]['TCP'] = clearIP
-#             # print(clearIP)
-#         elif DataNmap[i]["host__ports__port__protocol"] == 'udp':
-#             dict_ip_portopen[DataNmap[i]["host__address__addr"]]['UDP'].append(
-#                 DataNmap[i]["host__ports__port__portid"])
-#             clearIP = list(dict.fromkeys(
-#                 dict_ip_portopen[DataNmap[i]["host__address__addr"]]['UDP']))
-#             dict_ip_portopen[DataNmap[i]
-#                              ["host__address__addr"]]['TCP'] = clearIP
-
-# # print(dict_ip_portopen)
-
-# for key, value in dict_ip_portopen.items():
-#     temp = ""
-#     for i in value:
-#         value[i] = list(dict.fromkeys(value[i]))
-#         value[i] = sorted(value[i], key=lambda d: (
-#             tuple(map(int, d.split('.')))))
-#         if '0' in value[i]:
-#             value[i].remove('0')
-
-#         for index in range(len(value[i])):
-#             if index == 0:
-#                 if i == 'UDP':
-#                     if temp != "":
-#                         temp = temp+'\n'+i+' : '+value[i][index]
-#                     else:
-#                         temp = i+': '+value[i][index]
-#                 else:
-#                     temp = i+': '+value[i][index]
-#             else:
-#                 temp = temp+', '+value[i][index]
-#     dict_ip_portopen[key]['port'] = temp
-
-# list_all_ip_port = []
-# index = 1
-# for key, value in dict_ip_portopen.items():
-#     ip_port_ = {}
-#     ip_port_['no'] = index
-#     ip_port_['host'] = key
-#     ip_port_['port'] = value['port']
-#     list_all_ip_port.append(ip_port_)
-#     index += 1
+    dict_ip_portopen[key]['port'] = temp
+    
+list_all_ip_port = []
+index = 1
+for key, value in dict_ip_portopen.items():
+    ip_port_ = {}
+    ip_port_['no'] = index
+    ip_port_['host'] = key
+    ip_port_['port'] = value['port']
+    list_all_ip_port.append(ip_port_)
+    index += 1
 
 # # # ==============================================-make data detail==============================================================
 # print(newlist)
@@ -460,7 +417,7 @@ for i in range(len(vulnerability)):
 
 # # ==========================================================================================================
 contents = {}
-name = CSVNessus.split("/")
+name = path_nessusCSV.split("/")
 name = name[-1].split(".csv")
 
 contents['contents_ip'] = list_all_ip_port  # use
