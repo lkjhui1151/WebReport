@@ -24,12 +24,6 @@ path_doctemplate = "./backend/api/sources/templates/templateNessusweb.docx"
 
 doc = DocxTemplate(path_doctemplate)
 
-tree = ElementTree.parse(path_burpXML)
-root = tree.getroot()
-
-header1 = ['Risk', 'Name', 'Host', 'Domain',
-           'Location', 'Description', 'Solution', 'References']
-
 def cleanTags(raw_tag):
     CLEANR = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
     cleantext = re.sub(CLEANR, '', raw_tag)
@@ -78,19 +72,30 @@ def cleanCode(x):
     x = re.sub(r'\\n', '\n', x)
     x = re.sub(r'</?[a-z]*>', "", x)
     return (x)
-
-# ===============================================DATA NMAP======================================================================
+# ====================================================================================================================================
+# =============================================== make DATA NMAP======================================================================
+tree = ElementTree.parse(path_nmapXML)
+root = tree.getroot()
+header1 = ['IP', 'domain', 'Protocol', 'Port',
+           'Status', 'Service']
 list_nmap_data = []
 for item in root.findall('./host'):
+    domain = None
+    ptr = None
     port = []
     protocol = []
     status = []
     service = []
     loopLen = 0
     ip = item.find('address').get('addr')
-    domain = item.find('hostnames').find('hostname').get(
-        'name') if item.find('hostnames').find('hostname') != None else None
-    loopLen = len(item.find('ports')) - 1
+    for item2 in item.find('hostnames'):
+        keys = item2.get('type')
+        if keys == 'user':
+            domain = item2.get('name')
+        if keys == 'PTR':
+            ptr = item2.get('name')
+    loopLen = len(item.find('ports'))
+    count = 0
     for item2 in item.find('ports'):
         keys = item2.keys()
         if 'count' not in keys:
@@ -98,27 +103,31 @@ for item in root.findall('./host'):
             port.append(item2.get('portid'))
             status.append(item2.find('state').get('state'))
             service.append(item2.find('service').get('name'))
+        else:
+            count += 1
 
-    for item3 in range(loopLen):
-        dict_nmap_data = {'ip': '', 'domain': '', 'protocol': '',
-                          'port': '', 'status': '', 'service': ''}
-        dict_nmap_data['ip'] = ip
-        dict_nmap_data['domain'] = domain
-        dict_nmap_data['protocol'] = protocol[item3]
-        dict_nmap_data['port'] = port[item3]
-        dict_nmap_data['status'] = status[item3]
-        dict_nmap_data['service'] = service[item3]
+    for item3 in range(loopLen - count):
+        dict_nmap_data = {'IP': '', 'Domain': '', 'Protocol': '',
+                          'Port': '', 'Status': '', 'Service': '','PTR': ''}
+        dict_nmap_data['IP'] = ip
+        dict_nmap_data['Domain'] = domain
+        dict_nmap_data['PTR'] = ptr
+        dict_nmap_data['Protocol'] = protocol[item3]
+        dict_nmap_data['Port'] = port[item3]
+        dict_nmap_data['Status'] = status[item3]
+        dict_nmap_data['Service'] = service[item3]
         list_nmap_data.append(dict_nmap_data)
 list_nmap_data = delete_dict_duplicate(list_nmap_data)
-print(list_nmap_data)
+list_nmap_data = sorted(list_nmap_data, key=lambda d: (tuple(map(int, d['IP'].split('.')))))
+
 # ===========================================Table nmap======================================================
 list_port_prot_serv = []
 dict_port_prot_serv = {}
 for i in list_nmap_data:
-    if i['status'] == "open":
-        dict_port_prot_serv["port"] = i['port']
-        dict_port_prot_serv["protocol"] = i['protocol']
-        dict_port_prot_serv["service"] = i['service']
+    if i['Status'] == "open":
+        dict_port_prot_serv["port"] = i['Port']
+        dict_port_prot_serv["protocol"] = i['Protocol']
+        dict_port_prot_serv["service"] = i['Service']
         list_port_prot_serv.append(dict_port_prot_serv)
         dict_port_prot_serv = {}
 list_port_prot_serv = delete_dict_duplicate(list_port_prot_serv)
@@ -126,23 +135,22 @@ list_port_prot_serv = (
     sorted(list_port_prot_serv, key=lambda x: int(x['port'])))
 
 # --------------------------------------make data ip port------------------------------------------------------------
-ip = [i['ip'] for i in list_nmap_data]
-ip = list(dict.fromkeys(ip))
-ip = sorted(ip, key=lambda d: (tuple(map(int, d.split('.')))))
-dict_ip_portopen = {i: {'TCP': [], 'UDP': []} for i in ip}
+
+dict_ip_portopen = {i['IP']+','+str(i['Domain']): {'TCP': [], 'UDP': []} for i in list_nmap_data }
 
 
 for i in list_nmap_data:
-    if i["ip"] in dict_ip_portopen.keys():
-        if i["protocol"] == 'tcp':
-            dict_ip_portopen[i["ip"]]['TCP'].append(i["port"])
-            clearIP = list(dict.fromkeys(dict_ip_portopen[i["ip"]]['TCP']))
-            dict_ip_portopen[i["ip"]]['TCP'] = clearIP
+    if i['IP']+','+str(i['Domain']) in dict_ip_portopen.keys():
+        if i["Protocol"] == 'tcp':
+            dict_ip_portopen[i['IP']+','+str(i['Domain'])]['TCP'].append(i["Port"])
+            clearIP = list(dict.fromkeys(dict_ip_portopen[i['IP']+','+str(i['Domain'])]['TCP']))
+            dict_ip_portopen[i['IP']+','+str(i['Domain'])]['TCP'] = clearIP
 
-        elif i["protocol"] == 'udp':
-            dict_ip_portopen[i["ip"]]['UDP'].append(i["port"])
-            clearIP = list(dict.fromkeys(dict_ip_portopen[i["ip"]]['UDP']))
-            dict_ip_portopen[i["ip"]]['TCP'] = clearIP
+        elif i["Protocol"] == 'udp':
+            dict_ip_portopen[i['IP']+','+str(i['Domain'])]['UDP'].append(i["Port"])
+            clearIP = list(dict.fromkeys(dict_ip_portopen[i['IP']+','+str(i['Domain'])]['UDP']))
+            dict_ip_portopen[i['IP']+','+str(i['Domain'])]['TCP'] = clearIP
+
 
 for key, value in dict_ip_portopen.items():
     temp = ""
@@ -162,12 +170,17 @@ for key, value in dict_ip_portopen.items():
 list_all_ip_port = []
 index = 1
 for key, value in dict_ip_portopen.items():
+    keys = key.split(",")
+    
     ip_port_ = {}
     ip_port_['no'] = index
-    ip_port_['host'] = key
+    ip_port_['host'] = keys[1] 
+    ip_port_['ip'] = keys[0]
     ip_port_['port'] = value['port']
     list_all_ip_port.append(ip_port_)
     index += 1
+    
+# ===========================================================================================================================
 # ======================================  make data Burp ====================================================================
 GroupName1 = {}
 GroupName2 = []
@@ -175,12 +188,12 @@ CriticalDict = {}
 HighDict = {}
 MediumDict = {}
 LowDict = {}
-tree = ElementTree.parse(path_nmapXML)
-root = tree.getroot()
+tree2 = ElementTree.parse(path_burpXML)
+root = tree2.getroot()
 
 # Create New Data Source burp
 list_burp_data = []
-for item in root.findall('issue/issue'):
+for item in root.findall('./issue'):
     dict_burp_data = {}
     name = item.find("name").text.strip()
 
@@ -207,19 +220,19 @@ for item in root.findall('issue/issue'):
     remark = item.find("references")
     remark = cleanTags(remark.text.strip()) if remark is not None else None
 
-    dict_burp_data['severity'] = severity
-    dict_burp_data['name'] = name
-    dict_burp_data['ip'] = ip
-    dict_burp_data['domain'] = domain
-    dict_burp_data['location'] = location
-    dict_burp_data['description'] = description
-    dict_burp_data['solution'] = solution
-    dict_burp_data['remark'] = remark
+    dict_burp_data['Risk'] = severity
+    dict_burp_data['Name'] = name
+    dict_burp_data['Host'] = ip
+    dict_burp_data['Domain'] = domain
+    dict_burp_data['Location'] = location
+    dict_burp_data['Description'] = description
+    dict_burp_data['Solution'] = solution
+    dict_burp_data['References'] = remark
     list_burp_data.append(dict_burp_data)
 delete_dict_duplicate(list_burp_data)
-for i in list_burp_data:
-    print(i)
-
+list_burp_data = sorted(list_burp_data, key=lambda d: d['Name'])
+list_burp_data = sorted(list_burp_data, key=lambda d: (tuple(map(int, d['Host'].split('.')))))
+# ========================================BURP ===================================================
 mycursor = mydb.cursor()
 
 for dataset in list_burp_data:
@@ -247,16 +260,7 @@ for dataset in list_burp_data:
         mydb.commit()
     else:
         if dataset["Risk"] != "Information":
-            GroupName1["Risk"] = dataset["Risk"]
-            GroupName1["ip"] = dataset["Host"]
-            GroupName1["url"] = dataset["Domain"]
-            GroupName1["Group"] = dataset["Domain"]
-            GroupName1["issue"] = dataset["Description"]
-            GroupName1["solution"] = dataset["Solution"]
-            GroupName1["references"] = dataset["References"]
 
-            GroupName2.append(GroupName1)
-            GroupName1 = {}
             if dataset['Risk'] == 'Critical':
                 if dataset['Name'] in CriticalDict:
                     CriticalDict[dataset['Name']] += 1
@@ -280,10 +284,7 @@ for dataset in list_burp_data:
 
 # # Remove Data is duplicate
 
-newlist = sorted(GroupName2, key=lambda d: d['Group'])
-
 vulnerability_url = []
-
 
 def DataCollection(**kwargs):
     for data in kwargs:
@@ -292,7 +293,7 @@ def DataCollection(**kwargs):
             subContent = {}
             # subContentLow = {}
             countCheck = 0
-            for i, j in data2.iterrows():
+            for j in list_burp_data:
                 if j['Risk'] != 'Information':
                     if j['Name'] == index and data == j['Risk']:
                         list_url.append(
@@ -365,27 +366,27 @@ for i in range(len(vulnerability_url)):
 # =====================================     Max burp    =====================================================================
 
 count = 1
-for row in newlist:
-    if row['Group'] not in context2:
-        context2[row['Group']] = {"No": count, "Name": row['ip'], "url": row['url'],
+for row in list_burp_data:
+    if row['Domain'] not in context2:
+        context2[row['Domain']] = {"No": count, "Name": row['Host'], "url": row['Domain'],
                                   "Critical": 0, "High": 0, "Medium": 0, "Low": 0, "Total": 0}
         count += 1
 
-    if row['Group'] == "":
+    if row['Domain'] == "":
         context2[row['Risk']]["Name"] = "etc"
         # Count amount of critaria in each group
     if row['Risk'] == "Critical":
-        context2[row['Group']]["Critical"] += 1
-        context2[row['Group']]["Total"] += 1
+        context2[row['Domain']]["Critical"] += 1
+        context2[row['Domain']]["Total"] += 1
     if row['Risk'] == "High":
-        context2[row['Group']]["High"] += 1
-        context2[row['Group']]["Total"] += 1
+        context2[row['Domain']]["High"] += 1
+        context2[row['Domain']]["Total"] += 1
     if row['Risk'] == "Medium":
-        context2[row['Group']]["Medium"] += 1
-        context2[row['Group']]["Total"] += 1
+        context2[row['Domain']]["Medium"] += 1
+        context2[row['Domain']]["Total"] += 1
     if row['Risk'] == "Low":
-        context2[row['Group']]["Low"] += 1
-        context2[row['Group']]["Total"] += 1
+        context2[row['Domain']]["Low"] += 1
+        context2[row['Domain']]["Total"] += 1
 
 l = list(context2.values())
 
@@ -477,4 +478,4 @@ contents["fileName"] = name[0]  # use
 contents['Date'] = dateNow  # use
 contents['nmap_port'] = list_port_prot_serv  # use
 doc.render(contents)
-doc.save("./backend/media/report/"+name[0]+".docx")
+doc.save("./backend/media/report/"+name[0]+"_burp.docx")
